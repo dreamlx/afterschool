@@ -70,6 +70,7 @@ GEM
     arbre (1.0.2)
       activesupport (>= 3.0.0)
     arel (6.0.0)
+    bcrypt (3.1.9)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bourbon (4.1.0)
@@ -117,6 +118,13 @@ GEM
     columnize (0.9.0)
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
+    devise (3.4.1)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      responders
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
     erubis (2.7.0)
     execjs (2.2.2)
     formtastic (3.1.2)
@@ -156,6 +164,7 @@ GEM
     netrc (0.10.2)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
+    orm_adapter (0.5.0)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
     qiniu (6.2.4)
@@ -204,6 +213,7 @@ GEM
     rest-client (1.7.2)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rolify (3.4.1)
     ruby-hmac (0.4.0)
     sass (3.4.9)
     sass-rails (5.0.1)
@@ -242,6 +252,8 @@ GEM
     uglifier (2.6.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    warden (1.2.3)
+      rack (>= 1.0)
     web-console (2.0.0)
       activemodel (~> 4.0)
       binding_of_caller (>= 0.7.2)
@@ -265,10 +277,12 @@ DEPENDENCIES
   carrierwave
   carrierwave-qiniu
   coffee-rails (~> 4.1.0)
+  devise
   inherited_resources!
   jbuilder (~> 2.0)
   jquery-rails
   rails (= 4.2.0)
+  rolify
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   settingslogic
