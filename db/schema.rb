@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150202052626) do
+ActiveRecord::Schema.define(version: 20150202072352) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -91,6 +91,12 @@ ActiveRecord::Schema.define(version: 20150202052626) do
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], name: "index_roles_on_name"
 
+  create_table "school_classes", force: :cascade do |t|
+    t.string   "class_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "nickname"
     t.string   "phone"
@@ -108,6 +114,7 @@ ActiveRecord::Schema.define(version: 20150202052626) do
     t.string   "last_sign_in_ip"
     t.string   "authentication_token"
     t.string   "type"
+    t.integer  "school_class_id"
   end
 
   add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true
