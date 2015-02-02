@@ -12,6 +12,11 @@ class User < ActiveRecord::Base
   has_one :profile, dependent: :destroy
   # mount_uploader :avatar, AvatarUploader
 
+  acts_as_messageable :table_name => "messages", 
+                      :required => [:topic, :body, :message_type],
+                      :class_name => "CustomMessage",
+                      :group_messages => true # 群聊
+
   def ensure_authentication_token
     if authentication_token.blank?
       self.authentication_token = generate_authentication_token

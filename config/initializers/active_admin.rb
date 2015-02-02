@@ -230,4 +230,5 @@ ActiveAdmin.setup do |config|
   # You can enable or disable them for all resources here.
   #
   # config.filters = true
+  Ransack::Adapters::ActiveRecord::Base.class_eval('remove_method :search')
 end

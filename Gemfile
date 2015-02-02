@@ -40,6 +40,7 @@ gem 'will_paginate', '~> 3.0'
 gem 'acts-as-taggable-on', '~> 3.4'
 gem 'settingslogic'
 
+gem 'acts-as-messageable'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

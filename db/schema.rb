@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150122093513) do
+ActiveRecord::Schema.define(version: 20150202052626) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -45,6 +45,28 @@ ActiveRecord::Schema.define(version: 20150122093513) do
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+
+  create_table "messages", force: :cascade do |t|
+    t.string   "topic"
+    t.text     "body"
+    t.integer  "received_messageable_id"
+    t.string   "received_messageable_type"
+    t.integer  "sent_messageable_id"
+    t.string   "sent_messageable_type"
+    t.boolean  "opened",                     default: false
+    t.boolean  "recipient_delete",           default: false
+    t.boolean  "sender_delete",              default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "ancestry"
+    t.boolean  "recipient_permanent_delete", default: false
+    t.boolean  "sender_permanent_delete",    default: false
+    t.string   "message_type"
+  end
+
+  add_index "messages", ["ancestry"], name: "index_messages_on_ancestry"
+  add_index "messages", ["message_type"], name: "index_messages_on_message_type"
+  add_index "messages", ["sent_messageable_id", "received_messageable_id"], name: "acts_as_messageable_ids"
 
   create_table "profiles", force: :cascade do |t|
     t.string   "avatar"
