@@ -1,8 +1,9 @@
 class WorkPaper < ActiveRecord::Base
+  
   belongs_to :teacher
+  # has_many :resources
 
-
-  after_create :send_message_to_class(class_ary)
+  # after_create :send_message_to_class(class_ary)
 
 
   protected
