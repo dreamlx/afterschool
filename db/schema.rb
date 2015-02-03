@@ -14,70 +14,70 @@
 ActiveRecord::Schema.define(version: 20150203064935) do
 
   create_table "active_admin_comments", force: :cascade do |t|
-    t.string   "namespace"
-    t.text     "body"
-    t.string   "resource_id",   null: false
-    t.string   "resource_type", null: false
-    t.integer  "author_id"
-    t.string   "author_type"
+    t.string   "namespace",     limit: 255
+    t.text     "body",          limit: 65535
+    t.string   "resource_id",   limit: 255,   null: false
+    t.string   "resource_type", limit: 255,   null: false
+    t.integer  "author_id",     limit: 4
+    t.string   "author_type",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
-  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace"
-  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
+  add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
+  add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
   create_table "admin_users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
-  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
+  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "messages", force: :cascade do |t|
-    t.string   "topic"
-    t.text     "body"
-    t.integer  "received_messageable_id"
-    t.string   "received_messageable_type"
-    t.integer  "sent_messageable_id"
-    t.string   "sent_messageable_type"
-    t.boolean  "opened",                     default: false
-    t.boolean  "recipient_delete",           default: false
-    t.boolean  "sender_delete",              default: false
+    t.string   "topic",                      limit: 255
+    t.text     "body",                       limit: 65535
+    t.integer  "received_messageable_id",    limit: 4
+    t.string   "received_messageable_type",  limit: 255
+    t.integer  "sent_messageable_id",        limit: 4
+    t.string   "sent_messageable_type",      limit: 255
+    t.boolean  "opened",                     limit: 1,     default: false
+    t.boolean  "recipient_delete",           limit: 1,     default: false
+    t.boolean  "sender_delete",              limit: 1,     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "ancestry"
-    t.boolean  "recipient_permanent_delete", default: false
-    t.boolean  "sender_permanent_delete",    default: false
-    t.string   "message_type"
+    t.string   "ancestry",                   limit: 255
+    t.boolean  "recipient_permanent_delete", limit: 1,     default: false
+    t.boolean  "sender_permanent_delete",    limit: 1,     default: false
+    t.string   "message_type",               limit: 255
   end
 
-  add_index "messages", ["ancestry"], name: "index_messages_on_ancestry"
-  add_index "messages", ["message_type"], name: "index_messages_on_message_type"
-  add_index "messages", ["sent_messageable_id", "received_messageable_id"], name: "acts_as_messageable_ids"
+  add_index "messages", ["ancestry"], name: "index_messages_on_ancestry", using: :btree
+  add_index "messages", ["message_type"], name: "index_messages_on_message_type", using: :btree
+  add_index "messages", ["sent_messageable_id", "received_messageable_id"], name: "acts_as_messageable_ids", using: :btree
 
   create_table "profiles", force: :cascade do |t|
-    t.string   "avatar"
-    t.string   "address"
+    t.string   "avatar",         limit: 255
+    t.string   "address",        limit: 255
     t.datetime "birthday"
-    t.string   "gender"
-    t.integer  "user_id"
-    t.integer  "class_id"
-    t.string   "student_number"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.string   "gender",         limit: 255
+    t.integer  "user_id",        limit: 4
+    t.integer  "class_id",       limit: 4
+    t.string   "student_number", limit: 255
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "resources", force: :cascade do |t|
@@ -86,60 +86,60 @@ ActiveRecord::Schema.define(version: 20150203064935) do
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "resource_id"
-    t.string   "resource_type"
+    t.string   "name",          limit: 255
+    t.integer  "resource_id",   limit: 4
+    t.string   "resource_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
-  add_index "roles", ["name"], name: "index_roles_on_name"
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "school_classes", force: :cascade do |t|
-    t.string   "class_no"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "class_no",   limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "nickname"
-    t.string   "phone"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
+    t.string   "nickname",               limit: 255
+    t.string   "phone",                  limit: 255
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "authentication_token"
-    t.string   "type"
-    t.integer  "school_class_id"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "authentication_token",   limit: 255
+    t.string   "type",                   limit: 255
+    t.integer  "school_class_id",        limit: 4
   end
 
-  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "users_roles", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "role_id"
+    t.integer "user_id", limit: 4
+    t.integer "role_id", limit: 4
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
   create_table "work_papers", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.string   "paper_type"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "teacher_id"
+    t.string   "title",       limit: 255
+    t.text     "description", limit: 65535
+    t.string   "paper_type",  limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.integer  "teacher_id",  limit: 4
   end
 
 end
