@@ -14,5 +14,5 @@ ActiveAdmin.register SchoolClass do
   #   permitted
   # end
 
-
+  permit_params :class_no
 end

@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
   before_save :ensure_authentication_token
 
   has_one :profile, dependent: :destroy
-  # mount_uploader :avatar, AvatarUploader
+  mount_uploader :avatar, MediaUploader
+
 
   acts_as_messageable :table_name => "messages", 
                       :required => [:topic, :body, :message_type],
