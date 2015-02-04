@@ -16,6 +16,15 @@ ActiveAdmin.register Teacher do
 
   permit_params :email, :password, :password_confirmation, :nickname, :phone, :avatar
 
+  index do 
+    column   :email
+    column   :nickname
+    column   :avatar do |v|
+      image_tag "#{v.avatar.url}?imageView2/1/w/128" unless v.avatar.url.blank?
+    end
+    actions
+  end
+  
   form(:html => { :multipart => true }) do |f|
     f.inputs "Teacher Info" do
       f.input   :nickname
