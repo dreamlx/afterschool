@@ -16,7 +16,8 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
   def create
     @work_paper = @teacher.work_papers.build(work_paper_params)
 
-    if @work_paper.save!
+    if @work_paper
+
 
     else
 
@@ -46,4 +47,34 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
     return false #TODO应该返回 teacher not found or unactive的消息
   end
 
+  def parse_video_data(base64_video)
+
+  end
+  
+  def parse_image_data(base64_image)
+    filename = "upload-image"
+    in_content_type, encoding, string = base64_image.split(/[:;,]/)[1..3]
+
+    @tempfile = Tempfile.new(filename)
+    @tempfile.binmode
+    @tempfile.write Base64.decode64(string)
+    @tempfile.rewind
+
+    content_type = `file --mime -b #{@tempfile.path}`.split(";")[0]
+    extension = content_type.match(/gif|jpeg|png/).to_s
+    filename += ".#{extension}" if extension
+
+    ActionDispatch::Http::UploadedFile.new({
+      tempfile: @tempfile,
+      content_type: content_type,
+      filename: filename
+    })
+  end
+
+  def clean_tempfile
+    if @tempfile
+      @tempfile.close
+      @tempfile.unlink
+    end
+  end
 end
