@@ -1,4 +1,4 @@
-class Api::V1::MediaResourcesController < Api::V1::Base
+class Api::V1::MediaResourcesController < Api::V1::BaseController
   respond_to :json
 
   def index
