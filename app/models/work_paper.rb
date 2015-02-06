@@ -1,7 +1,7 @@
 class WorkPaper < ActiveRecord::Base
   
   belongs_to :teacher
-  has_many :media_resources
+  has_many :media_resources, dependent: :destroy 
 
 
   protected

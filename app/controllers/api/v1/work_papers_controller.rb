@@ -4,6 +4,9 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
   before_action :verify_teacher, only: [:create, :update, :destroy]
 
   def index
+    @work_papers = WorkPaper.paginate(:page => page, :per_page => 12)
+
+    render json: { work_papers: @work_papers }, status: 200
   end
 
   def show
@@ -12,15 +15,22 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
     render json: { work_paper: @work_paper }, status: 200
   end
 
-  # TODO 创建做的时候同时要创建资源
+# 可能由于临时文件的问题 这个要修改
   def create
     @work_paper = @teacher.work_papers.build(work_paper_params)
-
     if @work_paper
-
-
+      params[:media_avatars].each do |media_avatar|
+        _description = media_avatar[:description] if media_avatar[:description]
+        _avatar = parse_data(media_avatar[:avatar]) if media_avatar[:avatar]
+        @work_paper.media_resources.build(description: _description, avatar: _avatar)
+      end
+      if @work_paper.save
+        render json: { work_paper: @work_paper }, status: 201
+      else
+        render json: { error: { message: "创建作业失败, 请检查您的媒体文件" } }, status: 400
+      end
     else
-
+      render json: { error: { message: "创建作业失败, 请核实您的身份" } }, status: 400
     end
 
   end
@@ -30,11 +40,16 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
   end
 
   def destroy
+    @work_paper =  WorkPaper.find(params[:id])
+    @work_paper.destroy!
 
+    render json: { work_paper: @work_paper }
   end
 
   private
   # 创建照片的同时也要创建资源
+  # 资源都放在, :media_avatars => [] 这个字段里面以数组的形式上传, 
+  # 每个资源包括description 字段和  media字段
   def work_paper_params
     params.require(:work_paper).permit(:title, :description, :paper_type)
   end
@@ -47,13 +62,10 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
     return false #TODO应该返回 teacher not found or unactive的消息
   end
 
-  def parse_video_data(base64_video)
-
-  end
-  
-  def parse_image_data(base64_image)
-    filename = "upload-image"
+  def parse_data(base64_image)
     in_content_type, encoding, string = base64_image.split(/[:;,]/)[1..3]
+    #{暂时先这样}
+    filename = "upload-data"
 
     @tempfile = Tempfile.new(filename)
     @tempfile.binmode
@@ -61,7 +73,7 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
     @tempfile.rewind
 
     content_type = `file --mime -b #{@tempfile.path}`.split(";")[0]
-    extension = content_type.match(/gif|jpeg|png/).to_s
+    extension = content_type.match(/gif|jpeg|png｜mp3|mp4|mov/).to_s
     filename += ".#{extension}" if extension
 
     ActionDispatch::Http::UploadedFile.new({
