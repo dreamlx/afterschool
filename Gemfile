@@ -28,11 +28,11 @@ gem 'devise'
 gem 'activeadmin', github: 'activeadmin'
 gem 'inherited_resources', github: 'josevalim/inherited_resources', branch: 'rails-4-2'
 
-gem 'capistrano',  '~> 3.1'
-gem 'capistrano-rails', '~> 1.1'
-gem 'capistrano-bundler', '~> 1.1.2'
-gem 'capistrano-rvm'
-gem 'capistrano-passenger'
+gem 'capistrano',  '~> 3.1', :group => :development
+gem 'capistrano-rails', '~> 1.1', :group => :development
+gem 'capistrano-bundler', '~> 1.1.2', :group => :development
+gem 'capistrano-rvm', :group => :development
+gem 'capistrano-passenger', :group => :development
 gem 'cancancan'
 gem 'mini_magick'
 gem 'carrierwave'
