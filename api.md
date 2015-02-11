@@ -25,6 +25,11 @@
     }
 
     * 学生 控制器 __api/v1/students__
+    * 学生查看自己的作业
+     get : students/:id/homeworks
+     {
+        token
+     }
 * 登录
     * 所有用户统一 控制器 __api/v1/user_tokens__
 

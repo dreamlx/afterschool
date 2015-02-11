@@ -15,4 +15,25 @@ ActiveAdmin.register WorkPaper do
   # end
 
 
-end
+  permit_params :title, :teacher_id, :paper_type, :description, 
+                media_resources_attributes: [:id, :avatar, :description]
+
+  # 创建Api
+  
+  form(:html => { :multipart => true }) do |f|
+    f.inputs 'WorkPaper' do 
+      f.input   :title
+      f.input   :description
+      f.input   :paper_type, as: :select, collection: ["text", 'image', 'sound', 'video']
+      f.input   :teacher_id, as: :select, collection: Teacher.all { |t| [t.nickname, t.id] }
+    end
+
+    f.inputs do 
+      f.has_many :media_resources, :allow_destroy => true, :new_record => true do |mr|
+        mr.input :avatar, as: :file
+        mr.input :description
+      end
+    end
+    f.actions
+  end
+end 

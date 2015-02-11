@@ -1,7 +1,7 @@
 class Api::V1::WorkPapersController < Api::V1::BaseController
   respond_to :json
 
-  before_action :verify_teacher, only: [:create, :update, :destroy]
+  # before_action :verify_teacher, only: [:create, :update, :destroy]
 
   def index
     @work_papers = WorkPaper.paginate(:page => params[:page], :per_page => 12)

@@ -2,6 +2,10 @@ class Api::V1::StudentsController < Api::V1::BaseController
 
   respond_to :json
 
+  def homeworks
+    # 查看自己的作业
+  end
+
   def index 
     @students = Student.paginate(:page => params[:page], :per_page => 12)
     render json: { students: @students }, status: 200
