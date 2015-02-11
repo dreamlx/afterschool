@@ -6,6 +6,7 @@
 		* `url` http://114.215.125.31/api/v1/students/:id
         * `action` get
         * `response`
+        
         ``` {
                 id: 3,
                 nickname: xxxxx,
@@ -22,6 +23,7 @@
         * `url` http://114.215.125.31/api/v1/user_tokens
         * `action` post
         * `response`
+        
         ```{
                 id: xxx, 
                 user_token: xxxxx
@@ -33,8 +35,9 @@
         * `url` http://114.215.125.31/api/v1/students/:id/homeworks
         * `action` get
         * `response`
+        
         ```
         {
-            
+
         }
         ```
