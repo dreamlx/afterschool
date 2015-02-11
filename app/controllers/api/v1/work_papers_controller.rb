@@ -12,7 +12,8 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
   def show
     @work_paper = WorkPaper.find(params[:id])
 
-    render json: { work_paper: @work_paper }, status: 200
+    # render json: { work_paper: @work_paper }, status: 200
+    render json: format_paper(@work_paper), status: 200
   end
 
 # 可能由于临时文件的问题 这个要修改

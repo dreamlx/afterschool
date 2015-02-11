@@ -2,6 +2,22 @@ class Api::V1::BaseController < ApplicationController
 
   private
 
+  def format_paper(work_paper)
+    Jbuilder.encode do |json|
+      json.set! 'work_paper' do 
+        json.id           work_paper.id
+        json.title        work_paper.title
+        json.type         work_paper.paper_type
+        json.description  work_paper.description
+        json.teacher      Teacher.find(work_paper.teacher_id).nickname
+        json.medias work_paper.media_resources do |meida|
+          json.media_resource_id        meida.id
+          json.avatar                   meida.avatar.url
+        end
+      end
+    end
+  end
+
   def parse_data(base64_image)
     in_content_type, encoding, string = base64_image.split(/[:;,]/)[1..3]
     #{暂时先这样}

@@ -18,8 +18,7 @@ ActiveAdmin.register WorkPaper do
   permit_params :title, :teacher_id, :paper_type, :description, 
                 media_resources_attributes: [:id, :avatar, :description]
 
-  # 创建Api
-  
+    
   form(:html => { :multipart => true }) do |f|
     f.inputs 'WorkPaper' do 
       f.input   :title
