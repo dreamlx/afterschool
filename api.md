@@ -8,7 +8,22 @@
 * 所有 Api参数 请参考 https://gitcafe.com/Hey-DouB/AfterSchool/blob/master/db/schema.rb 因为有可能改变
 * Api 返回值如需要定制请联系
 * 用户
-    * 老师 控制器 __api/v1/teachers__
+    * 老师 控制器 __api/v1/teachers__    
+    列出单个老师  get 
+    {
+        id: 1
+    }
+    输出 : http://114.215.125.31/api/v1/teachers
+
+    创建（post） :  http://114.215.125.31/api/v1/teachers
+    {
+        email: xxxx
+        password: xxxxx
+        password_confirmation: xxxxx
+        nickname: xxxx
+        phone: xxxx
+    }
+
     * 学生 控制器 __api/v1/students__
 * 登录
     * 所有用户统一 控制器 __api/v1/user_tokens__

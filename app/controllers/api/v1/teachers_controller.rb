@@ -43,7 +43,7 @@ class Api::V1::TeachersController < Api::V1::BaseController
   private
 
   def teacher_params
-    the_params = params.require(:teacher).permit(:email, :password, :password_confirmation, :role, profile_attributes: [])
+    the_params = params.require(:teacher).permit(:nickname, :phone, :email, :password, :password_confirmation, :role, profile_attributes: [])
     return the_params
   end
 end
