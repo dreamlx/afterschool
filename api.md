@@ -1,41 +1,40 @@
-#### 说明
-
-* Api均采用restful的设计模式 
-
 #### 服务器地址 http://114.215.125.31
 
 #### Api List
-* 所有 Api参数 请参考 https://gitcafe.com/Hey-DouB/AfterSchool/blob/master/db/schema.rb 因为有可能改变
-* Api 返回值如需要定制请联系
-* 用户
-    * 老师 控制器 __api/v1/teachers__    
-    列出单个老师  get 
-    {
-        id: 1
-    }
-    输出 : http://114.215.125.31/api/v1/teachers
+* student 
+	- 获取某个学生的信息
+		* `url` http://114.215.125.31/api/v1/students/:id
+        * `action` get
+        * `response`
+        ``` {
+                id: 3,
+                nickname: xxxxx,
+                email: xxxxxx,
+                phone: xxxxxx,
+                avatar {
+                    url: xxxxxx
+                }
+            }
+        ```
 
-    创建（post） :  http://114.215.125.31/api/v1/teachers
-    {
-        email: xxxx
-        password: xxxxx
-        password_confirmation: xxxxx
-        nickname: xxxx
-        phone: xxxx
-    }
+* 登录 (这个已经同马同学沟通过了 有问题可以问他)
+    － 教师 同学都可以在此登录
+        * `url` http://114.215.125.31/api/v1/user_tokens
+        * `action` post
+        * `response`
+        ```{
+                id: xxx, 
+                user_token: xxxxx
+            }
+        ```
 
-    * 学生 控制器 __api/v1/students__
-    * 学生查看自己的作业
-     get : students/:id/homeworks
-     {
-        token
-     }
-* 登录
-    * 所有用户统一 控制器 __api/v1/user_tokens__
-
-* 资源
-    * 资源由前端解析为Base64串传
-    * 控制器 __api/v1/media_resources__
-* 作业
-    * 控制器 __api/v1/work_papers__
-
+* 作业 
+    － 学生 查看自己所有的作业
+        * `url` http://114.215.125.31/api/v1/students/:id/homeworks
+        * `action` get
+        * `response`
+        ```
+        {
+            
+        }
+        ```
