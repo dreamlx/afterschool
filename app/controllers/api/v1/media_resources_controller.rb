@@ -2,7 +2,7 @@ class Api::V1::MediaResourcesController < Api::V1::BaseController
   respond_to :json
 
   def index
-    @media_resources = MediaResource.paginate(:page => page, :per_page => 12)
+    @media_resources = MediaResource.paginate(:page => params[:page], :per_page => 12)
 
     render json: { media_resources: @media_resources }, status: 200
   end

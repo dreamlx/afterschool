@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resources :teachers
       resources :students
       resources :work_papers
-      resources :media_resoureces
+      resources :media_resources
       resources :user_tokens
     end
   end

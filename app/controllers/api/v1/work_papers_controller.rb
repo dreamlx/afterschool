@@ -4,7 +4,7 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
   before_action :verify_teacher, only: [:create, :update, :destroy]
 
   def index
-    @work_papers = WorkPaper.paginate(:page => page, :per_page => 12)
+    @work_papers = WorkPaper.paginate(:page => params[:page], :per_page => 12)
 
     render json: { work_papers: @work_papers }, status: 200
   end
