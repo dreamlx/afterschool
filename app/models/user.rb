@@ -24,6 +24,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  # 直接通过用户名来登录 但是要求用户名唯一
+  def self.find_for_database_authentication(conditions={})
+    find_by(nickname: conditions[:nickname]) || find_by(email: conditions[:email])
+  end
+
   private
 
   def generate_authentication_token
