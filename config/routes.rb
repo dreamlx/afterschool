@@ -2,6 +2,17 @@ Rails.application.routes.draw do
   devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+
+  namespace :api do 
+    namespace :v1 do 
+      resources :teachers
+      resources :students
+      resources :work_papers
+      resources :media_resoureces
+      resources :user_tokens
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
