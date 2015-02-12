@@ -7,6 +7,9 @@ class WorkPaper < ActiveRecord::Base
   has_many :class_papers
   has_many :school_classes, through: :class_papers
 
+  has_many :class_teachers
+  has_many :teachers, through: :class_teachers
+
 end
 
 

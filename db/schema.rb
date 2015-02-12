@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212005605) do
+ActiveRecord::Schema.define(version: 20150212010759) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -56,6 +56,17 @@ ActiveRecord::Schema.define(version: 20150212005605) do
   add_index "class_papers", ["school_class_id"], name: "index_class_papers_on_school_class_id", using: :btree
   add_index "class_papers", ["work_paper_id", "school_class_id"], name: "index_class_papers_on_work_paper_id_and_school_class_id", unique: true, using: :btree
   add_index "class_papers", ["work_paper_id"], name: "index_class_papers_on_work_paper_id", using: :btree
+
+  create_table "class_teachers", force: :cascade do |t|
+    t.integer  "teacher_id",      limit: 4
+    t.integer  "school_class_id", limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "class_teachers", ["school_class_id"], name: "index_class_teachers_on_school_class_id", using: :btree
+  add_index "class_teachers", ["teacher_id", "school_class_id"], name: "index_class_teachers_on_teacher_id_and_school_class_id", unique: true, using: :btree
+  add_index "class_teachers", ["teacher_id"], name: "index_class_teachers_on_teacher_id", using: :btree
 
   create_table "media_resources", force: :cascade do |t|
     t.datetime "created_at",                  null: false
