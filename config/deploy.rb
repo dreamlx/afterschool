@@ -4,7 +4,7 @@ set :ssh_options, {
   forward_agent: true
 }
 set :application, 'after_school'
-set :repo_url, 'https://gitcafe.com/Hey-DouB/AfterSchool.git'
+set :repo_url, 'https://gitcafe.com/dreamlinx/AfterSchool.git'
 
 # Default branch is :master
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
