@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150220030132) do
+ActiveRecord::Schema.define(version: 20150220162813) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -46,16 +46,15 @@ ActiveRecord::Schema.define(version: 20150220030132) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "class_papers", force: :cascade do |t|
-    t.integer  "work_paper_id",   limit: 4
+  create_table "class_students", force: :cascade do |t|
+    t.integer  "student_id",      limit: 4
     t.integer  "school_class_id", limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
 
-  add_index "class_papers", ["school_class_id"], name: "index_class_papers_on_school_class_id", using: :btree
-  add_index "class_papers", ["work_paper_id", "school_class_id"], name: "index_class_papers_on_work_paper_id_and_school_class_id", unique: true, using: :btree
-  add_index "class_papers", ["work_paper_id"], name: "index_class_papers_on_work_paper_id", using: :btree
+  add_index "class_students", ["school_class_id"], name: "index_class_students_on_school_class_id", using: :btree
+  add_index "class_students", ["student_id"], name: "index_class_students_on_student_id", using: :btree
 
   create_table "class_teachers", force: :cascade do |t|
     t.integer  "teacher_id",      limit: 4
@@ -65,18 +64,7 @@ ActiveRecord::Schema.define(version: 20150220030132) do
   end
 
   add_index "class_teachers", ["school_class_id"], name: "index_class_teachers_on_school_class_id", using: :btree
-  add_index "class_teachers", ["teacher_id", "school_class_id"], name: "index_class_teachers_on_teacher_id_and_school_class_id", unique: true, using: :btree
   add_index "class_teachers", ["teacher_id"], name: "index_class_teachers_on_teacher_id", using: :btree
-
-  create_table "class_users", force: :cascade do |t|
-    t.integer  "user_id",         limit: 4
-    t.integer  "school_class_id", limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
-  add_index "class_users", ["school_class_id"], name: "index_class_users_on_school_class_id", using: :btree
-  add_index "class_users", ["user_id"], name: "index_class_users_on_user_id", using: :btree
 
   create_table "media_resources", force: :cascade do |t|
     t.datetime "created_at",                  null: false
@@ -117,6 +105,7 @@ ActiveRecord::Schema.define(version: 20150220030132) do
     t.string   "student_number", limit: 255
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.string   "postalcode",     limit: 255
   end
 
   create_table "roles", force: :cascade do |t|
@@ -196,6 +185,4 @@ ActiveRecord::Schema.define(version: 20150220030132) do
     t.integer  "teacher_id",  limit: 4
   end
 
-  add_foreign_key "class_users", "school_classes"
-  add_foreign_key "class_users", "users"
 end

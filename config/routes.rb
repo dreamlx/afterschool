@@ -5,16 +5,21 @@ Rails.application.routes.draw do
 
   namespace :api do 
     namespace :v1 do 
-      resources :users
+      resources :users do
+        resource :profile
+      end
       resources :teachers
-      resources :students
+      resources :students do
+        resource :profile
+      end
       resources :work_papers
       resources :media_resources
       resources :user_tokens
+      resources :school_classes
     end
   end
 
-  
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

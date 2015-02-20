@@ -13,7 +13,7 @@ class Api::V1::StudentsController < Api::V1::BaseController
 
   def show
     @student = Student.find(params[:id])
-    render json: { student: @student }, status: 200
+    render json: { student: @student, profile: @student.profile, school_class: @student.school_classes.first }, status: 200  
   end
 
   def create
@@ -46,7 +46,7 @@ class Api::V1::StudentsController < Api::V1::BaseController
   private
 
   def student_params
-    the_params = params.require(:teacher).permit(:email, :password, :password_confirmation, :role, profile_attributes: [])
+    the_params = params.require(:student).permit(:nickname, :email, :password, :password_confirmation, profile_attributes: [])
     return the_params
   end
 end

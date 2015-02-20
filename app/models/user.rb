@@ -11,9 +11,6 @@ class User < ActiveRecord::Base
 
   has_one :profile, dependent: :destroy
 
-  has_many :class_users
-  has_many :school_classes, through: :class_users
-
   after_create {|record| self.build_profile }
 
 
@@ -33,10 +30,6 @@ class User < ActiveRecord::Base
   # 直接通过用户名来登录 但是要求用户名唯一
   def self.find_for_database_authentication(conditions={})
     find_by(nickname: conditions[:nickname]) || find_by(email: conditions[:email])
-  end
-
-  def class_noes
-    items = self.school_classes.map {|item| item.class_no}
   end
 
   private
