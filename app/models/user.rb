@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
   before_save :ensure_authentication_token
 
   has_one :profile, dependent: :destroy
-  mount_uploader :avatar, MediaUploader
 
   has_many :class_users
   has_many :school_classes, through: :class_users

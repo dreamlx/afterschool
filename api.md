@@ -27,13 +27,10 @@
     - action: get
     - params: id # 注意url用法，restful中记录id是直接以 /:id存在的 users/1
     - response:
-        
+        # 
         {
             user: - {
                 id: 1,
-                avatar: - {
-                    url: null
-                },
                 nickname: "dreamlinx",
                 phone: null,
                 created_at: "2015-02-19T04:56:12.000Z",
@@ -45,7 +42,9 @@
             profile: - {
                 user_id: 1,
                 id: 1,
-                avatar: "",
+                avatar: - {
+                    url: null
+                },
                 address: "",
                 birthday: null,
                 gender: "",

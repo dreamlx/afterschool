@@ -19,7 +19,7 @@ ActiveAdmin.register User do
     column   :email
     column   :nickname
     column   :avatar do |v|
-      image_tag "#{v.avatar.url}?imageView2/1/w/128" unless v.avatar.url.blank?
+      image_tag "#{v.profile.avatar.url}?imageView2/1/w/128" unless v.avatar.url.blank?
     end
     actions
   end
@@ -30,8 +30,6 @@ ActiveAdmin.register User do
       f.input   :email
       f.input   :password
       f.input   :password_confirmation
-      f.input   :avatar, as: :file, :hint => f.object.avatar.url.blank? ? f.content_tag(:span, "no image yet") : f.image_tag("#{f.object.avatar.url}?imageView2/1/w/256")
-      f.input   :avatar_cache, :as => :hidden
     end
 
     f.actions

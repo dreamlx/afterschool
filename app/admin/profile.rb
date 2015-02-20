@@ -16,6 +16,8 @@ ActiveAdmin.register Profile do
 
   permit_params :avatar, :address, :birthday, :gender, :user_id, :student_number
 
+      # f.input   :avatar, as: :file, :hint => f.object.avatar.url.blank? ? f.content_tag(:span, "no image yet") : f.image_tag("#{f.object.avatar.url}?imageView2/1/w/256")
+      # f.input   :avatar_cache, :as => :hidden
 
 
 end
