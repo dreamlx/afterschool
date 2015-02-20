@@ -20,6 +20,41 @@
     - response:
         {"success":true}%                 
 
+## get user info
+
+    curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/users/1
+    
+    - action: get
+    - params: id # 注意url用法，restful中记录id是直接以 /:id存在的 users/1
+    - response:
+        
+        {
+            user: - {
+                id: 1,
+                avatar: - {
+                    url: null
+                },
+                nickname: "dreamlinx",
+                phone: null,
+                created_at: "2015-02-19T04:56:12.000Z",
+                updated_at: "2015-02-20T02:54:41.000Z",
+                email: "dreamlinx@gmail.com",
+                authentication_token: "CUw2vD4UbbrLmrdR6wFw",
+                school_class_id: null
+            },
+            profile: - {
+                user_id: 1,
+                id: 1,
+                avatar: "",
+                address: "",
+                birthday: null,
+                gender: "",
+                student_number: "",
+                created_at: "2015-02-20T02:54:41.000Z",
+                updated_at: "2015-02-20T02:54:41.000Z"
+            },
+            class_no:[]
+        }    
 
 ======下面的说明都要替换掉=====================
 

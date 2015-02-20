@@ -1,10 +1,9 @@
 class SchoolClass < ActiveRecord::Base
-  
-  has_many :students
-  
-  # 
-  has_many :class_teachers
-  has_many :teachers, through: :class_teachers
+
+  has_many :class_users
+  has_many :school_classes, through: :class_users
+
+  # TODO:has many student, teacher
   
 
   has_many :class_papers

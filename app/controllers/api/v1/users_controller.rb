@@ -9,7 +9,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   # 查看他人的
   def show
     @user = User.find(params[:id])
-    render json: { user: @user }, status: 200  
+    render json: { user: @user, profile: @user.profile, class_no: @user.class_noes }, status: 200  
   end
 
   # 创建新的用户
