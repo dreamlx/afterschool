@@ -13,7 +13,15 @@ class Api::V1::StudentsController < Api::V1::BaseController
 
   def show
     @student = Student.find(params[:id])
-    render json: { student: @student, profile: @student.profile, school_class: @student.school_classes.first }, status: 200  
+    if @student
+      render json: { 
+        student: @student, 
+        profile: @student.profile, 
+        school_class: @student.school_classes.first 
+      }, status: 200 
+    else
+      render json: { error: { message: 'No found' } }, status: 400
+    end 
   end
 
   def create
@@ -25,7 +33,7 @@ class Api::V1::StudentsController < Api::V1::BaseController
       if @student.save
         render json: { student: @student }, status: 201
       else
-        render json: { error: { message: "create failed" } }, status: 400
+        render json: { error: @student.errors }, status: 400
       end
     end
   end
@@ -35,7 +43,7 @@ class Api::V1::StudentsController < Api::V1::BaseController
     if @student.update(student_params)
       render json: { student: @student }, status: 201
     else
-      render json: { error: { message: "update failed" } }, status: 400
+      render json: { error: @student.errors }, status: 400
     end
   end
 

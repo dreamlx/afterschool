@@ -41,6 +41,22 @@
         # 
         {"student":{"id":3,"nickname":"test2","phone":null,"created_at":"2015-02-20T14:43:13.000Z","updated_at":"2015-02-20T14:51:27.000Z","email":"test3@gmail.com","authentication_token":"yyLyks2giDifPxxuxsVw","school_class_id":null},"profile":{"user_id":3,"avatar":{"url":null},"id":2,"address":null,"birthday":null,"gender":null,"student_number":null,"created_at":"2015-02-20T14:51:27.000Z","updated_at":"2015-02-20T14:51:27.000Z"},"school_class":{"id":4,"class_no":"22222","created_at":"2015-02-20T16:24:40.000Z","updated_at":"2015-02-20T16:24:40.000Z"}}%        
 
+## update student password 更改用户名密码
+    
+    curl -H "Accept:application/json" -X PUT -d 'student[email]=test5@gmail.com&student[password]=11111111&student[password_confirmation]=11111112' http://127.0.0.1:3000/api/v1/students/3
+
+    - action: PUT
+    - params:
+        - id  #students/3 这里的id 就是3
+        - student[password]= string
+        - student[password_confirmation]=string
+    - reponse
+        正常
+        {"student":{"id":3,"nickname":"test2","phone":null,"created_at":"2015-02-20T14:43:13.000Z","updated_at":"2015-02-20T16:37:52.041Z","email":"test5@gmail.com","authentication_token":"yyLyks2giDifPxxuxsVw","school_class_id":null}}% 
+
+        错误
+        {"error":{"password_confirmation":["doesn't match Password"]}}%  
+
 ## update students profile 更新用户资料
     curl -H "Accept:application/json" -X PUT -d 'profile[address]=adsfad&profile[birthday]=2014-11-1' http://114.215.125.31/api/v1/students/3/profile
 
