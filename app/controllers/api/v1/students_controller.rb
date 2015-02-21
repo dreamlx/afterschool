@@ -17,7 +17,7 @@ class Api::V1::StudentsController < Api::V1::BaseController
       render json: { 
         student: @student, 
         profile: @student.profile, 
-        school_class: @student.school_classes.first 
+        school_class: @student.school_class
       }, status: 200 
     else
       render json: { error: { message: 'No found' } }, status: 400

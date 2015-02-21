@@ -67,6 +67,9 @@
         - profile[birthday]= yyyy-mm-dd
         - profile[gender]= female|male
         - profile[avatar]= base64 file  #TODO，need test
+    - response
+        #
+
 
 ## get classes 获取班级list 
     curl -H "Accept:application/json" http://127.0.0.1:3000/api/v1/school_classes
@@ -82,7 +85,16 @@
     - action: get
     - params: id
 
-## get work_papers 获取我的作业（老师看自己发布的，学生看自己要做的）
+## get work_papers 获取我的作业（学生）
+
+    curl -H "Accept:application/json" "http://127.0.0.1:3000/api/v1/students/3/work_papers?page=2" 
+    
+    - action: get
+    - params:
+        student_id # students/3
+        page= integer
+    - response:
+        {"work_papers":[]}%                                                                                                   
 
 
 ======下面的说明都要替换掉=====================

@@ -8,14 +8,20 @@ Rails.application.routes.draw do
       resources :users do
         resource :profile
       end
-      resources :teachers
+      resources :teachers do
+        resource :profile
+        resources :work_papers, shallow: true
+      end
       resources :students do
         resource :profile
+        resources :work_papers, shallow: true
       end
-      resources :work_papers
+      #resources :work_papers
       resources :media_resources
       resources :user_tokens
-      resources :school_classes
+      resources :school_classes do
+        resources :work_papers, shallow: true
+      end
     end
   end
 
