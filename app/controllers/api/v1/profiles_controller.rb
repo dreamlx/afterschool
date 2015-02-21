@@ -22,15 +22,18 @@ class Api::V1::ProfilesController < Api::V1::BaseController
   end
 
   def replace_avatar
-  	p = Profile.find(params[:id])
+    id = params[:user_id] unless params[:user_id].blank?
+    id = params[:student_id] unless params[:student_id].blank?
 
-	p.avatar = params[:avatar] # Assign a file like this, or
+  	p = User.find(id).profile
 
-	if p.save!
-		render json:{ profile: p}, status: 201, message: '更新成功'
-	else
-		render json: { profile: @profile}, status: 400, message: '更新失败，请联系管理员'
-	end
+  	p.avatar = params[:filename] # Assign a file like this, or
+
+  	if p.save!
+  		render json:{ profile: p}, status: 201, message: '更新成功'
+  	else
+  		render json: { profile: @profile}, status: 400, message: '更新失败，请联系管理员'
+  	end
 
   end
 

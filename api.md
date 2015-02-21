@@ -8,9 +8,12 @@
 
 #### change log
     
-    2015-2-23 replace user to student
+- 2015-2-23 
+    - replace user to student
+    - update avatar
 
-## user login 登录
+## user login/ logout
+### user login 登录
     curl -H "Accept:application/json" -d 'user[nickname]=dreamlinx&user[password]=11111111' http://114.215.125.31/api/v1/user_tokens
 
     - action: post
@@ -22,7 +25,7 @@
             #
             {"token":"CUw2vD4UbbrLmrdR6wFw","user_id":1,"user":{"id":1,"nickname":"dreamlinx","phone":null,"created_at":"2015-02-19T04:56:12.000Z","updated_at":"2015-02-19T05:46:29.708Z","email":"dreamlinx@gmail.com","authentication_token":"CUw2vD4UbbrLmrdR6wFw","school_class_id":null,"avatar":{"url":null}}}
 
-## user logout 登出
+### user logout 登出
     curl -H "Accept:application/json" -X DELETE http://114.215.125.31/api/v1/user_tokens/1
     
     - action: delete
@@ -31,7 +34,8 @@
         #
         {"success":true}%                 
 
-## get student info 获取用户基本信息
+## User profile
+### get student info 获取用户基本信息
 
     curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/students/1
     
@@ -41,7 +45,7 @@
         # 
         {"student":{"id":3,"nickname":"test2","phone":null,"created_at":"2015-02-20T14:43:13.000Z","updated_at":"2015-02-20T14:51:27.000Z","email":"test3@gmail.com","authentication_token":"yyLyks2giDifPxxuxsVw","school_class_id":null},"profile":{"user_id":3,"avatar":{"url":null},"id":2,"address":null,"birthday":null,"gender":null,"student_number":null,"created_at":"2015-02-20T14:51:27.000Z","updated_at":"2015-02-20T14:51:27.000Z"},"school_class":{"id":4,"class_no":"22222","created_at":"2015-02-20T16:24:40.000Z","updated_at":"2015-02-20T16:24:40.000Z"}}%        
 
-## update student password 更改用户名密码
+### update student password 更改用户名密码
     
     curl -H "Accept:application/json" -X PUT -d 'student[email]=test5@gmail.com&student[password]=11111111&student[password_confirmation]=11111112' http://127.0.0.1:3000/api/v1/students/3
 
@@ -57,7 +61,7 @@
         错误
         {"error":{"password_confirmation":["doesn't match Password"]}}%  
 
-## update students profile 更新用户资料
+### update students profile 更新用户资料
     curl -H "Accept:application/json" -X PUT -d 'profile[address]=adsfad&profile[birthday]=2014-11-1' http://114.215.125.31/api/v1/students/3/profile
 
     - action: put
@@ -66,10 +70,20 @@
         - profile[postalcode]= string
         - profile[birthday]= yyyy-mm-dd
         - profile[gender]= female|male
-        - profile[avatar]= base64 file  #TODO，need test
     - response
         #
 
+### update avatar 更新头像
+    curl -F 'filename=@uploads/media_resource/avatar/1/IMG_0309.JPG' 'http://127.0.0.1:3000/api/v1/users/1/profile/replace_avatar'
+    # 如果使用了-F参数，curl就会以 multipart/form-data 的方式发送POST请求。-F参数以name=value的方式来指定参数内容，如果值是一个文件，则需要以name=@file的方式来指定。
+
+    - action: post
+    - params:
+        - user_id # users/1
+        - filename= image data # multipart/form-data
+    - response
+        #
+        {"profile":{"user_id":1,"id":1,"avatar":{"url":"http://7vzqhr.com1.z0.glb.clouddn.com/uploads%2Fprofile%2Favatar%2F1%2FIMG_0309.JPG"},"address":"adsfad","birthday":"2014-11-01T00:00:00.000Z","gender":"","student_number":"","created_at":"2015-02-20T02:54:41.000Z","updated_at":"2015-02-21T16:02:16.957Z","postalcode":null}}% 
 
 ## get classes 获取班级list 
     curl -H "Accept:application/json" http://127.0.0.1:3000/api/v1/school_classes

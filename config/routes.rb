@@ -6,17 +6,21 @@ Rails.application.routes.draw do
   namespace :api do 
     namespace :v1 do 
       resources :users do
-        resource :profile
+        resource :profile do
+          post 'replace_avatar'
+        end
       end
+
       resources :teachers do
         resource :profile
         resources :work_papers, shallow: true
       end
+      
       resources :students do
         resource :profile
         resources :work_papers, shallow: true
       end
-      #resources :work_papers
+      
       resources :media_resources
       resources :user_tokens
       resources :school_classes do
