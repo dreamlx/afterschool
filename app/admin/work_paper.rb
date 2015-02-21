@@ -18,7 +18,7 @@ ActiveAdmin.register WorkPaper do
   permit_params :title, :teacher_id, :paper_type, :description, :school_classes,
                 media_resources_attributes: [:id, :avatar, :_destroy,:description]
 
-    
+  #TODO, 在show页面选择发布的班级 
   form(:html => { :multipart => true }) do |f|
     f.inputs 'WorkPaper' do 
       f.input   :title
