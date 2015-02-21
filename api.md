@@ -85,7 +85,7 @@
     - action: get
     - params: id
 
-## get work_papers 获取我的作业list（学生）
+## get work_papers 获取我的作业list（学生）,list 不包括作业详细的多媒体资源路径
 
     curl -H "Accept:application/json" "http://127.0.0.1:3000/api/v1/students/3/work_papers?page=2" 
     
@@ -94,7 +94,7 @@
         student_id # students/3
         page= integer
     - response:
-        {"work_papers":[]}%                                                                                                   
+        {"work_papers":[{"id":1,"title":"放学后第一课","description":"描述哦说明","paper_type":"sound","created_at":"2015-02-21T01:23:50.000Z","updated_at":"2015-02-21T01:30:02.000Z","teacher_id":4}]}%                                                    
 
 ## get work_paper 作业详细
     curl -H "Accept:application/json" "http://127.0.0.1:3000/api/v1/work_papers/1"

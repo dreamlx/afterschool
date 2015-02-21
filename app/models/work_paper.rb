@@ -3,6 +3,7 @@ class WorkPaper < ActiveRecord::Base
   belongs_to :teacher  
   has_many :media_resources, dependent: :destroy 
   accepts_nested_attributes_for :media_resources,  allow_destroy: true
+  
 
   has_many :class_papers
   has_many :school_classes, through: :class_papers

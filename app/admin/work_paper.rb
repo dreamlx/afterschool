@@ -15,8 +15,8 @@ ActiveAdmin.register WorkPaper do
   # end
 
 
-  permit_params :title, :teacher_id, :paper_type, :description, 
-                media_resources_attributes: [:id, :avatar, :description]
+  permit_params :title, :teacher_id, :paper_type, :description, :school_classes,
+                media_resources_attributes: [:id, :avatar, :_destroy,:description]
 
     
   form(:html => { :multipart => true }) do |f|
@@ -27,7 +27,11 @@ ActiveAdmin.register WorkPaper do
       f.input   :teacher_id, as: :select, collection: Teacher.all { |t| [t.nickname, t.id] }
     end
 
-    f.inputs do 
+    f.inputs 'Class' do
+      f.input :school_classes, as: :check_boxes
+    end
+
+    f.inputs 'MediaResource' do 
       f.has_many :media_resources, :allow_destroy => true, :new_record => true do |mr|
         mr.input :avatar, as: :file
         mr.input :description
