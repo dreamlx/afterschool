@@ -85,7 +85,7 @@
     - action: get
     - params: id
 
-## get work_papers 获取我的作业（学生）
+## get work_papers 获取我的作业list（学生）
 
     curl -H "Accept:application/json" "http://127.0.0.1:3000/api/v1/students/3/work_papers?page=2" 
     
@@ -96,7 +96,14 @@
     - response:
         {"work_papers":[]}%                                                                                                   
 
+## get work_paper 作业详细
+    curl -H "Accept:application/json" "http://127.0.0.1:3000/api/v1/work_papers/1"
 
+    - action: get
+    - params:
+        work_paper_id # work_papers/1
+    -response:
+        {"work_paper":{"id":1,"title":"放学后第一课","type":"sound","description":"描述哦说明","teacher":"teacher1","medias":[{"media_resource_id":1,"avatar":"/uploads/media_resource/avatar/1/GTD.jpg"},{"media_resource_id":2,"avatar":null}]}}%
 ======下面的说明都要替换掉=====================
 
 #### Api List
