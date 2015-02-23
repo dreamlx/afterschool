@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150220162813) do
+ActiveRecord::Schema.define(version: 20150223000048) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -46,6 +46,11 @@ ActiveRecord::Schema.define(version: 20150220162813) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "class_papers", force: :cascade do |t|
+    t.integer "work_paper_id",   limit: 4
+    t.integer "school_class_id", limit: 4
+  end
+
   create_table "class_students", force: :cascade do |t|
     t.integer  "student_id",      limit: 4
     t.integer  "school_class_id", limit: 4
@@ -65,6 +70,19 @@ ActiveRecord::Schema.define(version: 20150220162813) do
 
   add_index "class_teachers", ["school_class_id"], name: "index_class_teachers_on_school_class_id", using: :btree
   add_index "class_teachers", ["teacher_id"], name: "index_class_teachers_on_teacher_id", using: :btree
+
+  create_table "home_works", force: :cascade do |t|
+    t.string   "title",         limit: 255
+    t.text     "description",   limit: 65535
+    t.integer  "student_id",    limit: 4
+    t.integer  "work_paper_id", limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.string   "state",         limit: 255
+  end
+
+  add_index "home_works", ["student_id"], name: "index_home_works_on_student_id", using: :btree
+  add_index "home_works", ["work_paper_id"], name: "index_home_works_on_work_paper_id", using: :btree
 
   create_table "media_resources", force: :cascade do |t|
     t.datetime "created_at",                  null: false
