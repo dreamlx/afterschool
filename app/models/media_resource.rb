@@ -1,6 +1,6 @@
 class MediaResource < ActiveRecord::Base
 
-  belongs_to :work_paper
+  belongs_to :media_resourceable, :polymorphic => true
   
   mount_uploader :avatar, MediaUploader
   

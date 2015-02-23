@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150223000048) do
+ActiveRecord::Schema.define(version: 20150223001328) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -85,11 +85,13 @@ ActiveRecord::Schema.define(version: 20150223000048) do
   add_index "home_works", ["work_paper_id"], name: "index_home_works_on_work_paper_id", using: :btree
 
   create_table "media_resources", force: :cascade do |t|
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.string   "avatar",        limit: 255
-    t.integer  "work_paper_id", limit: 4
-    t.text     "description",   limit: 65535
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.string   "avatar",                  limit: 255
+    t.integer  "work_paper_id",           limit: 4
+    t.text     "description",             limit: 65535
+    t.integer  "media_resourceable_id",   limit: 4
+    t.string   "media_resourceable_type", limit: 255
   end
 
   create_table "messages", force: :cascade do |t|
@@ -195,12 +197,14 @@ ActiveRecord::Schema.define(version: 20150223000048) do
   add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
   create_table "work_papers", force: :cascade do |t|
-    t.string   "title",       limit: 255
-    t.text     "description", limit: 65535
-    t.string   "paper_type",  limit: 255
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "teacher_id",  limit: 4
+    t.string   "title",                   limit: 255
+    t.text     "description",             limit: 65535
+    t.string   "paper_type",              limit: 255
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "teacher_id",              limit: 4
+    t.integer  "media_resourceable_id",   limit: 4
+    t.string   "media_resourceable_type", limit: 255
   end
 
 end

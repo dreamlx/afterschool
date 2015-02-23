@@ -99,7 +99,8 @@
     - action: get
     - params: id
 
-## get work_papers 获取我的作业list（学生）,list 不包括作业详细的多媒体资源路径
+## WorkPaper 老师发布的作业， HomeWork 学生的作业
+### get work_papers 获取我的作业list（学生）,list 不包括作业详细的多媒体资源路径
 
     curl -H "Accept:application/json" "http://127.0.0.1:3000/api/v1/students/3/work_papers?page=2" 
     
@@ -110,7 +111,7 @@
     - response:
         {"work_papers":[{"id":1,"title":"放学后第一课","description":"描述哦说明","paper_type":"sound","created_at":"2015-02-21T01:23:50.000Z","updated_at":"2015-02-21T01:30:02.000Z","teacher_id":4}]}%                                                    
 
-## get work_paper 作业详细
+### get work_paper 作业详细
     curl -H "Accept:application/json" "http://127.0.0.1:3000/api/v1/work_papers/1"
 
     - action: get
@@ -118,3 +119,28 @@
         work_paper_id # work_papers/1
     -response:
         {"work_paper":{"id":1,"title":"放学后第一课","type":"sound","description":"描述哦说明","teacher":"teacher1","medias":[{"media_resource_id":1,"avatar":"/uploads/media_resource/avatar/1/GTD.jpg"},{"media_resource_id":2,"avatar":null}]}}%
+
+### get my homeworks
+
+    /api/v1/students/:id/home_works
+    get
+
+### get homeworks of WorkPaper
+    
+    /api/v1/work_papers/:id/home_works
+    get
+
+### get homework detail(include comments)
+    
+    /api/v1/home_works/:id
+    get
+
+### create homework
+
+    /api/v1/work_papers/:id/home_works
+    post
+
+### update homework
+
+    /api/v1/home_works/:id
+    put
