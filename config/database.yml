@@ -31,5 +31,6 @@ production:
   reconnect: false
   database: afterschool_pro
   pool: 5
+  host: dreamlinx.mysql.rds.aliyuncs.com
   username: root
   password: deploy
