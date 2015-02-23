@@ -4,7 +4,7 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
   def index
   	@homeworks = HomeWork.all
 
-  	render json{ homeworks: @homeworks}
+  	render json: { homeworks: @homeworks}
   end
 
 end
