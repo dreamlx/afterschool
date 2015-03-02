@@ -4,4 +4,7 @@ class Student < User
   belongs_to :school_class
   delegate :work_papers, :to => :school_class, :allow_nil => true
   
+  def class_no
+  	self.school_class.class_no
+  end
 end

@@ -17,6 +17,9 @@ ActiveAdmin.register Student do
 
   index do 
     column   :email
+    column   :class_no do |s|
+      link_to s.class_no, admin_school_class_path(s.school_class)
+    end
     column   :nickname
     column   :avatar do |v|
       image_tag "#{v.profile.avatar.url}?imageView2/1/w/128" unless  v.profile.nil? or v.profile.avatar.url.blank?

@@ -20,7 +20,7 @@ ActiveAdmin.register Teacher do
     column   :email
     column   :nickname
     column   :avatar do |v|
-      image_tag "#{v.avatar.url}?imageView2/1/w/128" unless v.avatar.url.blank?
+      image_tag "#{v.profile.avatar.url}?imageView2/1/w/128" unless  v.profile.nil? or v.profile.avatar.url.blank?
     end
     actions
   end
