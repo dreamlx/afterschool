@@ -33,7 +33,8 @@ class User < ActiveRecord::Base
 
   # 直接通过用户名来登录 但是要求用户名唯一
   def self.find_for_database_authentication(conditions={})
-    find_by(nickname: conditions[:nickname]) || find_by(email: conditions[:email])
+    find_by(nickname: conditions[:nickname]) unless conditions[:nickname].blank?
+    find_by(email: conditions[:email]) unless conditions[:email].blank?
   end
 
   private

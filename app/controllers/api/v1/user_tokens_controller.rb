@@ -7,7 +7,7 @@ class Api::V1::UserTokensController  < Api::V1::BaseController
   # 登陆就是验证token的过程
   def create
     user = User.find_for_database_authentication(params[:user])
-    return render json: { error: { status: "user not found" } } unless user
+    return render json: { error: 'user not allow' }, status: 401 unless user
 
     if user.valid_password?(params[:user][:password])
       sign_in("user", user)
@@ -15,7 +15,7 @@ class Api::V1::UserTokensController  < Api::V1::BaseController
 
       render json: { token: user.authentication_token, user_id: user.id, user: user }
     else
-      render json: { error: { status: -1 } }
+      render json: { error: 'error password' }, status: 404
     end
   end
 

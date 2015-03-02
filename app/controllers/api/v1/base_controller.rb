@@ -9,7 +9,11 @@ class Api::V1::BaseController < ApplicationController
         json.title        work_paper.title
         json.type         work_paper.paper_type
         json.description  work_paper.description
-        json.teacher      Teacher.find(work_paper.teacher_id).nickname
+        json.teacher      work_paper.teacher.nickname unless work_paper.teacher.nil?
+        json.classes      work_paper.school_classes do |sc|
+          json.school_class_id          sc.id
+          json.class_no                 sc.class_no
+        end
         json.medias work_paper.media_resources do |meida|
           json.media_resource_id        meida.id
           json.avatar                   meida.avatar.url
