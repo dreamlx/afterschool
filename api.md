@@ -47,7 +47,7 @@
 
 ### update student password 更改用户名密码
     
-    curl -H "Accept:application/json" -X PUT -d 'student[email]=test5@gmail.com&student[password]=11111111&student[password_confirmation]=11111112' http://127.0.0.1:3000/api/v1/students/3
+    curl -H "Accept:application/json" -X PUT  http://127.0.0.1:3000/api/v1/students/3?student[email]=test5@gmail.com&student[password]=11111111&student[password_confirmation]=11111112
 
     - action: PUT
     - params:
@@ -62,7 +62,7 @@
         {"error":{"password_confirmation":["doesn't match Password"]}}%  
 
 ### update students profile 更新用户资料
-    curl -H "Accept:application/json" -X PUT -d 'profile[address]=adsfad&profile[birthday]=2014-11-1' http://114.215.125.31/api/v1/students/3/profile
+    curl -H "Accept:application/json" -X PUT  'http://114.215.125.31/api/v1/students/3/profile?profile[address]=adsfad&profile[birthday]=2014-11-1'
 
     - action: put
     - params:
@@ -140,7 +140,18 @@
     /api/v1/work_papers/:id/home_works
     post
 
-### update homework
+### create homework media
+    curl -F 'media_resource[avatar]=@uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[work_paper_id]=2'  'http://127.0.0.1:3000/api/v1/home_works/1/media_resources'
+    
+    - action: POST
+    - params: home_work_id # home_works/1
+    - media_resource[avatar]=file
+    - media_resource[work_paper_id]= 2 # work_paper_id
+    - media_resource[description]
+    - response
+        {"media_resource":{"id":11,"created_at":"2015-03-02T11:12:21.480Z","updated_at":"2015-03-02T11:12:21.480Z","avatar":{"url":"http://7vzqhr.com1.z0.glb.clouddn.com/uploads%2Fmedia_resource%2Favatar%2F11%2FIMG_0309.JPG"},"work_paper_id":2,"description":null,"media_resourceable_id":1,"media_resourceable_type":"HomeWork"}}% 
 
-    /api/v1/home_works/:id
-    put
+### DELETE homework
+
+    curl -X DELETE http://127.0.0.1:3000/api/v1/home_works/1
+    - action: DELETE

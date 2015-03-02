@@ -8,6 +8,11 @@ Rails.application.routes.draw do
       get 'work_papers', to: 'work_papers#index'
       get 'work_papers/:id/home_works', to: 'home_works#index'
 
+  
+      resources :home_works do
+        resources :media_resources
+      end
+
       resources :users do
         resource :profile do
           post 'replace_avatar'
@@ -25,7 +30,7 @@ Rails.application.routes.draw do
         resources :home_works, shallow: true
       end
       
-      resources :media_resources
+      
       resources :user_tokens
       resources :school_classes do
         resources :work_papers, shallow: true

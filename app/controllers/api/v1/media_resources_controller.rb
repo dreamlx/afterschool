@@ -2,7 +2,7 @@ class Api::V1::MediaResourcesController < Api::V1::BaseController
   respond_to :json
 
   def index
-    @media_resources = MediaResource.paginate(:page => params[:page], :per_page => 12)
+    @media_resources = HomeWork.find(params[:home_work_id]).media_resources
 
     render json: { media_resources: @media_resources }, status: 200
   end
@@ -14,15 +14,14 @@ class Api::V1::MediaResourcesController < Api::V1::BaseController
   end
 
   def create
-    @media_resource = MediaResource.new(media_resource_params)
+    @media_resource = HomeWork.find(params[:home_work_id]).media_resources.create(media_resource_params)
 
     if @media_resource.save
       render json: { media_resource: @media_resource }, status: 200
     else
       render json: { media_resource: { error: "创建资源失败"} }, status: 401
     end
-  ensure
-    clean_tempfile
+
   end
 
   def update
@@ -44,8 +43,7 @@ class Api::V1::MediaResourcesController < Api::V1::BaseController
   private
 
   def media_resource_params
-    _the_params = params.require(:media_resource).permit(:description, :avatar, :work_paper_id)
-    _the_params[:avatar] = parse_data(_the_params[:avatar]) if _the_params[:avatar]
-    _the_params
+    the_params = params.require(:media_resource).permit(:description, :avatar, :work_paper_id)
+    return the_params
   end
 end
