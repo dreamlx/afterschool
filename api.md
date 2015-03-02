@@ -120,7 +120,7 @@
     -response:
         {"work_paper":{"id":1,"title":"放学后第一课","type":"sound","description":"描述哦说明","teacher":"teacher1","medias":[{"media_resource_id":1,"avatar":"/uploads/media_resource/avatar/1/GTD.jpg"},{"media_resource_id":2,"avatar":null}]}}%
 
-### get my homeworks
+### get student's homeworks
 
     curl http://127.0.0.1:3000/api/v1/students/3/home_works
     get
@@ -137,8 +137,16 @@
 
 ### create homework
 
-    /api/v1/work_papers/:id/home_works
-    post
+    curl -X POST -d 'home_work[title]=test&media_avatars=' http://127.0.0.1:3000/api/v1/students/3/home_works
+    
+    - action: post
+    - params:
+        title
+        description
+        work_paper_id
+
+    - response:
+    {"home_work":{"id":3,"title":"test","description":null,"student_id":3,"work_paper_id":null,"created_at":"2015-03-02T11:23:40.272Z","updated_at":"2015-03-02T11:23:40.272Z","state":null}}%   
 
 ### create homework media
     curl -F 'media_resource[avatar]=@uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[work_paper_id]=2'  'http://127.0.0.1:3000/api/v1/home_works/1/media_resources'
@@ -146,7 +154,6 @@
     - action: POST
     - params: home_work_id # home_works/1
     - media_resource[avatar]=file
-    - media_resource[work_paper_id]= 2 # work_paper_id
     - media_resource[description]
     - response
         {"media_resource":{"id":11,"created_at":"2015-03-02T11:12:21.480Z","updated_at":"2015-03-02T11:12:21.480Z","avatar":{"url":"http://7vzqhr.com1.z0.glb.clouddn.com/uploads%2Fmedia_resource%2Favatar%2F11%2FIMG_0309.JPG"},"work_paper_id":2,"description":null,"media_resourceable_id":1,"media_resourceable_type":"HomeWork"}}% 
