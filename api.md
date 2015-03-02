@@ -122,7 +122,7 @@
 
 ### get my homeworks
 
-    /api/v1/students/:id/home_works
+    curl http://127.0.0.1:3000/api/v1/students/3/home_works
     get
 
 ### get homeworks of WorkPaper
@@ -132,7 +132,7 @@
 
 ### get homework detail(include comments)
     
-    /api/v1/home_works/:id
+    curl http://127.0.0.1:3000/api/v1/home_works/1
     get
 
 ### create homework

@@ -18,7 +18,7 @@ ActiveAdmin.register Student do
   index do 
     column   :email
     column   :class_no do |s|
-      link_to s.class_no, admin_school_class_path(s.school_class)
+      link_to s.class_no, admin_school_class_path(s.school_class) unless s.school_class.nil?
     end
     column   :nickname
     column   :avatar do |v|

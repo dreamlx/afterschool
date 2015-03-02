@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   namespace :api do 
     namespace :v1 do 
       get 'work_papers', to: 'work_papers#index'
+      get 'work_papers/:id/home_works', to: 'home_works#index'
+
       resources :users do
         resource :profile do
           post 'replace_avatar'
