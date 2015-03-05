@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   
       resources :home_works do
         resources :media_resources
+        resource :work_review
       end
 
       resources :users do
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
       end
 
       resources :teachers do
+        resources :work_reviews
         resource :profile
         resources :work_papers, shallow: true
       end

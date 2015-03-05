@@ -7,10 +7,44 @@
     在linux或者osx 下，在命令行窗口直接 copy 下面内容到窗口执行即可
 
 #### change log
-    
+- 2015-03-05
+    rate    
 - 2015-2-23 
     - replace user to student
     - update avatar
+
+## work_review 老师批阅
+
+### create|update work_review
+    curl -d 'work_review[rate]=5' http://127.0.0.1:3000/api/v1/home_works/2/work_review
+
+    - action: post
+    - params:
+        - work_review[rate]=5 # 5-1，代表ABCDE 5个等级（a：5， 1：e）
+        - work_review[teacher_id]=1
+        - work_review[home_work_id]=2 #home_works/2
+        - work_review[remark]=string
+    - reponse:
+        {"work_review":{"home_work_id":2,"id":3,"teacher_id":null,"rate":5,"remark":null,"created_at":"2015-03-05T09:19:27.000Z","updated_at":"2015-03-05T09:19:27.000Z"}}% 
+
+### show homework' review
+    curl http://127.0.0.1:3000/api/v1/home_works/2/work_review  
+
+    - action: get
+    - reponse:
+        {"work_review":{"home_work_id":2,"id":3,"teacher_id":null,"rate":5,"remark":null,"created_at":"2015-03-05T09:19:27.000Z","updated_at":"2015-03-05T09:19:27.000Z"}}%   
+
+### show teacher's reviews
+    curl http://127.0.0.1:3000/api/v1/teachers/4/work_reviews
+
+    - action: get
+    - reponse:
+        {"work_reviews":[]}% 
+
+### delete reviews
+    curl -X DELETE http://127.0.0.1:3000/api/v1/home_works/2/work_review  
+
+    -action: delete
 
 ## user login/ logout
 ### user login 登录

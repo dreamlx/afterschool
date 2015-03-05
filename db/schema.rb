@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302112850) do
+ActiveRecord::Schema.define(version: 20150305085426) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -205,5 +205,17 @@ ActiveRecord::Schema.define(version: 20150302112850) do
     t.integer  "media_resourceable_id",   limit: 4
     t.string   "media_resourceable_type", limit: 255
   end
+
+  create_table "work_reviews", force: :cascade do |t|
+    t.integer  "teacher_id",   limit: 4
+    t.integer  "home_work_id", limit: 4
+    t.integer  "rate",         limit: 4
+    t.text     "remark",       limit: 65535
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "work_reviews", ["home_work_id"], name: "index_work_reviews_on_home_work_id", using: :btree
+  add_index "work_reviews", ["teacher_id"], name: "index_work_reviews_on_teacher_id", using: :btree
 
 end
