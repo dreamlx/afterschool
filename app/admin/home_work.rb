@@ -55,6 +55,15 @@ ActiveAdmin.register HomeWork do
         end
       end
     end
+
+    panel t('WorkReview') do
+      table_for(home_work.work_review) do |m|
+        m.column  :id
+        m.column :work_review do |w|
+          link_to 'new review', new_admin_work_review_path
+        end
+      end
+    end
   end
 
 
