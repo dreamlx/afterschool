@@ -14,10 +14,10 @@ class User < ActiveRecord::Base
   after_create {|record| self.build_profile }
 
 
-  acts_as_messageable :table_name => "messages", 
-                      :required => [:topic, :body, :message_type],
-                      :class_name => "UserMessage",
-                      :group_messages => true # 群聊
+  # acts_as_messageable :table_name => "messages", 
+  #                     :required => [:topic, :body, :message_type],
+  #                     :class_name => "UserMessage",
+  #                     :group_messages => true # 群聊
 
 
 

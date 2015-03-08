@@ -2,25 +2,26 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
   respond_to :json
 
   def index
-
-  	unless params[:student_id].blank?
-  		@home_works = Student.find(params[:student_id]).home_works
-  	end
-  	
-  	unless params[:work_paper_id].blank?
-  		@home_works = WorkPaper.find(params[:work_paper_id]).home_works
-  	end
-
-    if params[:student_id] and params[:work_paper_id]
+    @home_works = []
+  	if params[:student_id] and params[:work_paper_id]
       @home_works = HomeWork.where( student_id: params[:student_id], work_paper_id: params[:work_paper_id])
+    
+    else
+      unless params[:student_id].blank?
+        @home_works = Student.find(params[:student_id]).home_works unless Student.find(params[:student_id]).nil?
+      end
+      
+      unless params[:work_paper_id].blank?
+        @home_works = WorkPaper.find(params[:work_paper_id]).home_works unless WorkPaper.find(params[:work_paper_id]).nil?
+      end     
     end
 
-  	render json: { home_works: @home_works}
+  	render json: { home_works: format_homeworks(@home_works)}
   end
 
   def show
   	@home_work = HomeWork.find(params[:id])
-  	render json: {home_work: @home_work , media_resources: @home_work.media_resources}
+  	render json: {home_work: format_homework(@home_work) , media_resources: @home_work.media_resources}
   end
 
   def create
@@ -34,7 +35,7 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
       # end
 
       if @home_work.save
-        render json: { home_work: @home_work }, status: 201
+        render json: { home_work: format_homework(@home_work) }, status: 201
       else
         render json: { error: { message: "创建作业失败, 请检查您的媒体文件" } }, status: 400
       end

@@ -2,6 +2,48 @@ class Api::V1::BaseController < ApplicationController
 
   private
 
+  def format_homeworks(home_works)
+    Jbuilder.encode do |json|
+      json.array! home_works do |home_work|
+        json.id           home_work.id
+        json.title        home_work.title
+        json.description  home_work.description
+        json.state        home_work.state
+        json.created_at   home_work.created_at
+        json.updated_at   home_work.updated_at
+        json.medias home_work.media_resources do |meida|
+          json.media_resource_id        meida.id
+          json.avatar                   meida.avatar.url
+        end
+        json.teacher do
+          home_work.teacher.avatar
+          home_work.teacher.nickname
+        end
+      end
+    end
+  end
+
+  def format_homework(home_work)
+    Jbuilder.encode do |json|
+      json.set! 'home_work' do 
+        json.id           home_work.id
+        json.title        home_work.title
+        json.description  home_work.description
+        json.state        home_work.state
+        json.created_at   home_work.created_at
+        json.updated_at   home_work.updated_at
+        json.medias home_work.media_resources do |meida|
+          json.media_resource_id        meida.id
+          json.avatar                   meida.avatar.url
+        end
+        json.teacher do
+          home_work.teacher.avatar
+          home_work.teacher.nickname
+        end
+      end
+  end
+
+
   def format_paper(work_paper)
     Jbuilder.encode do |json|
       json.set! 'work_paper' do 
@@ -10,6 +52,8 @@ class Api::V1::BaseController < ApplicationController
         json.type         work_paper.paper_type
         json.description  work_paper.description
         json.teacher      work_paper.teacher.nickname unless work_paper.teacher.nil?
+        json.created_at    work_paper.created_at
+        json.updated_at    work_paper.updated_at
         json.classes      work_paper.school_classes do |sc|
           json.school_class_id          sc.id
           json.class_no                 sc.class_no
