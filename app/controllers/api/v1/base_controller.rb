@@ -41,6 +41,7 @@ class Api::V1::BaseController < ApplicationController
           home_work.teacher.nickname
         end
       end
+    end
   end
 
 
