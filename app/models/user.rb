@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
 
   acts_as_messageable :table_name => "messages", 
                       :required => [:topic, :body, :message_type],
-                      :class_name => "CustomMessage",
+                      :class_name => "UserMessage",
                       :group_messages => true # 群聊
 
 

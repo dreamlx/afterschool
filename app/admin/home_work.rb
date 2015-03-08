@@ -60,7 +60,7 @@ ActiveAdmin.register HomeWork do
       table_for(home_work.work_review) do |m|
         m.column  :id
         m.column :work_review do |w|
-          link_to 'new review', new_admin_work_review_path
+          link_to 'new review', new_admin_work_review_path(w)
         end
       end
     end

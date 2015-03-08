@@ -11,6 +11,10 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
   		@home_works = WorkPaper.find(params[:work_paper_id]).home_works
   	end
 
+    if params[:student_id] and params[:work_paper_id]
+      @home_works = HomeWork.where( student_id: params[:student_id], work_paper_id: params[:work_paper_id])
+    end
+
   	render json: { home_works: @home_works}
   end
 
