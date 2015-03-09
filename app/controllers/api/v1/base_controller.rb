@@ -61,7 +61,7 @@ class Api::V1::BaseController < ApplicationController
         end
         unless work_paper.teacher.nil?
           json.teacher      work_paper.teacher.nickname 
-          json.avatar       work_paper.teacher.avatar.url
+          json.avatar       work_paper.teacher.profile.avatar.url unless work_paper.teacher.profile.nil?
         end
         json.created_at    work_paper.created_at
         json.updated_at    work_paper.updated_at
@@ -86,7 +86,7 @@ class Api::V1::BaseController < ApplicationController
         json.description  work_paper.description
         unless work_paper.teacher.nil?
           json.teacher      work_paper.teacher.nickname 
-          json.avatar       work_paper.teacher.avatar.url
+          json.avatar       work_paper.teacher.profile.avatar.url unless work_paper.teacher.profile.nil?
         end
         json.created_at    work_paper.created_at
         json.updated_at    work_paper.updated_at
