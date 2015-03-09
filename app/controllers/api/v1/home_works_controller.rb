@@ -21,7 +21,7 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
 
   def show
   	@home_work = HomeWork.find(params[:id])
-  	render json: { format_homework(@home_work) , media_resources: @home_work.media_resources}
+  	render json: format_homework(@home_work)
   end
 
   def create
