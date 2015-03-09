@@ -9,6 +9,15 @@ class WorkPaper < ActiveRecord::Base
   has_many :class_papers
   has_many :school_classes, through: :class_papers
 
+  def home_work_state(sid)
+  	state = 'none'
+  	if HomeWork.find_by(student_id: sid, work_paper_id: self.id)
+  		state = HomeWork.find_by(student_id: sid, work_paper_id: self.id).state
+  	end
+
+  	return state
+  end
+
 end
 
 

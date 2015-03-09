@@ -17,7 +17,7 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
     work_papers = WorkPaper.all unless work_papers.nil?
     @work_papers = work_papers.paginate(:page => params[:page], :per_page => 12)
 
-    render json: { work_papers: @work_papers }, status: 200
+    render json:  format_papers(@work_papers, params[:student_id]) , status: 200
   end
 
   def show

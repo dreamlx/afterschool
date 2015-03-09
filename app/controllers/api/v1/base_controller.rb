@@ -49,6 +49,34 @@ class Api::V1::BaseController < ApplicationController
   end
 
 
+  def format_papers(work_papers, student_id)
+    Jbuilder.encode do |json|
+      json.array! work_papers do |work_paper|
+        json.id           work_paper.id
+        json.title        work_paper.title
+        json.type         work_paper.paper_type
+        json.description  work_paper.description
+        unless student_id.blank?
+          json.home_work_state   work_paper.home_work_state(student_id)
+        end
+        unless work_paper.teacher.nil?
+          json.teacher      work_paper.teacher.nickname 
+          json.avatar       work_paper.teacher.avatar.url
+        end
+        json.created_at    work_paper.created_at
+        json.updated_at    work_paper.updated_at
+        json.classes      work_paper.school_classes do |sc|
+          json.school_class_id          sc.id
+          json.class_no                 sc.class_no
+        end
+        json.medias work_paper.media_resources do |meida|
+          json.media_resource_id        meida.id
+          json.avatar                   meida.avatar.url
+        end
+      end
+    end
+  end
+
   def format_paper(work_paper)
     Jbuilder.encode do |json|
       json.set! 'work_paper' do 
@@ -56,7 +84,10 @@ class Api::V1::BaseController < ApplicationController
         json.title        work_paper.title
         json.type         work_paper.paper_type
         json.description  work_paper.description
-        json.teacher      work_paper.teacher.nickname unless work_paper.teacher.nil?
+        unless work_paper.teacher.nil?
+          json.teacher      work_paper.teacher.nickname 
+          json.avatar       work_paper.teacher.avatar.url
+        end
         json.created_at    work_paper.created_at
         json.updated_at    work_paper.updated_at
         json.classes      work_paper.school_classes do |sc|
