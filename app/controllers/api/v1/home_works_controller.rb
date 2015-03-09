@@ -16,12 +16,12 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
       end     
     end
 
-  	render json: { home_works: format_homeworks(@home_works)}
+  	render json: format_homeworks(@home_works)
   end
 
   def show
   	@home_work = HomeWork.find(params[:id])
-  	render json: {home_work: format_homework(@home_work) , media_resources: @home_work.media_resources}
+  	render json: { format_homework(@home_work) , media_resources: @home_work.media_resources}
   end
 
   def create
@@ -35,7 +35,7 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
       # end
 
       if @home_work.save
-        render json: { home_work: format_homework(@home_work) }, status: 201
+        render json: format_homework(@home_work) , status: 201
       else
         render json: { error: { message: "创建作业失败, 请检查您的媒体文件" } }, status: 400
       end

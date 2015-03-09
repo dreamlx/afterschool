@@ -37,7 +37,7 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
         @work_paper.media_resources.build(description: _description, avatar: _avatar)
       end
       if @work_paper.save
-        render json: { work_paper: @work_paper }, status: 201
+        render json: format_paper(@work_paper), status: 201
       else
         render json: { error: { message: "创建作业失败, 请检查您的媒体文件" } }, status: 400
       end
@@ -55,7 +55,7 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
     @work_paper =  WorkPaper.find(params[:id])
     @work_paper.destroy!
 
-    render json: { work_paper: @work_paper }
+    render json: format_paper(@work_paper)
   end
 
   private
