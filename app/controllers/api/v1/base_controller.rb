@@ -59,10 +59,13 @@ class Api::V1::BaseController < ApplicationController
         unless student_id.blank?
           json.home_work_state   work_paper.home_work_state(student_id)
         end
-        unless work_paper.teacher.nil?
-          json.teacher      work_paper.teacher.nickname 
-          json.avatar       work_paper.teacher.profile.avatar.url unless work_paper.teacher.profile.nil?
+        json.teacher do |teacher|
+          unless work_paper.teacher.nil?
+            json.teacher      work_paper.teacher.nickname 
+            json.avatar       work_paper.teacher.profile.nil? ? "" : work_paper.teacher.profile.avatar.url 
+          end
         end
+        
         json.created_at    work_paper.created_at
         json.updated_at    work_paper.updated_at
         json.classes      work_paper.school_classes do |sc|
