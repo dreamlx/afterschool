@@ -2,17 +2,17 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
   respond_to :json
 
   def index
-    @home_works = []
+    @home_works = HomeWork.all
   	if params[:student_id] and params[:work_paper_id]
       @home_works = HomeWork.where( student_id: params[:student_id], work_paper_id: params[:work_paper_id])
     
     else
       unless params[:student_id].blank?
-        @home_works = Student.find(params[:student_id]).home_works unless Student.find(params[:student_id]).nil?
+        @home_works = Student.find(params[:student_id]).home_works 
       end
       
       unless params[:work_paper_id].blank?
-        @home_works = WorkPaper.find(params[:work_paper_id]).home_works unless WorkPaper.find(params[:work_paper_id]).nil?
+        @home_works = WorkPaper.find(params[:work_paper_id]).home_works 
       end     
     end
 
@@ -58,6 +58,6 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
 
   private
   def home_work_params
-    params.require(:home_work).permit(:title, :description, :paper_type, :media_avatars)
+    params.require(:home_work).permit(:title, :description, :paper_type, :media_avatars, :work_paper_id, :student_id)
   end
 end
