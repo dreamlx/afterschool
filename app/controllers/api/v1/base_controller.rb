@@ -16,8 +16,10 @@ class Api::V1::BaseController < ApplicationController
           json.avatar                   meida.avatar.url
         end
         json.teacher do
-          home_work.teacher.avatar
-          home_work.teacher.nickname
+          unless home_work.work_pager.nil?
+            home_work.work_paper.teacher.avatar
+            home_work.work_paper.teacher.nickname
+          end
         end
       end
     end
@@ -37,8 +39,10 @@ class Api::V1::BaseController < ApplicationController
           json.avatar                   meida.avatar.url
         end
         json.teacher do
-          home_work.teacher.avatar
-          home_work.teacher.nickname
+          unless home_work.work_paper.nil?
+            home_work.work_paper.teacher.avatar 
+            home_work.work_paper.teacher.nickname
+          end
         end
       end
     end
