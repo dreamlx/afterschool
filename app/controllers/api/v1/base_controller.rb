@@ -11,14 +11,18 @@ class Api::V1::BaseController < ApplicationController
         json.state        home_work.state
         json.created_at   home_work.created_at
         json.updated_at   home_work.updated_at
+        json.work_paper do
+          json.id home_work.work_paper.id
+          json.title  home_work.work_paper.title
+        end
         json.medias home_work.media_resources do |meida|
           json.media_resource_id        meida.id
           json.avatar                   meida.avatar.url
         end
         json.teacher do
           unless home_work.work_pager.nil?
-            home_work.work_paper.teacher.avatar
-            home_work.work_paper.teacher.nickname
+            json.avatar   home_work.work_paper.teacher.avatar
+            json.teacher  home_work.work_paper.teacher.nickname
           end
         end
       end
@@ -34,14 +38,18 @@ class Api::V1::BaseController < ApplicationController
         json.state        home_work.state
         json.created_at   home_work.created_at
         json.updated_at   home_work.updated_at
+        json.work_paper do
+          json.id home_work.work_paper.id
+          json.title  home_work.work_paper.title
+        end
         json.medias home_work.media_resources do |meida|
           json.media_resource_id        meida.id
           json.avatar                   meida.avatar.url
         end
         json.teacher do
           unless home_work.work_paper.nil?
-            home_work.work_paper.teacher.avatar 
-            home_work.work_paper.teacher.nickname
+            json.avatar   home_work.work_paper.teacher.avatar 
+            json.teacher home_work.work_paper.teacher.nickname
           end
         end
       end
