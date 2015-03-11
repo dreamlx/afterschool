@@ -28,6 +28,8 @@ gem 'devise'
 gem 'activeadmin', github: 'activeadmin'
 gem 'inherited_resources', github: 'josevalim/inherited_resources', branch: 'rails-4-2'
 
+gem 'haml'
+
 gem 'capistrano',  '~> 3.1', :group => :development
 gem 'capistrano-rails', '~> 1.1', :group => :development
 gem 'capistrano-bundler', '~> 1.1.2', :group => :development

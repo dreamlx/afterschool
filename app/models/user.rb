@@ -37,6 +37,10 @@ class User < ActiveRecord::Base
     find_by(email: conditions[:email]) unless conditions[:email].blank?
   end
 
+  def role?(r)
+    role.include? r.to_s unless role.nil?
+  end
+
   private
 
   def generate_authentication_token

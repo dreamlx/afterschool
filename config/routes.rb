@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
+  resources :articles
+
   devise_for :users
-  devise_for :admin_users, ActiveAdmin::Devise.config
+  #devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
   namespace :api do 
@@ -45,7 +47,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-
+  root :to => 'home#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

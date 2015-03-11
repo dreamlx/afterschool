@@ -15,6 +15,9 @@ ActiveAdmin.register Student do
   # end
   permit_params :email, :password, :password_confirmation, :nickname, :phone, :avatar, :school_class_id
 
+  filter :email
+  filter :nickname
+  
   index do 
     column   :email
     column   :class_no do |s|
