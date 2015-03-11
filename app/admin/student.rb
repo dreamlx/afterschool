@@ -18,7 +18,7 @@ ActiveAdmin.register Student do
   index do 
     column   :email
     column   :class_no do |s|
-      link_to s.class_no, admin_school_class_path(s.school_class) unless s.school_class.nil?
+      link_to s.class_no, admin_school_class_path(s.school_class) unless s.school_class.nil? 
     end
     column   :nickname
     column   :avatar do |v|
@@ -39,7 +39,7 @@ ActiveAdmin.register Student do
       row :nickname
       row :phone
       row :school_class do |s|
-        s.class_no
+        s.class_no unless s.school_class.nil?
       end
       row :student_number do |s|
         s.profile.student_number unless s.profile.nil?
@@ -58,7 +58,7 @@ ActiveAdmin.register Student do
       end
 
       row :profile do |s|
-        link_to 'edit profile', edit_admin_profile_path(s.profile)
+        link_to 'edit profile', edit_admin_profile_path(s.profile) unless s.profile.nil?
       end
     end
   end
