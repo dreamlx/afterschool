@@ -17,7 +17,7 @@ ActiveAdmin.register Student do
 
   filter :email
   filter :nickname
-  
+
   index do 
     column   :email
     column   :class_no do |s|
@@ -28,7 +28,7 @@ ActiveAdmin.register Student do
       image_tag "#{v.profile.avatar.url}?imageView2/1/w/128" unless  v.profile.nil? or v.profile.avatar.url.blank?
     end
     column :profile do |v|
-        link_to 'edit profile', edit_admin_profile_path(v.profile)
+        link_to 'edit profile', edit_admin_profile_path(v.profile) unless v.profile.nil?
       end
     actions
   end
