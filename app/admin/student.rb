@@ -60,9 +60,12 @@ ActiveAdmin.register Student do
       row :address do |s|
         s.profile.address unless s.profile.nil?
       end
-
-      row :profile do |s|
-        link_to 'edit profile', edit_admin_profile_path(s.profile) unless s.profile.nil?
+      row :profile do |v|
+        unless v.profile.nil?
+          link_to 'edit profile', edit_admin_profile_path(v.profile) 
+        else
+          link_to 'new profile', new_admin_profile_path
+        end
       end
     end
   end

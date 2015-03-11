@@ -16,6 +16,8 @@ ActiveAdmin.register HomeWork do
 
   permit_params :title, :description, :student_id, :work_paper_id, :state, media_resources_attributes: [:id, :avatar, :_destroy,:description]
 
+
+
   index do
     column  :id 
     column  :student
@@ -78,7 +80,11 @@ ActiveAdmin.register HomeWork do
         m.column  :rate
         m.column   :remark
         m.column :work_review do |w|
-          link_to 'new review', new_admin_work_review_path(w)
+          if w.nil?
+            link_to 'new review', new_admin_work_review_path(w)
+          else
+            link_to 'edit review', edit_admin_work_review_path(w)
+          end
         end
       end
     end
