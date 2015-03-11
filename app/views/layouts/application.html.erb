@@ -11,7 +11,11 @@
 	<%= render partial: 'layouts/header' %>
 	<p><%= notice %></p>
 	<p><%= alert %></p>
-	<%= yield %>
+	<div class='container'>
+		<div class="jumbotron">
+			<%= yield %>
+		</div>
+	</div>
 
 </body>
 </html>

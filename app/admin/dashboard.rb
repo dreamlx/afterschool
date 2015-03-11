@@ -3,10 +3,32 @@ ActiveAdmin.register_page "Dashboard" do
   menu priority: 1, label: proc{ I18n.t("active_admin.dashboard") }
 
   content title: proc{ I18n.t("active_admin.dashboard") } do
-    div class: "blank_slate_container", id: "dashboard_default_message" do
+    div class: "blank_slate_container" do
       span class: "blank_slate" do
-        span I18n.t("active_admin.dashboard_welcome.welcome")
-        small I18n.t("active_admin.dashboard_welcome.call_to_action")
+        h3 do
+            "测试中，有问题请向email:dreamlinx@gmail.com 报告"
+        end
+        ul do
+            ol do 
+                link_to '1 create school class', new_admin_school_class_path
+            end
+            ol do
+               link_to '2 create teacher', new_admin_teacher_path
+            end
+
+            ol do
+                link_to '3 create student', new_admin_student_path
+            end
+            ol do
+                link_to '4 create WorkPaper', new_admin_work_paper_path
+            end
+            ol do
+                link_to '5 wait for students submit HomeWork', admin_home_works_path
+            end
+            ol do
+                link_to '6 review student WorkReviews', admin_work_reviews_path
+            end
+        end
       end
     end
 

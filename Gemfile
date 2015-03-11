@@ -44,7 +44,7 @@ gem 'acts-as-taggable-on', '~> 3.4'
 gem 'settingslogic'
 
 gem 'acts-as-messageable'
-
+gem "twitter-bootstrap-rails"
 gem 'mysql2'
 
 # Use ActiveModel has_secure_password
