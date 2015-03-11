@@ -17,6 +17,7 @@ ActiveAdmin.register Student do
 
   filter :email
   filter :nickname
+  filter :school_class
 
   index do 
     column   :email
