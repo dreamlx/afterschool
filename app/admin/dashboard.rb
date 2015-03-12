@@ -26,7 +26,7 @@ ActiveAdmin.register_page "Dashboard" do
                 link_to '5 wait for students submit HomeWork', admin_home_works_path
             end
             ol do
-                link_to '6 review student WorkReviews', admin_work_reviews_path
+                span '6 review student WorkReviews in HomeWork'
             end
         end
       end
