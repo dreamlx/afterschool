@@ -14,7 +14,13 @@ ActiveAdmin.register HomeWork do
   #   permitted
   # end
 
-  permit_params :title, :description, :student_id, :work_paper_id, :state, media_resources_attributes: [:id, :avatar, :_destroy,:description]
+  permit_params :title, 
+    :description, 
+    :student_id, 
+    :work_paper_id, 
+    :state, 
+    media_resources_attributes: [:id, :avatar, :_destroy,:description],
+    work_review_attributes: [:id, :rate, :remark, :home_work_id, :teacher_id]
 
 
 
@@ -24,13 +30,7 @@ ActiveAdmin.register HomeWork do
     column  :title
     column  :work_paper
     column  :state
-    column  :work_review do |h|
-      if h.work_review.nil?
-        link_to 'work_review(new)', new_admin_work_review_path
-      else
-        link_to 'work_review(done)', edit_admin_work_review_path(h.work_review)
-      end
-    end
+
     actions
   end
 
@@ -49,6 +49,15 @@ ActiveAdmin.register HomeWork do
         mr.input :description
       end
     end
+
+    f.inputs 'work_review' do 
+      f.semantic_fields_for :work_review do |j|
+        j.input :rate, as: :select, collection: [['A',5],['B',4],['C',3],['D',2],['E',1]]
+        j.input :remark, as: :text
+        j.input :home_work_id, value: j.object.id, :as => :hidden
+      end
+    end
+
     f.actions
   end
 
@@ -77,15 +86,22 @@ ActiveAdmin.register HomeWork do
     panel t('WorkReview') do
       table_for(home_work.work_review) do |m|
         m.column  :id
-        m.column  :rate
-        m.column   :remark
-        m.column :work_review do |w|
-          if w.nil?
-            link_to 'new review', new_admin_work_review_path(w)
-          else
-            link_to 'edit review', edit_admin_work_review_path(w)
+        m.column  :rate do |r|
+          case r.rate.to_i
+          when 5
+            'A'
+          when 4
+            'B'
+          when 3
+            'C'
+          when 2
+            'D'
+          when 1
+            'E'
           end
+            
         end
+        m.column   :remark
       end
     end
   end
