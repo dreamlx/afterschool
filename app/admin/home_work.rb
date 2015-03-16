@@ -31,7 +31,12 @@ ActiveAdmin.register HomeWork do
     column  :work_paper
     column  :state
 
-    actions
+    column '批阅' do |h|
+      link_to '批阅', edit_admin_home_work_path(h)  
+    end
+    column '查看' do |h|
+      link_to '查看', admin_home_work_path(h)
+    end
   end
 
   form(:html => { :multipart => true }) do |f|
@@ -42,7 +47,7 @@ ActiveAdmin.register HomeWork do
       f.input   :description
     end
 
-    f.inputs 'MediaResource' do 
+    f.inputs '作业附件' do 
       f.has_many :media_resources, :allow_destroy => true, :new_record => true do |mr|
 
         mr.input :avatar, as: :file, :hint => (mr.object.avatar.url unless mr.object.avatar.url.blank?)
@@ -50,7 +55,7 @@ ActiveAdmin.register HomeWork do
       end
     end
 
-    f.inputs 'work_review' do 
+    f.inputs '老师批阅' do 
       f.semantic_fields_for :work_review do |j|
         j.input :rate, as: :select, collection: [['A',5],['B',4],['C',3],['D',2],['E',1]]
         j.input :remark, as: :text

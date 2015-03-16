@@ -17,10 +17,10 @@ ActiveAdmin.register ClassPaper do
   index do
     column :id
     column :class_no do |r|
-      r.school_class.class_no unless r.school_class.nil?
+      link_to r.school_class.class_no, admin_school_class_path(r.school_class) unless r.school_class.nil?
     end
     column :paper do |r|
-      r.work_paper.title unless  r.work_paper.nil?
+      link_to r.work_paper.title, admin_work_paper_path(r.work_paper) unless  r.work_paper.nil?
     end
 
     actions

@@ -32,5 +32,5 @@ production:
   database: afterschool_pro
   pool: 5
   host: dreamlinx.mysql.rds.aliyuncs.com
-  username: p2p
-  password: p2pstock2015
+  username: after
+  password: after2015

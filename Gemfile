@@ -46,7 +46,9 @@ gem 'settingslogic'
 gem 'acts-as-messageable'
 gem "twitter-bootstrap-rails"
 gem 'mysql2'
-
+gem 'devise-i18n'
+gem 'devise-i18n-views'
+gem 'rails-i18n'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
