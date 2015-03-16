@@ -17,9 +17,11 @@ class Api::V1::BaseController < ApplicationController
             json.title  home_work.work_paper.title
           end
         end
-        json.medias home_work.media_resources do |meida|
-          json.media_resource_id        meida.id
-          json.avatar                   meida.avatar.url
+        json.medias home_work.media_resources do |media|
+          json.media_resource_id        media.id
+          json.avatar                   media.avatar.url
+          json.content_type          media.content_type
+          json.file_size                media.file_size
         end
         json.teacher do
           unless home_work.work_paper.nil?
@@ -47,9 +49,11 @@ class Api::V1::BaseController < ApplicationController
             json.title  home_work.work_paper.title
           end
         end
-        json.medias home_work.media_resources do |meida|
-          json.media_resource_id        meida.id
-          json.avatar                   meida.avatar.url
+        json.medias home_work.media_resources do |media|
+          json.media_resource_id        media.id
+          json.avatar                   media.avatar.url
+          json.content_type          media.content_type
+          json.file_size                media.file_size
         end
         json.teacher do
           unless home_work.work_paper.nil?
@@ -85,9 +89,11 @@ class Api::V1::BaseController < ApplicationController
           json.school_class_id          sc.id
           json.class_no                 sc.class_no
         end
-        json.medias work_paper.media_resources do |meida|
-          json.media_resource_id        meida.id
-          json.avatar                   meida.avatar.url
+        json.medias work_paper.media_resources do |media|
+          json.media_resource_id        media.id
+          json.avatar                   media.avatar.url
+          json.content_type          media.content_type
+          json.file_size                media.file_size
         end
       end
     end
@@ -112,9 +118,11 @@ class Api::V1::BaseController < ApplicationController
           json.school_class_id          sc.id
           json.class_no                 sc.class_no
         end
-        json.medias work_paper.media_resources do |meida|
-          json.media_resource_id        meida.id
-          json.avatar                   meida.avatar.url
+        json.medias work_paper.media_resources do |media|
+          json.media_resource_id        media.id
+          json.avatar                   media.avatar.url
+          json.content_type          media.content_type
+          json.file_size                media.file_size
         end
       end
     end
