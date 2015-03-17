@@ -31,11 +31,11 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
   def create
     @work_paper = @teacher.work_papers.build(work_paper_params)
     if @work_paper
-      params[:media_avatars].each do |media_avatar|
-        _description = media_avatar[:description] if media_avatar[:description]
-        _avatar = parse_data(media_avatar[:avatar]) if media_avatar[:avatar]
-        @work_paper.media_resources.build(description: _description, avatar: _avatar)
-      end
+      # params[:media_avatars].each do |media_avatar|
+      #   _description = media_avatar[:description] if media_avatar[:description]
+      #   _avatar = parse_data(media_avatar[:avatar]) if media_avatar[:avatar]
+      #   @work_paper.media_resources.build(description: _description, avatar: _avatar)
+      # end
       if @work_paper.save
         render json: format_paper(@work_paper), status: 201
       else

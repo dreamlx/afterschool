@@ -14,8 +14,8 @@ class Api::V1::MediaResourcesController < Api::V1::BaseController
   end
 
   def create
-    @media_resource = HomeWork.find(params[:home_work_id]).media_resources.create(media_resource_params)
-
+    @media_resource = HomeWork.find(params[:home_work_id]).media_resources.create(media_resource_params) unless params[:home_work_id].blank?
+    @media_resource = WorkPaper.find(params[:work_paper_id]).media_resources.create(media_resource_params) unless params[:work_paper_id].blank?
     if @media_resource.save
       render json: { media_resource: @media_resource }, status: 200
     else

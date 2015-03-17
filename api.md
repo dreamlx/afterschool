@@ -9,6 +9,8 @@
     在linux或者osx 下，在命令行窗口直接 copy 下面内容到窗口执行即可
 
 #### change log
+- 2015-03-17
+    work pager 
 - 2015-03-05
     rate    
 - 2015-2-23 
@@ -161,6 +163,23 @@
 
     get
     
+### create work_paper 创建作业  
+    curl -X POST -d 'work_paper[title]=test&work_paper[description]=111111&work_paper[paper_type]=' http://127.0.0.1:3000/api/v1/teachers/3/work_papers
+
+    action: POST
+    params: 
+        - teacher_id: #teachers/3
+        - work_paper[title]
+        - work_paper[description]
+        - work_paper[paper_type]
+
+### create workpaper media
+    curl -F 'media_resource[avatar]=@uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[work_paper_id]=2'  'http://127.0.0.1:3000/api/v1/home_works/1/media_resources'
+    
+    - action: POST
+    - params: work_paper_id # home_works/1
+    - media_resource[avatar]=file
+    - media_resource[description]
 
 ### get student's homeworks
 
@@ -179,7 +198,7 @@
 
 ### create homework
 
-    curl -X POST -d 'home_work[title]=test&media_avatars=' http://127.0.0.1:3000/api/v1/students/3/home_works
+    curl -X POST -d 'home_work[title]=test&home_work[work_paper_id]=&home_work[description]' http://127.0.0.1:3000/api/v1/students/3/home_works
     
     - action: post
     - params:
@@ -191,7 +210,7 @@
     {"home_work":{"id":3,"title":"test","description":null,"student_id":3,"work_paper_id":null,"created_at":"2015-03-02T11:23:40.272Z","updated_at":"2015-03-02T11:23:40.272Z","state":null}}%   
 
 ### create homework media
-    curl -F 'media_resource[avatar]=@uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[work_paper_id]=2'  'http://127.0.0.1:3000/api/v1/home_works/1/media_resources'
+    curl -F 'media_resource[avatar]=@uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[home_work_id]=2'  'http://127.0.0.1:3000/api/v1/home_works/1/media_resources'
     
     - action: POST
     - params: home_work_id # home_works/1
