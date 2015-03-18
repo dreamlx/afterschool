@@ -25,7 +25,7 @@ class Api::V1::BaseController < ApplicationController
         end
         json.teacher do
           unless home_work.work_paper.nil?
-            json.avatar   home_work.work_paper.teacher.profile.nil? ? '' :home_work.work_paper.teacher.profile.avatar
+            json.avatar   home_work.work_paper.teacher.profile.nil? ? '' :home_work.work_paper.teacher.profile.avatar.url
             json.teacher  home_work.work_paper.teacher.nickname
           end
         end
@@ -57,7 +57,7 @@ class Api::V1::BaseController < ApplicationController
         end
         json.teacher do
           unless home_work.work_paper.nil?
-            json.avatar   home_work.work_paper.teacher.profile.nil? ? '' :home_work.work_paper.teacher.profile.avatar
+            json.avatar   home_work.work_paper.teacher.profile.nil? ? '' :home_work.work_paper.teacher.profile.avatar.url
             json.teacher home_work.work_paper.teacher.nickname
           end
         end

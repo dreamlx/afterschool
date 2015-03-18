@@ -10,7 +10,7 @@
           <a class="navbar-brand" href="#"> 西外</a>
         </div>
 		<div id="navbar" class="collapse navbar-collapse ">
-          	<ul class="nav navbar-nav pull-right">
+          	<ul class="nav navbar-nav pull-right" style='color:white;'>
 			<% if signed_in? %>
 				<li><%= link_to 'Sign out', destroy_user_session_path, method: :delete%></li>
 				<% if can? :update, @user %>
