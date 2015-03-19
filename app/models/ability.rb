@@ -11,7 +11,7 @@ class Ability
     end
 
     if user.role? :teacher
-        can :update, ClassPaper
+        can :manager, :all
     else
         can :read, :all 
     end

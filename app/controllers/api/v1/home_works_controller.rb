@@ -60,4 +60,11 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
   def home_work_params
     params.require(:home_work).permit(:title, :description, :paper_type, :media_avatars, :work_paper_id, :student_id)
   end
+
+  controller do  
+    def scoped_collection
+      WorkPaper.all
+      WorkPaper.where(teacher_id: current_user.id) if current_user.role == 'teacher'
+    end
+  end
 end

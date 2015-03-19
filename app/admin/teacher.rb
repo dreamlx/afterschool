@@ -14,12 +14,15 @@ ActiveAdmin.register Teacher do
   #   permitted
   # end
 
-  permit_params :email, :password, :password_confirmation, :nickname, :phone, :avatar
+  permit_params :email, :password, :password_confirmation, :nickname, :phone, :avatar, :school_classes, :school_class_ids
 
   filter :email
   filter :nickname
   
+  scope_to Proc.new { Teacher.my_account(current_user.id) if current_user.role == 'teacher' }
+
   index do 
+    column    :role
     column   :email
     column   :nickname
     column   :avatar do |v|
@@ -69,7 +72,32 @@ ActiveAdmin.register Teacher do
       f.input   :password_confirmation
       
     end
-
+    f.inputs 'Class' do
+      f.input :school_classes, as: :check_boxes
+    end
     f.actions
   end
+
+  controller do
+    def update
+      ids = params['teacher']['school_class_ids']
+      wk = Teacher.find(params[:id])
+      wk.class_teachers.destroy_all
+      
+      ids.each do |ii|        
+        wk.class_teachers.create!(school_class_id: ii) unless ii.blank?
+        wk.save
+      end
+              
+      teacher = params["teacher"]
+      update!
+    end
+
+    def scoped_collection
+      Teacher.all
+      Teacher.where(id: current_user.id) if current_user.role == 'teacher'
+    end
+  end
+
+
 end
