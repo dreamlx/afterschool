@@ -13,11 +13,10 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: afterschool_pro
+  database: afterschool_dev
   pool: 5
-  host: dreamlinx.mysql.rds.aliyuncs.com
-  username: after
-  password: after2015
+  username: root
+  password: 
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
