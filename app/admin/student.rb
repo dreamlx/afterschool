@@ -84,9 +84,9 @@ ActiveAdmin.register Student do
   end
 
   controller do
-    def scoped_collection
-      Student.all
-      current_user.students if current_user.role == 'teacher'
-    end
+    # def scoped_collection
+    #   Student.all
+    #   current_user.students if current_user.role == 'teacher'
+    # end
   end
 end
