@@ -80,11 +80,10 @@ ActiveAdmin.register HomeWork do
     end
 
     panel t('MediaResource') do
-      table_for(home_work.media_resources) do |m|
-        m.column  :id
-        m.column "url" do |f|
-          link_to f.avatar.url, f.avatar.url, target: '_blank' unless f.avatar.nil?
-        end
+      table_for(home_work.media_resources) do |media|
+        media.column  :id
+        media.column  :avatar
+        media.column  :content_type
       end
     end
 

@@ -174,7 +174,7 @@
         - work_paper[paper_type]
 
 ### create workpaper media
-    curl -F 'media_resource[avatar]=@uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[work_paper_id]=2'  'http://127.0.0.1:3000/api/v1/home_works/1/media_resources'
+    curl -F 'media_resource[avatar]=@uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[work_paper_id]=2'  'http://127.0.0.1:3000/api/v1/work_papers/1/media_resources'
     
     - action: POST
     - params: work_paper_id # home_works/1
