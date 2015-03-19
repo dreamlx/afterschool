@@ -88,10 +88,10 @@ ActiveAdmin.register WorkPaper do
       update!
     end
 
-    def scoped_collection
-      WorkPaper.all
-      WorkPaper.where(teacher_id: current_user.id) if current_user.role == 'teacher'
-    end
+    # def scoped_collection
+    #   work_papers = WorkPaper.all
+    #   work_papers = WorkPaper.where("teacher_id = #{current_user.id}") if current_user.role == 'teacher'
+    # end
   end
 
 end 

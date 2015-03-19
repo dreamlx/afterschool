@@ -111,19 +111,19 @@ ActiveAdmin.register HomeWork do
     end
   end
 
-  controller do
+  # controller do
     
-    def scoped_collection
-      @home_works = HomeWork.all
-      if current_user.role == 'teacher'
-        @home_works = HomeWork.where('1=2')
-        Teacher.find(current_user.id).work_papers.each do |wp|
-          wp.home_works.each do |hw|
-            @home_works << hw
-          end
-        end
-      end
-      return @home_works
-    end
-  end
+  #   def scoped_collection
+  #     @home_works = HomeWork.all
+  #     if current_user.role == 'teacher'
+  #       @home_works = HomeWork.where('1=2')
+  #       Teacher.find(current_user.id).work_papers.each do |wp|
+  #         wp.home_works.each do |hw|
+  #           @home_works << hw
+  #         end
+  #       end
+  #     end
+  #     return @home_works
+  #   end
+  # end
 end
