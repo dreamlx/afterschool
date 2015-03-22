@@ -10,7 +10,15 @@ class Api::V1::TeachersController < Api::V1::BaseController
   # 查看他人的
   def show
     @teacher = Teacher.find(params[:id])
-    render json: { teacher: @teacher }, status: 200  
+    if @teacher
+      render json: { 
+        student: @teacher, 
+        profile: @teacher.profile, 
+        school_classes: @teacher.school_classes
+      }, status: 200 
+    else
+      render json: { error: { message: 'No found' } }, status: 400
+    end 
   end
 
   def create

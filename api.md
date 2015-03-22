@@ -9,6 +9,8 @@
     在linux或者osx 下，在命令行窗口直接 copy 下面内容到窗口执行即可
 
 #### change log
+-2015-03-21
+    update teacher api
 - 2015-03-17
     work pager 
 - 2015-03-05
@@ -73,7 +75,49 @@
         {"success":true}%                 
 
 ## User profile
-### get student info 获取用户基本信息
+
+## Teacher 老师
+### Teacher get info 获取老师基本信息
+
+curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/teachers/1
+    
+    - action: get
+    - params: id # 注意url用法，restful中记录id是直接以 /:id存在的 teachers/1
+    
+### update teacher password 更改老师名密码
+    
+    curl -H "Accept:application/json" -X PUT  http://127.0.0.1:3000/api/v1/teachers/3?teacher[email]=test5@gmail.com&teacher[password]=11111111&teacher[password_confirmation]=11111112
+
+    - action: PUT
+    - params:
+        - id  #students/3 这里的id 就是3
+        - teacher[password]= string
+        - teacher[password_confirmation]=string
+    - reponse
+
+### update teacher profile 更新用户资料
+    curl -H "Accept:application/json" -X PUT  'http://114.215.125.31/api/v1/teachers/3/profile?profile[address]=adsfad&profile[birthday]=2014-11-1'
+
+    - action: put
+    - params:
+        - profile[address]= string
+        - profile[postalcode]= string
+        - profile[birthday]= yyyy-mm-dd
+        - profile[gender]= female|male
+
+
+### update avatar 更新老师头像
+    curl -F 'filename=@uploads/media_resource/avatar/1/IMG_0309.JPG' 'http://127.0.0.1:3000/api/v1/teachers/1/profile/replace_avatar'
+    # 如果使用了-F参数，curl就会以 multipart/form-data 的方式发送POST请求。-F参数以name=value的方式来指定参数内容，如果值是一个文件，则需要以name=@file的方式来指定。
+
+    - action: post
+    - params:
+        - user_id # teachers/1
+        - filename= image data # multipart/form-data
+    - response
+
+## Student 学生
+### get student info 获取学生基本信息
 
     curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/students/1
     
@@ -83,7 +127,7 @@
         # 
         {"student":{"id":3,"nickname":"test2","phone":null,"created_at":"2015-02-20T14:43:13.000Z","updated_at":"2015-02-20T14:51:27.000Z","email":"test3@gmail.com","authentication_token":"yyLyks2giDifPxxuxsVw","school_class_id":null},"profile":{"user_id":3,"avatar":{"url":null},"id":2,"address":null,"birthday":null,"gender":null,"student_number":null,"created_at":"2015-02-20T14:51:27.000Z","updated_at":"2015-02-20T14:51:27.000Z"},"school_class":{"id":4,"class_no":"22222","created_at":"2015-02-20T16:24:40.000Z","updated_at":"2015-02-20T16:24:40.000Z"}}%        
 
-### update student password 更改用户名密码
+### update student password 更改学生名密码
     
     curl -H "Accept:application/json" -X PUT  http://127.0.0.1:3000/api/v1/students/3?student[email]=test5@gmail.com&student[password]=11111111&student[password_confirmation]=11111112
 
