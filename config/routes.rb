@@ -38,6 +38,8 @@ Rails.application.routes.draw do
       resources :user_tokens
       resources :school_classes do
         resources :work_papers, shallow: true
+        resources :students
+        resources :teachers
       end
     end
   end

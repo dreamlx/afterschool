@@ -3,8 +3,19 @@ class Api::V1::TeachersController < Api::V1::BaseController
   respond_to :json
 
   def index
-    @teachers = Teacher.paginate(:page => params[:page], :per_page => 12)
-    render json: { teachers: @teachers }, status: 200
+    teachers = SchoolClass.find(params[:school_class_id]).teachers unless params[:school_class_id].blank?
+    if teachers.nil?
+      @teachers = Teacher.paginate(:page => params[:page], :per_page => 100) 
+    else
+      @teachers = teachers.paginate(:page => params[:page], :per_page => 100)
+    end    
+  
+    render json: { 
+      :students => @teachers, 
+      :current_page => @teachers.current_page,
+      :per_page => @teachers.per_page,
+      :total_entries => @teachers.total_entries
+       }, status: 200
   end
 
   # 查看他人的

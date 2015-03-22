@@ -11,6 +11,7 @@
 #### change log
 -2015-03-21
     update teacher api
+    support page
 - 2015-03-17
     work pager 
 - 2015-03-05
@@ -44,6 +45,8 @@
     curl http://127.0.0.1:3000/api/v1/teachers/4/work_reviews
 
     - action: get
+    - params: 
+        page=1
     - reponse:
         {"work_reviews":[]}% 
 
@@ -175,11 +178,18 @@ curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/teachers/1
         #
         {"school_classes":[{"id":1,"class_no":"2015","created_at":"2015-02-20T02:38:59.000Z","updated_at":"2015-02-20T02:38:59.000Z"}]}
 
-## get class 获取班级基本信息：老师，学生，作业(TODO)
+### get class 获取班级基本信息：老师，学生，作业(TODO)
     curl -H "Accept:application/json" http://127.0.0.1:3000/api/v1/school_classes/1
 
     - action: get
     - params: id
+
+### get teachers of class
+
+    curl -H "Accept:application/json" http://127.0.0.1:3000/api/v1/school_classes/1/teachers
+
+### get students of class
+    curl -H "Accept:application/json" http://127.0.0.1:3000/api/v1/school_classes/1/students
 
 ## WorkPaper 老师发布的作业， HomeWork 学生的作业
 ### get work_papers 获取我的作业list（学生）,list 不包括作业详细的多媒体资源路径
@@ -205,7 +215,9 @@ curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/teachers/1
 ### get homework of work_paper and student 
     curl http://127.0.0.1:3000/api/v1/home_works?student_id=1&work_paper_id=1
 
-    get
+    - action:get
+    - params
+        page=1
     
 ### create work_paper 创建作业  
     curl -X POST -d 'work_paper[title]=test&work_paper[description]=111111&work_paper[paper_type]=' http://127.0.0.1:3000/api/v1/teachers/3/work_papers
@@ -233,7 +245,9 @@ curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/teachers/1
 ### get homeworks of WorkPaper
     
     /api/v1/work_papers/:id/home_works
-    get
+    action: get
+    params: 
+        page=1
 
 ### get homework detail(include comments)
     

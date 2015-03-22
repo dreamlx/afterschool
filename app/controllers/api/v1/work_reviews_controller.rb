@@ -3,9 +3,13 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
 
   def index
   	teacher_id = params[:teacher_id]
-  	@work_reviews = []
-  	@work_reviews = Teacher.find(teacher_id).work_reviews unless teacher_id.nil?
-  	@work_reviews = WorkReview.all unless @work_reviews.blank?
+  	work_reviews = Teacher.find(teacher_id).work_reviews unless teacher_id.nil?
+  	
+    if work_reviews.nil?
+      @work_reviews = WorkReview.paginate(:page => params[:page], :per_page => 100)
+    else
+      @work_reviews = work_reviews.paginate(:page => params[:page], :per_page => 100)
+    end
   
   	render json: {work_reviews: @work_reviews}	
   end

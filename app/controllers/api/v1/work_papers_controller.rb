@@ -4,8 +4,7 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
   # before_action :verify_teacher, only: [:create, :update, :destroy]
 
   def index
-    work_papers = []
-    
+
     unless params[:student_id].blank?
       work_papers = Student.find(params[:student_id]).work_papers
     end
@@ -14,8 +13,11 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
       work_papers = Teacher.find(params[:teacher_id]).work_papers
     end    
 
-    work_papers = WorkPaper.all unless work_papers.nil?
-    @work_papers = work_papers.paginate(:page => params[:page], :per_page => 12)
+    if work_papers.nil?
+      @work_papers = WorkPaper.paginate(:page => params[:page], :per_page => 100)
+    else
+      @work_papers = work_papers.paginate(:page => params[:page], :per_page => 100)
+    end
 
     render json:  format_papers(@work_papers, params[:student_id]) , status: 200
   end

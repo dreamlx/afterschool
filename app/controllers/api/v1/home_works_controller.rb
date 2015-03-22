@@ -2,20 +2,25 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
   respond_to :json
 
   def index
-    @home_works = HomeWork.all
+    
   	if params[:student_id] and params[:work_paper_id]
-      @home_works = HomeWork.where( student_id: params[:student_id], work_paper_id: params[:work_paper_id])
+      home_works = HomeWork.where( student_id: params[:student_id], work_paper_id: params[:work_paper_id])
     
     else
       unless params[:student_id].blank?
-        @home_works = Student.find(params[:student_id]).home_works 
+        home_works = Student.find(params[:student_id]).home_works 
       end
       
       unless params[:work_paper_id].blank?
-        @home_works = WorkPaper.find(params[:work_paper_id]).home_works 
+        home_works = WorkPaper.find(params[:work_paper_id]).home_works 
       end     
     end
-
+    if home_works.nil?
+      @home_works = HomeWork.paginate(:page => params[:page], :per_page => 100) 
+    else
+      @home_works = home_works.paginate(:page => params[:page], :per_page => 100) 
+    end
+    
   	render json: format_homeworks(@home_works)
   end
 

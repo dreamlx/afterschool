@@ -7,8 +7,19 @@ class Api::V1::StudentsController < Api::V1::BaseController
   end
 
   def index 
-    @students = Student.paginate(:page => params[:page], :per_page => 12)
-    render json: { students: @students }, status: 200
+    students = SchoolClass.find(params[:school_class_id]).students unless params[:school_class_id].blank?
+    if students.nil?
+      @students = Student.paginate(:page => params[:page], :per_page => 100) 
+    else
+      @students = students.paginate(:page => params[:page], :per_page => 100)
+    end    
+  
+    render json: { 
+      :students => @students, 
+      :current_page => @students.current_page,
+      :per_page => @students.per_page,
+      :total_entries => @students.total_entries
+      }, status: 200
   end
 
   def show
