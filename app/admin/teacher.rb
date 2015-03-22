@@ -93,10 +93,10 @@ ActiveAdmin.register Teacher do
       update!
     end
 
-    def scoped_collection
-      Teacher.all
-      Teacher.where(id: current_user.id) if current_user.role == 'teacher'
-    end
+    # def scoped_collection
+    #   Teacher.all
+    #   Teacher.where(id: current_user.id) if current_user.role == 'teacher'
+    # end
   end
 
 
