@@ -6,9 +6,9 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
   	work_reviews = Teacher.find(teacher_id).work_reviews unless teacher_id.nil?
   	
     if work_reviews.nil?
-      @work_reviews = WorkReview.paginate(:page => params[:page], :per_page => 100)
+      @work_reviews = WorkReview.paginate(:page => params[:page], :per_page => 12)
     else
-      @work_reviews = work_reviews.paginate(:page => params[:page], :per_page => 100)
+      @work_reviews = work_reviews.paginate(:page => params[:page], :per_page => 12)
     end
   
   	render json: {work_reviews: @work_reviews}	

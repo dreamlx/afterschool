@@ -5,9 +5,9 @@ class Api::V1::TeachersController < Api::V1::BaseController
   def index
     teachers = SchoolClass.find(params[:school_class_id]).teachers unless params[:school_class_id].blank?
     if teachers.nil?
-      @teachers = Teacher.paginate(:page => params[:page], :per_page => 100) 
+      @teachers = Teacher.paginate(:page => params[:page], :per_page => 12) 
     else
-      @teachers = teachers.paginate(:page => params[:page], :per_page => 100)
+      @teachers = teachers.paginate(:page => params[:page], :per_page => 12)
     end    
   
     render json: { 

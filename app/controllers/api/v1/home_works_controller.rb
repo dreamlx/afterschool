@@ -16,9 +16,9 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
       end     
     end
     if home_works.nil?
-      @home_works = HomeWork.order(:updated_at => :desc).paginate(:page => params[:page], :per_page => 100) 
+      @home_works = HomeWork.order(:updated_at => :desc).paginate(:page => params[:page], :per_page => 12) 
     else
-      @home_works = home_works.order(:updated_at => :desc).paginate(:page => params[:page], :per_page => 100) 
+      @home_works = home_works.order(:updated_at => :desc).paginate(:page => params[:page], :per_page => 12) 
     end
     
   	render json: format_homeworks(@home_works)
