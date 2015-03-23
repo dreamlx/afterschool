@@ -31,7 +31,7 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
 
 # 可能由于临时文件的问题 这个要修改
   def create
-    @work_paper = @teacher.work_papers.build(work_paper_params)
+    @work_paper = Teacher.find(params[:teacher_id]).work_papers.build(work_paper_params)
     if @work_paper
       # params[:media_avatars].each do |media_avatar|
       #   _description = media_avatar[:description] if media_avatar[:description]
