@@ -87,7 +87,7 @@ ActiveAdmin.register HomeWork do
             image_tag m.avatar.url
           elsif m.content_type =~ /video/
             video_tag m.avatar.url
-          elsif m.content_type =~ /sound/
+          elsif m.content_type =~ /audio/
             audio_tag m.avatar.url 
           else
             m.avatar.url

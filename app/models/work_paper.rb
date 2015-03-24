@@ -8,6 +8,14 @@ class WorkPaper < ActiveRecord::Base
   has_many :class_papers
   has_many :school_classes, through: :class_papers
 
+  after_save {|record| 
+    senduser = Teacher.find(self.teacher_id)
+    self.school_classes.each do |sc|
+      sc.students.each do |student|
+        senduser.send_message(Student.find(student), self.title, "#{senduser.nickname}发布了作业: [work_paper_id: #{self.id}] #{self.title}")
+      end
+    end
+  }
 
   def home_work_state(sid)
   	state = 'none'
@@ -17,7 +25,6 @@ class WorkPaper < ActiveRecord::Base
 
   	return state
   end
-
 end
 
 

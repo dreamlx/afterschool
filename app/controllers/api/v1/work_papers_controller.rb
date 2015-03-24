@@ -2,9 +2,8 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
   respond_to :json
 
   # before_action :verify_teacher, only: [:create, :update, :destroy]
-
+  
   def index
-
     unless params[:student_id].blank?
       work_papers = Student.find(params[:student_id]).work_papers
     end

@@ -26,12 +26,14 @@ Rails.application.routes.draw do
         resources :work_reviews
         resource :profile
         resources :work_papers, shallow: true
+        resources :user_messages
       end
       
       resources :students do
         resource :profile
         resources :work_papers, shallow: true
         resources :home_works, shallow: true
+        resources :user_messages
       end
       
       
