@@ -83,7 +83,7 @@ ActiveAdmin.register HomeWork do
     panel t('MediaResource') do
       table_for(home_work.media_resources) do |media|
         media.column  :id do |m|
-          link_to :id, admin_media_resource_path(:id)
+          link_to m.id, admin_media_resource_path(m.id)
         end
         media.column  :avatar do |m|
           if m.content_type =~ /image/
