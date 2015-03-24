@@ -51,6 +51,7 @@ ActiveAdmin.register HomeWork do
       f.has_many :media_resources, :allow_destroy => true, :new_record => true do |mr|
 
         mr.input :avatar, as: :file, :hint => (mr.object.avatar.url unless mr.object.avatar.url.blank?)
+        mr.input :content_type
         mr.input :description
       end
     end
@@ -84,11 +85,11 @@ ActiveAdmin.register HomeWork do
         #media.column  :id
         media.column  :avatar do |m|
           if m.content_type =~ /image/
-            image_tag m.avatar.url
+            image_tag m.avatar.url, width: '100%'
           elsif m.content_type =~ /video/
-            video_tag m.avatar.url
+            video_tag m.avatar.url, controls: true, width: '100%'
           elsif m.content_type =~ /audio/
-            audio_tag m.avatar.url 
+            audio_tag m.avatar.url, controls: true, width: '100%'
           else
             m.avatar.url
           end
