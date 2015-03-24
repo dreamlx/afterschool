@@ -90,7 +90,7 @@ ActiveAdmin.register HomeWork do
             image_tag m.avatar.url, width: '100%'
           elsif m.content_type =~ /video/
             video_tag m.avatar.url, controls: true, width: '100%'
-          elsif m.content_type =~ /audio/
+          elsif m.content_type =~ /audio/ or m.content_type =~ /sound/
             audio_tag m.avatar.url, controls: true, width: '100%'
           else
             m.avatar.url
