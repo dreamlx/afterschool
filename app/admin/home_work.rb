@@ -81,9 +81,19 @@ ActiveAdmin.register HomeWork do
 
     panel t('MediaResource') do
       table_for(home_work.media_resources) do |media|
-        media.column  :id
-        media.column  :avatar
-        media.column  :content_type
+        #media.column  :id
+        media.column  :avatar do |m|
+          if m.content_type =~ /image/
+            image_tag m.avatar.url
+          elsif m.content_type =~ /video/
+            video_tag m.avatar.url
+          elsif m.content_type =~ /sound/
+            audio_tag m.avatar.url 
+          else
+            m.avatar.url
+          end
+        end
+        #media.column  :content_type
       end
     end
 

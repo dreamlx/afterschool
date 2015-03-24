@@ -74,6 +74,16 @@ ActiveAdmin.register WorkPaper do
   end
 
   controller do
+    def create
+      #@work_paper = WorkPaper.new(params[:work_paper])
+
+      create!
+      ids = params['work_paper']['school_class_ids']
+      ids.each do |ii|
+        sc = @work_paper.class_papers.create!(school_class_id: ii)
+      end
+    end
+
     def update
       ids = params['work_paper']['school_class_ids']
       wk = WorkPaper.find(params[:id])
