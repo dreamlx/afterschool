@@ -12,7 +12,8 @@ class WorkPaper < ActiveRecord::Base
     senduser = Teacher.find(self.teacher_id)
     self.school_classes.each do |sc|
       sc.students.each do |student|
-        senduser.send_message(Student.find(student), self.title, "#{senduser.nickname}发布了作业: [work_paper_id: #{self.id}] #{self.title}")
+        message_body = "#{senduser.nickname}发布了作业: #{self.title} [work_paper_id: #{self.id}] "
+        senduser.send_message(Student.find(student), self.title, message_body, 'work_paper' )
       end
     end
   }

@@ -281,3 +281,36 @@ curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/teachers/1
 
     curl -X DELETE http://127.0.0.1:3000/api/v1/home_works/1
     - action: DELETE
+
+## Message 消息
+### 获取用户消息
+    teacher
+    curl http://127.0.0.1:3000/api/v1/tachers/3/user_messages?page=1
+
+    student
+    curl http://127.0.0.1:3000/api/v1/students/4/user_messages?page=1
+
+    action: get
+
+    字段解释： received_messagable_id 收到消息的user id（老师或者学生都是user的继承类）
+    send_messagable_id 发出消息的user id
+
+### 发消息给个人
+
+    curl -X POST -d 'received_user_id=1&topic=hi&body=teststestsest' http://127.0.0.1:3000/api/v1/teachers/3/user_messages/send_message_to_person
+
+    action: post
+    params:
+        received_user_id
+        topic
+        body
+
+### 发消息到班级
+    curl -X POST -d 'school_class_id=1&topic=hi&body=teststestsest' http://127.0.0.1:3000/api/v1/teachers/3/user_messages/send_message_to_class
+
+    action: post
+    params:
+        school_class_id
+        topic
+        body        
+
