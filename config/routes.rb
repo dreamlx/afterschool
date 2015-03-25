@@ -26,10 +26,14 @@ Rails.application.routes.draw do
         resources :work_reviews
         resource :profile
         resources :work_papers, shallow: true
-        resources :user_messages do
+        member do
           post 'send_message_to_person'
           post 'send_message_to_class'
         end
+        # resources :user_messages do
+        #   post 'send_message_to_person'
+        #   post 'send_message_to_class'
+        # end
       end
       
       resources :students do
