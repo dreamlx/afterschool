@@ -9,6 +9,8 @@
     在linux或者osx 下，在命令行窗口直接 copy 下面内容到窗口执行即可
 
 #### change log
+-2015-03-25
+    update message api
 -2015-03-21
     update teacher api
     support page
