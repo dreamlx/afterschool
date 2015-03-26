@@ -1,6 +1,12 @@
 class Api::V1::UserMessagesController < Api::V1::BaseController
   respond_to :json
   def index
+    @user_messages = Teacher.find(params[:teacher_id]).received_messages.paginate(:page => params[:page], :per_page => 12)  unless params[:teacher_id].blank?
+    @user_messages = Student.find(params[:student_id]).received_messages.paginate(:page => params[:page], :per_page => 12)  unless params[:student_id].blank?
+    render json: { user_messages: @user_messages }
+  end
+
+  def user_messages
   	@user_messages = Teacher.find(params[:teacher_id]).received_messages.paginate(:page => params[:page], :per_page => 12)  unless params[:teacher_id].blank?
   	@user_messages = Student.find(params[:student_id]).received_messages.paginate(:page => params[:page], :per_page => 12)  unless params[:student_id].blank?
   	render json: { user_messages: @user_messages }

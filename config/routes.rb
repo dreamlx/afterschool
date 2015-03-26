@@ -29,6 +29,7 @@ Rails.application.routes.draw do
         member do
           post 'send_message_to_person'
           post 'send_message_to_class'
+          get 'user_messages'
         end
       end
       
@@ -39,6 +40,7 @@ Rails.application.routes.draw do
         member do
           post 'send_message_to_person'
           post 'send_message_to_class'
+          get 'user_messages'
         end
       end
       
