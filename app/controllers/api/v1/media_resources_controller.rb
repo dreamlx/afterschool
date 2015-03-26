@@ -43,7 +43,7 @@ class Api::V1::MediaResourcesController < Api::V1::BaseController
   private
 
   def media_resource_params
-    the_params = params.require(:media_resource).permit(:description, :avatar, :work_paper_id)
+    the_params = params.require(:media_resource).permit(:description, :avatar)
     return the_params
   end
 end

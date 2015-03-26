@@ -232,7 +232,7 @@ curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/teachers/1
         - work_paper[paper_type]
 
 ### create workpaper media
-    curl -F 'media_resource[avatar]=@uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[work_paper_id]=2'  'http://127.0.0.1:3000/api/v1/work_papers/1/media_resources'
+    curl -F 'media_resource[avatar]=@public/uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[work_paper_id]=2'  'http://127.0.0.1:3000/api/v1/work_papers/1/media_resources'
     
     - action: POST
     - params: work_paper_id # home_works/1
@@ -270,7 +270,7 @@ curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/teachers/1
     {"home_work":{"id":3,"title":"test","description":null,"student_id":3,"work_paper_id":null,"created_at":"2015-03-02T11:23:40.272Z","updated_at":"2015-03-02T11:23:40.272Z","state":null}}%   
 
 ### create homework media
-    curl -F 'media_resource[avatar]=@uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[home_work_id]=2'  'http://127.0.0.1:3000/api/v1/home_works/1/media_resources'
+    curl -F 'media_resource[avatar]=@public/uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[home_work_id]=2'  'http://127.0.0.1:3000/api/v1/home_works/1/media_resources'
     
     - action: POST
     - params: home_work_id # home_works/1
