@@ -10,7 +10,11 @@ Rails.application.routes.draw do
       get 'work_papers', to: 'work_papers#index'
       get 'work_papers/:id/home_works', to: 'home_works#index'
 
-  
+      resources :work_papers do
+        resources :media_resources
+        resource :work_review
+      end
+
       resources :home_works do
         resources :media_resources
         resource :work_review
