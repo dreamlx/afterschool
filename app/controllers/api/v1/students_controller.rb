@@ -1,4 +1,4 @@
-class Api::V1::StudentsController < Api::V1::BaseController
+class Api::V1::StudentsController < Api::V1::UserMessagesController
 
   respond_to :json
 
@@ -61,26 +61,6 @@ class Api::V1::StudentsController < Api::V1::BaseController
   def destroy
 
   end
-
-  def send_message_to_person
-    senduser = User.find(params[:id]) 
-    received_user = User.find(params[:received_user_id])
-    message = senduser.send_message(received_user, params[:topic], params[:body], 'user_message')
-    render json: {message: message }, status: 200
-  end
-
-  def send_message_to_class
-    senduser = User.find(params[:id]) 
-    sc = SchoolClass.find(params[:school_class_id])
-    unless sc.nil?
-      sc.students.each do |received_user|
-        message = senduser.send_message(received_user, params[:topic], params[:body], 'user_message')
-      end
-    end
-    render json: {message: message }, status: 200
-  end
-
-
 
   private
 
