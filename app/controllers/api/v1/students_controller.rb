@@ -9,9 +9,9 @@ class Api::V1::StudentsController < Api::V1::UserMessagesController
   def index 
     students = SchoolClass.find(params[:school_class_id]).students unless params[:school_class_id].blank?
     if students.nil?
-      @students = Student.paginate(:page => params[:page], :per_page => 12) 
+      @students = Student.paginate(:page => params[:page], :per_page => 60) 
     else
-      @students = students.paginate(:page => params[:page], :per_page => 12)
+      @students = students.paginate(:page => params[:page], :per_page => 60)
     end    
   
     render json: { 

@@ -82,9 +82,21 @@
 ## User profile
 
 ## Teacher 老师
+### get all teachers
+
+    curl -H "Accept:application/json" -X GET "http://127.0.0.1:3000/api/v1/teachers?page=1"
+
+    - action: get
+    - params:
+        page=:id
+
+    - response:
+        {"teachers":[{"id":4,"nickname":"teacher1","phone":null,"created_at":"2015-02-21T01:29:48.000Z","updated_at":"2015-03-19T02:55:26.000Z","email":"t1@test.com","authentication_token":"XC5yni3VKeyzersrFQte","school_class_id":null,"role":"teacher"},{"id":7,"nickname":"t2@test.com","phone":null,"created_at":"2015-03-19T02:55:11.000Z","updated_at":"2015-03-20T01:35:50.000Z","email":"t2@test.com","authentication_token":"oRwRb1w_hPc9Dnk7Vqxu","school_class_id":null,"role":"teacher"}],"current_page":1,"per_page":12,"total_entries":2}                                           
+
+
 ### Teacher get info 获取老师基本信息
 
-curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/teachers/1
+    curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/teachers/1
     
     - action: get
     - params: id # 注意url用法，restful中记录id是直接以 /:id存在的 teachers/1
@@ -188,7 +200,11 @@ curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/teachers/1
 
 ### get teachers of class
 
-    curl -H "Accept:application/json" http://127.0.0.1:3000/api/v1/school_classes/1/teachers
+    curl -H "Accept:application/json" http://127.0.0.1:3000/api/v1/school_classes/1/teachers?page=1
+
+    - action: get
+    - params:
+        page
 
 ### get students of class
     curl -H "Accept:application/json" http://127.0.0.1:3000/api/v1/school_classes/1/students
