@@ -1,6 +1,6 @@
 namespace :afterschool do
 
-  task 'csv-import': :environment do
+  task 'csv-import' => :environment do
     email = 300
 
     CSV.foreach('db/students.csv') do |row|

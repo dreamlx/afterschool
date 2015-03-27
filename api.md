@@ -303,7 +303,7 @@
 ## Message 消息
 ### 获取用户消息
     teacher
-    curl http://127.0.0.1:3000/api/v1/tachers/3/user_messages?page=1
+    curl http://127.0.0.1:3000/api/v1/tachers/3/user_messages?page=1&message_type=any
 
     student
     curl http://127.0.0.1:3000/api/v1/students/4/user_messages?page=1
@@ -315,7 +315,7 @@
 
 ### 发消息给个人
 
-    curl -X POST -d 'received_user_id=1&topic=hi&body=teststestsest' http://127.0.0.1:3000/api/v1/teachers/3/send_message_to_person
+    curl -X POST -d 'message_type=any&received_user_id=1&topic=hi&body=teststestsest' http://127.0.0.1:3000/api/v1/teachers/3/send_message_to_person
 
     action: post
     params:
@@ -324,7 +324,7 @@
         body
 
 ### 发消息到班级
-    curl -X POST -d 'school_class_id=1&topic=hi&body=teststestsest' http://127.0.0.1:3000/api/v1/teachers/3/send_message_to_class
+    curl -X POST -d 'message_type=any&school_class_id=1&topic=hi&body=teststestsest' http://127.0.0.1:3000/api/v1/teachers/3/send_message_to_class
 
     action: post
     params:
