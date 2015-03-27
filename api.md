@@ -82,6 +82,10 @@
 ## User profile
 
 ## Teacher 老师
+### get classes of teacher
+
+    curl -H "Accept:application/json" -X GET "http://127.0.0.1:3000/api/v1/teachers/2/school_classes?page=1"
+
 ### get all teachers
 
     curl -H "Accept:application/json" -X GET "http://127.0.0.1:3000/api/v1/teachers?page=1"
