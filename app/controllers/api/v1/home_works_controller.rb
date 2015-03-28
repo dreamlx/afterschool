@@ -3,7 +3,7 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
 
   def index
     
-  	if params[:student_id] and params[:work_paper_id]
+  	if !params[:student_id].blank? and !params[:work_paper_id].blank?
       home_works = HomeWork.where( student_id: params[:student_id], work_paper_id: params[:work_paper_id])
     
     else
@@ -15,6 +15,7 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
         home_works = WorkPaper.find(params[:work_paper_id]).home_works 
       end     
     end
+
     if home_works.nil?
       @home_works = HomeWork.order(:updated_at => :desc).paginate(:page => params[:page], :per_page => 12) 
     else
