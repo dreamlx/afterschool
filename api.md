@@ -177,7 +177,7 @@
         #
 
 ### update avatar 更新头像
-    curl -F 'filename=@uploads/media_resource/avatar/1/IMG_0309.JPG' 'http://127.0.0.1:3000/api/v1/users/1/profile/replace_avatar'
+    curl -F 'profile[avatar]=@uploads/media_resource/avatar/1/IMG_0309.JPG' 'http://127.0.0.1:3000/api/v1/users/1/profile/replace_avatar'
     # 如果使用了-F参数，curl就会以 multipart/form-data 的方式发送POST请求。-F参数以name=value的方式来指定参数内容，如果值是一个文件，则需要以name=@file的方式来指定。
 
     - action: post
