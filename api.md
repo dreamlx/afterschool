@@ -183,7 +183,7 @@
     - action: post
     - params:
         - user_id # users/1
-        - filename= image data # multipart/form-data
+        - profile[avatar]= image data # multipart/form-data
     - response
         #
         {"profile":{"user_id":1,"id":1,"avatar":{"url":"http://7vzqhr.com1.z0.glb.clouddn.com/uploads%2Fprofile%2Favatar%2F1%2FIMG_0309.JPG"},"address":"adsfad","birthday":"2014-11-01T00:00:00.000Z","gender":"","student_number":"","created_at":"2015-02-20T02:54:41.000Z","updated_at":"2015-02-21T16:02:16.957Z","postalcode":null}}% 
