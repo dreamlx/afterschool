@@ -22,14 +22,13 @@ class Api::V1::TeachersController < Api::V1::UserMessagesController
   def show
     @teacher = Teacher.find(params[:id])
     if @teacher
-      
       if @teacher.profile.nil?
         @teacher.build_profile
         @teacher.save
       end
-      
+
       render json: { 
-        student: @teacher, 
+        teacher: @teacher, 
         profile: @teacher.profile, 
         school_classes: @teacher.school_classes
       }, status: 200 

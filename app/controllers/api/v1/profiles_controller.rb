@@ -12,6 +12,7 @@ class Api::V1::ProfilesController < Api::V1::BaseController
   def update
   	id = params[:user_id] unless params[:user_id].blank?
   	id = params[:student_id] unless params[:student_id].blank?
+    id = params[:teacher_id] unless params[:teacher_id].blank?
   	@profile = User.find(id).profile
 
   	if @profile.update(profile_params)
