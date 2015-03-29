@@ -3,7 +3,10 @@ class Teacher < User
 		self.role = 'teacher'
 		}
 
-  after_create {|record| self.build_profile }
+  after_create {|record| 
+    self.build_profile
+    self.save
+     }
   
   # 老师和作业时一对一的关系
   has_many :work_papers

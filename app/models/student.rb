@@ -3,8 +3,12 @@ class Student < User
 		self.role = 'student'
 		}
 
-  after_create {|record| self.build_profile }
-  
+  after_create {|record| 
+    self.build_profile 
+    self.save
+
+  }
+
   # 学生 # 家长都放在这里 但是还要用role来区分
   belongs_to :school_class
   validates :school_class_id, presence: true
