@@ -6,7 +6,7 @@ ActiveAdmin.register_page "Dashboard" do
     div class: "blank_slate_container" do
       span class: "blank_slate" do
         h3 do
-            "测试中1，有问题请向email:dreamlinx@gmail.com 报告"
+            "测试中,3-30，有问题请向email:dreamlinx@gmail.com 报告"
         end
         ul do
             ol do 
