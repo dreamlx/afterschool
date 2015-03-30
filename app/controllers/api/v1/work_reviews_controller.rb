@@ -22,12 +22,21 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
   end
 
   def create
-  	@work_review = HomeWork.find(params[:home_work_id]).build_work_review(work_review_params)
-  	if @work_review.save
-  		render json: {work_review: @work_review}
-  	else
-  		render json: {message: @work_review.errors}, status: 400, message: '更新失败，请联系管理员'
-  	end
+    begin
+      work = HomeWork.find(params[:home_work_id])
+    	@work_review = work.build_work_review(work_review_params)
+    	if @work_review.save!
+        work.state = 'complete'
+        work.save!
+    		render json: {work_review: @work_review}
+    	else
+    		render json: {message: @work_review.errors}, status: 400, message: '更新失败，请联系管理员'
+    	end
+    rescue ActiveRecord::RecordNotFound => e
+      render json: { error: { message: 'No found' } }, status: 400
+    end
+
+
   end
 
   def destroy
