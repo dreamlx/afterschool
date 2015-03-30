@@ -23,22 +23,20 @@ class Api::V1::StudentsController < Api::V1::UserMessagesController
   end
 
   def show
-    @student = Student.find(params[:id])
-    if @student
-      
+    begin
+      @student = Student.find(params[:id])
       if @student.profile.nil?
         @student.build_profile
         @student.save
       end
-
       render json: { 
         student: @student, 
         profile: @student.profile, 
         school_class: @student.school_class
       }, status: 200 
-    else
+    rescue ActiveRecord::RecordNotFound => e
       render json: { error: { message: 'No found' } }, status: 400
-    end 
+    end
   end
 
   def create
