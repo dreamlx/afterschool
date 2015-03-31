@@ -56,6 +56,8 @@ Rails.application.routes.draw do
         resources :students
         resources :teachers
       end
+
+      resources :user_messages, only: [:index, :show]
     end
   end
 
