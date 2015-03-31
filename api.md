@@ -305,6 +305,10 @@
     - action: DELETE
 
 ## Message 消息
+### 获取用户消息详情
+
+    curl http://127.0.0.1:3000/api/v1/user_messages/3
+
 ### 获取用户消息
     teacher
     curl http://127.0.0.1:3000/api/v1/tachers/3/user_messages?page=1&message_type=any
@@ -313,6 +317,8 @@
     curl http://127.0.0.1:3000/api/v1/students/4/user_messages?page=1
 
     action: get
+
+    无置顶：message_type=NOTOP
 
     字段解释： received_messagable_id 收到消息的user id（老师或者学生都是user的继承类）
     send_messagable_id 发出消息的user id
