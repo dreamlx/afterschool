@@ -1,11 +1,11 @@
-class CreatePosts < ActiveRecord::Migration
+class ModifyPost < ActiveRecord::Migration
   def change
     create_table :posts, force: true do |t|
       t.string :title
       t.text :body
-      t.integer :user_id
+      t.references :user, index: true
 
-      t.datetime :created_at
+      t.timestamps null: false
     end
   end
 end
