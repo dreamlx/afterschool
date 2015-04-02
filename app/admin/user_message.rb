@@ -3,6 +3,7 @@ ActiveAdmin.register UserMessage do
   permit_params :topic, :body, :message_type
 
   index do
+    selectable_column
     column :id 
     column :topic
     column :body
