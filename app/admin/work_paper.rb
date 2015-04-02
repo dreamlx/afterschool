@@ -1,22 +1,6 @@
 ActiveAdmin.register WorkPaper do
 
-
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if resource.something?
-  #   permitted
-  # end
-
-
-  permit_params :title, :teacher_id, :paper_type, :description, :school_classes, :school_class_ids,
-                media_resources_attributes: [:id, :avatar, :_destroy,:description]
+  permit_params :title, :teacher_id, :paper_type, :description, :school_classes, :school_class_ids, media_resources_attributes: [:id, :avatar, :_destroy,:description]
 
   #TODO, 在show页面选择发布的班级
 
@@ -75,12 +59,11 @@ ActiveAdmin.register WorkPaper do
 
   controller do
     def create
-      #@work_paper = WorkPaper.new(params[:work_paper])
-
       create!
       ids = params['work_paper']['school_class_ids']
-      ids.each do |ii|
-        sc = @work_paper.class_papers.create!(school_class_id: ii)
+      
+      ids.each do |id|
+        sc = @work_paper.class_papers.create!(school_class_id: id) if id != ""
       end
     end
 

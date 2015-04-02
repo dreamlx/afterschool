@@ -22,7 +22,11 @@ class MediaUploader < CarrierWave::Uploader::Base
   process :save_content_type_and_size_in_model
 
   def save_content_type_and_size_in_model
+    
     model.content_type = file.content_type if file.content_type
+    if model.content_type =~ /audio/ or model.content_type =~ /sound/
+      model.content_type = 'audio/mp3'
+    end
     model.file_size = file.size
   end
   # Provide a default URL as a default if there hasn't been a file uploaded:

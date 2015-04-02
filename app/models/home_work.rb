@@ -1,4 +1,5 @@
 class HomeWork < ActiveRecord::Base
+
 	before_create {|record| 
 		self.state = 'init'
 		}
@@ -10,13 +11,15 @@ class HomeWork < ActiveRecord::Base
 			self.state = 'complete' unless self.work_review.rate.nil?
 		end
 	}
-	belongs_to :student
-	belongs_to :work_paper
+
+	belongs_to :student, required: true
+	belongs_to :work_paper, required: true
 	delegate :teacher, :to => :work_paper
+
 	has_one :work_review
+	accepts_nested_attributes_for :work_review,  allow_destroy: false
 
 	has_many :media_resources, as: :media_resourceable, dependent: :destroy 
 	accepts_nested_attributes_for :media_resources,  allow_destroy: true
-	accepts_nested_attributes_for :work_review,  allow_destroy: false
 
 end
