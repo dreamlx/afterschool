@@ -16,9 +16,9 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
       end
     end
 
-    if params[:un_review] == 1
+    if params[:review_status] == 'un_review'
       home_works = home_works.un_review 
-    elsif params[:un_review] == 0
+    elsif params[:review_status] == 'reviewed'
       home_works = home_works.reviewed
     end
 

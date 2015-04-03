@@ -267,11 +267,20 @@
 ### get homeworks of WorkPaper
     
     curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/work_papers/56/home_works
-    
+
     action: get
     params:
         work_paper_id=56 #work_papers/56
         page=1
+
+#### get unreview/reivewed homeworks
+    curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/work_papers/54/home_works?review_status=reviewed
+    
+    action： get
+    params：
+        work_paper_id=54 #work_papers/54
+        review_status=reviewed
+        review_status=unreivew
 
 ### get homework detail(include comments)
     
