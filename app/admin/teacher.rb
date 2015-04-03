@@ -19,7 +19,7 @@ ActiveAdmin.register Teacher do
   filter :email
   filter :nickname
   
-  scope_to Proc.new { Teacher.my_account(current_user.id) if current_user.role == 'teacher' }
+  #scope_to Proc.new { Teacher.my_account(current_user.id) if current_user.role == 'teacher' }
 
   index do 
     column    :role
