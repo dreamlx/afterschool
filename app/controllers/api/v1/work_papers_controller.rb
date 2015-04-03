@@ -10,6 +10,10 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
 
     unless params[:teacher_id].blank?
       work_papers = Teacher.find(params[:teacher_id]).work_papers
+    end
+
+    unless params[:school_class_id].blank?
+      work_papers = SchoolClass.find(params[:school_class_id]).work_papers
     end    
 
     if work_papers.nil?
