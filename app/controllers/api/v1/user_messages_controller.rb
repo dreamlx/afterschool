@@ -6,26 +6,21 @@ class Api::V1::UserMessagesController < Api::V1::BaseController
   end
 
   def user_messages
-    my_helper
-  end
-
-  def my_helper
     msg_type = params[:message_type]
     if  msg_type and msg_type.upcase == 'NOTOP'
-      @user_messages = User.find(params[:id])
+      user_messages = User.find(params[:id])
                             .received_messages
                             .where("message_type<>'TOP'")
-                            .paginate(:page => params[:page], :per_page => 12)  
     elsif msg_type
-      @user_messages = User.find(params[:id])
+      user_messages = User.find(params[:id])
                             .received_messages
                             .where("message_type='#{msg_type}'")
-                            .paginate(:page => params[:page], :per_page => 12)  
     else
-      @user_messages = User.find(params[:id])
+      user_messages = User.find(params[:id])
                             .received_messages
-                            .paginate(:page => params[:page], :per_page => 12)  
-    end      
+    end 
+    @user_messages = paged user_messages
+
     render json: { user_messages: @user_messages }
   end    
 
@@ -34,7 +29,7 @@ class Api::V1::UserMessagesController < Api::V1::BaseController
     received_user = User.find(params[:received_user_id])
     msg_type = params[:message_type] || 'user_message'
     message = senduser.send_message(received_user, params[:topic], params[:body], msg_type)
-    render json: {message: message }, status: 200
+    render json: { message: message }
   end
 
   def send_message_to_class
@@ -47,14 +42,14 @@ class Api::V1::UserMessagesController < Api::V1::BaseController
         message = senduser.send_message(received_user, params[:topic], params[:body], msg_type)
       end
     end
-    render json: {message: message }, status: 200
+    render json: { message: message }
   end
 
   def show
     message = UserMessage.find(params[:id])
     render json: { message: message }
   rescue
-    render json: { message: 'not found' }, status: 404
+    render json: { error: { message: 'not found'} }, status: 404
   end
 
 end

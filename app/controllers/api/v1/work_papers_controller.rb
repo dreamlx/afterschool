@@ -13,18 +13,16 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
     end    
 
     if work_papers.nil?
-      @work_papers = WorkPaper.order(:updated_at => :desc).paginate(:page => params[:page], :per_page => 12)
+      work_papers = WorkPaper.order(:updated_at => :desc)
     else
-      @work_papers = work_papers.order(:updated_at => :desc).paginate(:page => params[:page], :per_page => 12)
+      work_papers = work_papers.order(:updated_at => :desc)
     end
-
+    @work_papers = paged work_papers
     render json:  format_papers(@work_papers, params[:student_id]) , status: 200
   end
 
   def show
     @work_paper = WorkPaper.find(params[:id])
-
-    # render json: { work_paper: @work_paper }, status: 200
     render json: format_paper(@work_paper), status: 200
   end
 

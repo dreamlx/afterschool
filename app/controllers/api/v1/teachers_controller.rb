@@ -3,19 +3,21 @@ class Api::V1::TeachersController < Api::V1::UserMessagesController
   respond_to :json
 
   def index
-    teachers = SchoolClass.find(params[:school_class_id]).teachers unless params[:school_class_id].blank?
-    if teachers.nil?
-      @teachers = Teacher.paginate(:page => params[:page], :per_page => 60) 
+    cid = params[:school_class_id]
+    if cid
+      teachers = SchoolClass.find(cid).teachers
     else
-      @teachers = teachers.paginate(:page => params[:page], :per_page => 60)
-    end    
-  
+      teachers = Teacher
+    end
+    @teachers = paged(teachers)
     render json: { 
-      :teachers => @teachers, 
-      :current_page => @teachers.current_page,
-      :per_page => @teachers.per_page,
-      :total_entries => @teachers.total_entries
-       }, status: 200
+      teachers: @teachers, 
+      current_page: @teachers.current_page,
+      per_page: @teachers.per_page,
+      total_entries: @teachers.total_entries
+       }
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { error: { message: 'No found' } }
   end
 
   # 查看他人的
@@ -31,7 +33,7 @@ class Api::V1::TeachersController < Api::V1::UserMessagesController
         teacher: @teacher, 
         profile: @teacher.profile, 
         school_classes: @teacher.school_classes
-      }, status: 200 
+      } 
     else
       render json: { error: { message: 'No found' } }, status: 400
     end 
@@ -67,7 +69,6 @@ class Api::V1::TeachersController < Api::V1::UserMessagesController
   private
 
   def teacher_params
-    the_params = params.require(:teacher).permit(:nickname, :phone, :email, :password, :password_confirmation, :role, profile_attributes: [])
-    return the_params
+    params.require(:teacher).permit(:nickname, :phone, :email, :password, :password_confirmation, :role, profile_attributes: [])
   end
 end
