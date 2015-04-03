@@ -7,7 +7,8 @@ class WorkPaper < ActiveRecord::Base
 
   has_many :class_papers
   has_many :school_classes, through: :class_papers
-
+  has_many :home_works
+  
   after_save {|record| 
     senduser = Teacher.find(self.teacher_id)
     self.school_classes.each do |sc|
@@ -17,6 +18,7 @@ class WorkPaper < ActiveRecord::Base
       end
     end
   }
+
 
   def home_work_state(sid)
   	state = 'none'

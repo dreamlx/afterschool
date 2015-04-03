@@ -266,9 +266,11 @@
 
 ### get homeworks of WorkPaper
     
-    /api/v1/work_papers/:id/home_works
+    curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/work_papers/56/home_works
+    
     action: get
-    params: 
+    params:
+        work_paper_id=56 #work_papers/56
         page=1
 
 ### get homework detail(include comments)

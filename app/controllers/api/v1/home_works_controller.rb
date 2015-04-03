@@ -2,25 +2,28 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
   respond_to :json
 
   def index
+    unless params[:student_id].blank?
+      home_works = Student.find(params[:student_id]).home_works 
+    end
     
+    unless params[:work_paper_id].blank?
+      home_works = WorkPaper.find(params[:work_paper_id]).home_works 
+    end
+
   	if !params[:student_id].blank? and !params[:work_paper_id].blank?
-      home_works = HomeWork.where( student_id: params[:student_id], work_paper_id: params[:work_paper_id])
-    
-    else
-      unless params[:student_id].blank?
-        home_works = Student.find(params[:student_id]).home_works 
-      end
-      
-      unless params[:work_paper_id].blank?
-        home_works = WorkPaper.find(params[:work_paper_id]).home_works 
-      end     
+      home_works = HomeWork.where( student_id: params[:student_id], work_paper_id: params[:work_paper_id])    
     end
 
     if home_works.nil?
-      @home_works = HomeWork.order(:updated_at => :desc).paginate(:page => params[:page], :per_page => 12) 
-    else
-      @home_works = home_works.order(:updated_at => :desc).paginate(:page => params[:page], :per_page => 12) 
+      home_works = HomeWork.limit(100)  
     end
+
+    unless params[:un_review].blank?
+      home_works = home_works.un_review
+    end
+
+    @home_works = home_works.order(:updated_at => :desc).paginate(:page => params[:page], :per_page => 12) 
+    
     
   	render json: format_homeworks(@home_works)
   end
