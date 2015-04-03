@@ -16,9 +16,13 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
       end
     end
 
-    if !params[:un_review].blank? and !home_works.nil?
+    if params[:un_review] == 1
       home_works = home_works.un_review 
+    elsif params[:un_review] == 0
+      home_works = home_works.reviewed
     end
+
+
 
     @home_works = home_works.order(:updated_at => :desc).paginate(:page => params[:page], :per_page => 12) 
     

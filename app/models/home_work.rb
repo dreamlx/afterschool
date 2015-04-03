@@ -13,7 +13,7 @@ class HomeWork < ActiveRecord::Base
 	}
 
 	scope :un_review, -> { where(state: 'init') }
-
+	scope :reviewed, -> { where(state: 'complete') }
 	belongs_to :student, required: true
 	belongs_to :work_paper, required: true
 	delegate :teacher, :to => :work_paper
