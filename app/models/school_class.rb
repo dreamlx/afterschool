@@ -10,4 +10,12 @@ class SchoolClass < ActiveRecord::Base
   def title
   	self.class_no
   end
+
+  def total_students
+  	self.students.count
+  end
+
+  def submit_students(work_paper_id)
+  	WorkPaper.find(work_paper_id).home_works.count
+  end
 end

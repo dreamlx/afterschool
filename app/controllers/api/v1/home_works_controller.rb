@@ -24,7 +24,7 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
 
 
 
-    @home_works = home_works.order(:updated_at => :desc).paginate(:page => params[:page], :per_page => 12) 
+    @home_works = paged home_works.order(:updated_at => :desc)
     
     
   	render json: format_homeworks(@home_works)

@@ -117,6 +117,8 @@ class Api::V1::BaseController < ApplicationController
         json.classes      work_paper.school_classes do |sc|
           json.school_class_id          sc.id
           json.class_no                 sc.class_no
+          json.total_students           sc.total_students
+          json.submit_students          sc.submit_students(work_paper.id)
         end
         json.medias work_paper.media_resources do |media|
           json.media_resource_id        media.id
