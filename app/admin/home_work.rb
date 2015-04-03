@@ -1,19 +1,5 @@
 ActiveAdmin.register HomeWork do
 
-
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if resource.something?
-  #   permitted
-  # end
-
   permit_params :title, 
     :description, 
     :student_id, 
@@ -21,8 +7,6 @@ ActiveAdmin.register HomeWork do
     :state, 
     media_resources_attributes: [:id, :avatar, :_destroy,:description],
     work_review_attributes: [:id, :rate, :remark, :home_work_id, :teacher_id]
-
-
 
   index do
     column  :id 
@@ -51,7 +35,7 @@ ActiveAdmin.register HomeWork do
       f.has_many :media_resources, :allow_destroy => true, :new_record => true do |mr|
 
         mr.input :avatar, as: :file, :hint => (mr.object.avatar.url unless mr.object.avatar.url.blank?)
-        mr.input :content_type
+        #mr.input :content_type
         mr.input :description
       end
     end

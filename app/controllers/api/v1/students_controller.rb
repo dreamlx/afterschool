@@ -7,36 +7,35 @@ class Api::V1::StudentsController < Api::V1::UserMessagesController
   end
 
   def index 
-    students = SchoolClass.find(params[:school_class_id]).students unless params[:school_class_id].blank?
-    if students.nil?
-      @students = Student.paginate(:page => params[:page], :per_page => 60) 
+    if cid = params[:school_class_id]
+      students = SchoolClass.find(cid).students
     else
-      @students = students.paginate(:page => params[:page], :per_page => 60)
-    end    
-  
+      students = Student
+    end
+    @students = paged(students)
     render json: { 
-      :students => @students, 
-      :current_page => @students.current_page,
-      :per_page => @students.per_page,
-      :total_entries => @students.total_entries
-      }, status: 200
+      students: @students, 
+      current_page: @students.current_page,
+      per_page: @students.per_page,
+      total_entries: @students.total_entries
+      }
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { error: { message: 'No found' } }
   end
 
   def show
-    begin
-      @student = Student.find(params[:id])
-      if @student.profile.nil?
-        @student.build_profile
-        @student.save
-      end
-      render json: { 
-        student: @student, 
-        profile: @student.profile, 
-        school_class: @student.school_class
-      }, status: 200 
-    rescue ActiveRecord::RecordNotFound => e
-      render json: { error: { message: 'No found' } }, status: 400
+    @student = Student.find(params[:id])
+    if @student.profile.nil?
+      @student.build_profile
+      @student.save
     end
+    render json: { 
+      student: @student, 
+      profile: @student.profile, 
+      school_class: @student.school_class
+    }
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { error: { message: 'No found' } }
   end
 
   def create
@@ -69,7 +68,6 @@ class Api::V1::StudentsController < Api::V1::UserMessagesController
   private
 
   def student_params
-    the_params = params.require(:student).permit(:nickname, :email, :password, :password_confirmation, profile_attributes: [])
-    return the_params
+    params.require(:student).permit(:nickname, :email, :password, :password_confirmation, profile_attributes: [])
   end
 end

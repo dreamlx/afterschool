@@ -34,7 +34,6 @@ class Api::V1::UserTokensController  < Api::V1::BaseController
 
     private
   def user_params
-    the_params = params.require(:user).permit(:email, :password, :password_confirmation, :role, profile_attributes: [])
-    return the_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :role, profile_attributes: [])
   end
 end

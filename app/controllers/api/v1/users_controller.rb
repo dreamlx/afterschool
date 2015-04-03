@@ -2,18 +2,15 @@ class Api::V1::UsersController < Api::V1::BaseController
   respond_to :json
 
   def index
-    @users = User.paginate(:page => params[:page], :per_page => 12)
+    @users = paged User
     render json: { users: @users }, status: 200
   end
 
-  # 查看他人的
   def show
     @user = User.find(params[:id])
-    #TODO class_no
     render json: { user: @user, profile: @user.profile, class_no: @user.class_noes }, status: 200  
   end
 
-  # 创建新的用户
   def create
     @user = User.find_by_email(params[:email])
     if @user
@@ -43,8 +40,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   private
   def user_params
-    the_params = params.require(:user).permit(:email, :password, :password_confirmation, :role, profile_attributes: [])
-    return the_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :role, profile_attributes: [])
   end
   
 end

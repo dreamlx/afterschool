@@ -128,6 +128,15 @@ class Api::V1::BaseController < ApplicationController
     end
   end
 
+
+  protected
+
+  def paged(customer, per_page = 12 )
+    customer.paginate(:page => params[:page], :per_page => per_page)
+  end  
+
+end
+
   # def parse_data(base64_image)
   #   in_content_type, encoding, string = base64_image.split(/[:;,]/)[1..3]
   #   #{暂时先这样}
@@ -155,11 +164,3 @@ class Api::V1::BaseController < ApplicationController
   #     @tempfile.unlink
   #   end
   # end
-
-  protected
-
-  def paged(customer, per_page = 12 )
-    customer.paginate(:page => params[:page], :per_page => per_page)
-  end  
-
-end

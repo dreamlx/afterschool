@@ -1,28 +1,16 @@
 ActiveAdmin.register Teacher do
 
-
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if resource.something?
-  #   permitted
-  # end
-
-  permit_params :email, :password, :password_confirmation, :nickname, :phone, :avatar, :school_classes, :school_class_ids
+  permit_params :email, :password, :password_confirmation, :nickname, 
+                :phone, :avatar, :school_classes, :school_class_ids
 
   filter :email
   filter :nickname
-  
-  #scope_to Proc.new { Teacher.my_account(current_user.id) if current_user.role == 'teacher' }
+
+  scope_to Proc.new { Teacher.my_account(current_user.id) if current_user.role == 'teacher' }
+
 
   index do 
-    column    :role
+    column   :role
     column   :email
     column   :nickname
     column   :avatar do |v|
