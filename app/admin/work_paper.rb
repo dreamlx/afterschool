@@ -1,6 +1,7 @@
 ActiveAdmin.register WorkPaper do
 
-  permit_params :title, :teacher_id, :paper_type, :description, :school_classes, :school_class_ids, media_resources_attributes: [:id, :avatar, :_destroy,:description]
+  permit_params :title, :teacher_id, :paper_type, :description, :school_classes, :school_class_ids, 
+                media_resources_attributes: [:id, :avatar, :_destroy,:description]
 
   #TODO, 在show页面选择发布的班级
 

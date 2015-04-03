@@ -35,7 +35,7 @@ ActiveAdmin.register HomeWork do
       f.has_many :media_resources, :allow_destroy => true, :new_record => true do |mr|
 
         mr.input :avatar, as: :file, :hint => (mr.object.avatar.url unless mr.object.avatar.url.blank?)
-        mr.input :content_type
+        #mr.input :content_type
         mr.input :description
       end
     end
