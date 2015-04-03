@@ -4,15 +4,15 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
   def index
     home_works = HomeWork.limit(100)  
 
-  	if !params[:student_id].blank? and !params[:work_paper_id].blank?
-      home_works = HomeWork.where( student_id: params[:student_id], work_paper_id: params[:work_paper_id])    
+  	if !params[:student_id].blank? and !params[:id].blank?
+      home_works = HomeWork.where( student_id: params[:student_id], work_paper_id: params[:id])    
     else
       unless params[:student_id].blank?
         home_works = Student.find(params[:student_id]).home_works 
       end
       
-      unless params[:work_paper_id].blank?
-        home_works = WorkPaper.find(params[:work_paper_id]).home_works 
+      unless params[:id].blank?
+        home_works = WorkPaper.find(params[:id]).home_works 
       end
     end
 
