@@ -29,6 +29,10 @@ class Api::V1::BaseController < ApplicationController
             json.teacher  home_work.work_paper.teacher.nickname
           end
         end
+        json.student do
+          json.avatar   home_work.student.profile.nil? ? "" : home_work.student.profile.avatar.url
+          json.student  home_work.student.nickname
+        end
       end
     end
   end
