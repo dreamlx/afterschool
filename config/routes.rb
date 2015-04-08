@@ -27,7 +27,11 @@ Rails.application.routes.draw do
       end
 
       resources :teachers do
-        resources :work_reviews
+        resources :work_reviews do
+          collection do
+            post 'batch_review'
+          end
+        end
         resource :profile
         resources :work_papers, shallow: true
         resources :school_classes
