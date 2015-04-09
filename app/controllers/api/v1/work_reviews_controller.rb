@@ -40,7 +40,7 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
     works.each do |work|
       update_review(work) if work.state == 'init'
     end
-    render json: { message: 'OK batch review' }
+    render json: { message: 'OK' }
   rescue Exception => e
     render json: { error: { message: e.message } }
   end
@@ -57,12 +57,14 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
   end
 
   def destroy
-  	@work_review = HomeWork.find(params[:home_work_id]).work_review
-  	@work_review.destroy!
-  	render json:{message: 'deleted'}
+    @work_review = HomeWork.find(params[:home_work_id]).work_review
+    @work_review.destroy!
+    render json: { message: 'deleted' }
+  rescue Exception => e
+    render json: { error: { message: e.message } }
   end
 
-private
+  private
 
   def update_review(work)
     params[:work_review][:home_work_id] = work.id
