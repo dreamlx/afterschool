@@ -4,25 +4,28 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
   # before_action :verify_teacher, only: [:create, :update, :destroy]
   
   def index
-    unless params[:student_id].blank?
-      work_papers = Student.find(params[:student_id]).work_papers
-    end
+    tid, cid, sid = params[:teacher_id], params[:school_class_id], params[:student_id]
 
-    unless params[:teacher_id].blank?
-      work_papers = Teacher.find(params[:teacher_id]).work_papers
-    end
-
-    unless params[:school_class_id].blank?
-      work_papers = SchoolClass.find(params[:school_class_id]).work_papers
+    if !tid.blank? and !cid.blank?
+      cond = "teacher_id=#{tid} and class_papers.school_class_id=#{cid}"
+      work_papers = WorkPaper.joins(:school_classes).where(cond)
+    elsif !sid.blank?
+      work_papers = Student.find(sid).work_papers
+    elsif !tid.blank?
+      work_papers = Teacher.find(tid).work_papers
+    elsif !cid.blank?
+      work_papers = SchoolClass.find(cid).work_papers
     end    
 
     if work_papers.nil?
-      work_papers = WorkPaper.order(:updated_at => :desc)
+      work_papers = WorkPaper.order(updated_at: :desc)
     else
-      work_papers = work_papers.order(:updated_at => :desc)
+      work_papers = work_papers.order(updated_at: :desc)
     end
     @work_papers = paged(work_papers)
-    render json:  format_papers(@work_papers, params[:student_id]) , status: 200
+    render json:  format_papers(@work_papers, sid)
+  rescue Exception => e
+    render json: { error: { message: e.message } }
   end
 
   def show

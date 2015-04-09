@@ -1,5 +1,7 @@
 class Api::V1::UserTokensController  < Api::V1::BaseController
+
   respond_to :json
+
   def index
     render json: { message: 'get token: /api/v1/user_tokens/:id' }, status: 200
   end
@@ -32,8 +34,10 @@ class Api::V1::UserTokensController  < Api::V1::BaseController
 
   end
 
-    private
+private
+
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :role, profile_attributes: [])
   end
+
 end
