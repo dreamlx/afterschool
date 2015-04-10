@@ -38,7 +38,7 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
     wp_id = params[:work_paper_id]
     works = HomeWork.where("work_paper_id = #{wp_id}")
     works.each do |work|
-      update_review(work) if work.state == 'init'
+      update_review_of(work) if work.state == 'init'
     end
     render json: { message: 'OK' }
   rescue Exception => e
@@ -47,6 +47,7 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
 
   def update
     @review = HomeWork.find(params[:home_work_id]).work_review
+    @review.media_resources.build(media_params)
     if @review.update(work_review_params)
       render json: { review: @review }
     else
@@ -66,7 +67,7 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
 
   private
 
-  def update_review(work)
+  def update_review_of(work)
     params[:work_review][:home_work_id] = work.id
     work.work_review.update(work_review_params)
     work.save!
@@ -75,6 +76,9 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
   def work_review_params
     params.require(:work_review).permit(:remark, :teacher_id, 
       :home_work_id, :rate)
+  end
+  def media_params
+    params.require(:media_resource).permit(:avatar)
   end
 end
 

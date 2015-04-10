@@ -1,4 +1,5 @@
 class Api::V1::WorkPapersController < Api::V1::BaseController
+
   respond_to :json
 
   # before_action :verify_teacher, only: [:create, :update, :destroy]
