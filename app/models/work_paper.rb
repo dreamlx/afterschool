@@ -23,11 +23,11 @@ class WorkPaper < ActiveRecord::Base
 
   def home_work_state(sid)
   	state = 'none'
-  	if HomeWork.find_by(student_id: sid, work_paper_id: self.id)
-  		state = HomeWork.find_by(student_id: sid, work_paper_id: self.id).state
+    hw = HomeWork.find_by(student_id: sid, work_paper_id: self.id)
+  	if hw
+  		state = hw.state
   	end
-
-  	return state
+    state
   end
 end
 
