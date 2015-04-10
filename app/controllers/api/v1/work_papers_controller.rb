@@ -11,10 +11,14 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
     if !tid.blank? and !cid.blank?
       cond = "teacher_id=#{tid} and class_papers.school_class_id=#{cid}"
       work_papers = WorkPaper.joins(:school_classes).where(cond)
+      total_students = Student.of_class(cid).count
     elsif !sid.blank?
       work_papers = Student.find(sid).work_papers
     elsif !tid.blank?
       work_papers = Teacher.find(tid).work_papers
+      total_students = Teacher.find(tid).school_classes.reduce(0) do |resu, sc|
+        resu + Student.of_class(sc.id).count
+      end
       total_students = Teacher.find(tid).school_classes.reduce(0) do |resu, sc|
         resu + Student.of_class(sc.id).count
       end
