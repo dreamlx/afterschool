@@ -15,6 +15,8 @@ class Student < User
   delegate :work_papers, :to => :school_class, :allow_nil => true
 
   has_many :home_works
+
+  scope :of_class, ->(cid){ where("school_class_id=#{cid}") }
   
   def class_no
   	self.school_class.class_no unless self.school_class.nil?

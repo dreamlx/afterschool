@@ -1,12 +1,12 @@
 ActiveAdmin.register HomeWork do
 
   permit_params :title, 
-    :description, 
-    :student_id, 
-    :work_paper_id, 
-    :state, 
-    media_resources_attributes: [:id, :avatar, :_destroy,:description],
-    work_review_attributes: [:id, :rate, :remark, :home_work_id, :teacher_id]
+  :description, 
+  :student_id, 
+  :work_paper_id, 
+  :state, 
+  media_resources_attributes: [:id, :avatar, :_destroy,:description],
+  work_review_attributes: [:id, :rate, :remark, :home_work_id, :teacher_id]
 
   index do
     column  :id 
@@ -48,8 +48,19 @@ ActiveAdmin.register HomeWork do
       end
     end
 
+    f.inputs '附件' do 
+      f.has_many :media_resources, allow_destroy: true, new_record: true do |mr|
+
+        mr.input :avatar, 
+        as: :file, hint: mr.object.avatar.try(:url)
+        mr.input :description
+      end
+    end
+
     f.actions
   end
+
+
 
   show do |home_work|
     attributes_table do 
@@ -64,23 +75,41 @@ ActiveAdmin.register HomeWork do
       row :state
     end
 
+    def the_tag(m)
+      if m.content_type =~ /image/
+        image_tag m.avatar.url, width: '100%'
+      elsif m.content_type =~ /video/
+        video_tag m.avatar.url, controls: true, width: '100%'
+      elsif m.content_type =~ /audio/ or m.content_type =~ /sound/
+        audio_tag m.avatar.url, controls: true, width: '100%'
+      else
+        m.avatar.url
+      end
+    end
+
+    def the_rate(r)
+      case r.rate.to_i
+      when 5
+        'A'
+      when 4
+        'B'
+      when 3
+        'C'
+      when 2
+        'D'
+      when 1
+        'E'
+      end
+    end
+
     panel t('MediaResource') do
       table_for(home_work.media_resources) do |media|
         media.column  :id do |m|
           link_to m.id, admin_media_resource_path(m.id)
         end
         media.column  :avatar do |m|
-          if m.content_type =~ /image/
-            image_tag m.avatar.url, width: '100%'
-          elsif m.content_type =~ /video/
-            video_tag m.avatar.url, controls: true, width: '100%'
-          elsif m.content_type =~ /audio/ or m.content_type =~ /sound/
-            audio_tag m.avatar.url, controls: true, width: '100%'
-          else
-            m.avatar.url
-          end
+          the_tag m
         end
-        #media.column  :content_type
       end
     end
 
@@ -88,27 +117,24 @@ ActiveAdmin.register HomeWork do
       table_for(home_work.work_review) do |m|
         m.column  :id
         m.column  :rate do |r|
-          case r.rate.to_i
-          when 5
-            'A'
-          when 4
-            'B'
-          when 3
-            'C'
-          when 2
-            'D'
-          when 1
-            'E'
-          end
-            
+          the_rate(r)
         end
         m.column   :remark
+
+        table_for(home_work.work_review.media_resources) do |media|
+          media.column  :id do |m|
+            link_to m.id, admin_media_resource_path(m.id)
+          end
+          media.column  :avatar do |m|
+            the_tag(m)
+          end
+        end
       end
     end
   end
 
   # controller do
-    
+
   #   def scoped_collection
   #     @home_works = HomeWork.all
   #     if current_user.role == 'teacher'

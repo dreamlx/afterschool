@@ -78,6 +78,9 @@ class Api::V1::BaseController < ApplicationController
         json.title        work_paper.title
         json.type         work_paper.paper_type
         json.description  work_paper.description
+        json.count_works  work_paper.count_works
+        json.total_students  work_paper.total_students
+
         unless student_id.blank?
           json.home_work_state   work_paper.home_work_state(student_id)
         end

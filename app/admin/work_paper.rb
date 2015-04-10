@@ -28,8 +28,11 @@ ActiveAdmin.register WorkPaper do
     panel t('MediaResource') do
       table_for(work_paper.media_resources) do |m|
         m.column  :id
-        m.column "url" do |f|
-          link_to f.avatar.url, admin_media_resource_path(f)
+        # m.column "url" do |f|
+        #   link_to f.avatar, admin_media_resource_path(f)
+        # end
+        m.column "type" do |f|
+          link_to f.content_type, admin_media_resource_path(f)
         end
       end
     end
