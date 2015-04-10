@@ -5,6 +5,7 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
   
   def index
     tid, cid, sid = params[:teacher_id], params[:school_class_id], params[:student_id]
+    total_students = 0
 
     if !tid.blank? and !cid.blank?
       cond = "teacher_id=#{tid} and class_papers.school_class_id=#{cid}"
@@ -13,6 +14,9 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
       work_papers = Student.find(sid).work_papers
     elsif !tid.blank?
       work_papers = Teacher.find(tid).work_papers
+      total_students = Teacher.find(tid).school_classes.reduce(0) do |resu, sc|
+        resu + Student.of_class(sc.id).count
+      end
     elsif !cid.blank?
       work_papers = SchoolClass.find(cid).work_papers
     end    
@@ -23,6 +27,11 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
       work_papers = work_papers.order(updated_at: :desc)
     end
     @work_papers = paged(work_papers)
+
+    @work_papers.each do |wp|
+      wp.count_works = wp.home_works.count 
+      wp.total_students = total_students 
+    end
     render json:  format_papers(@work_papers, sid)
   rescue Exception => e
     render json: { error: { message: e.message } }

@@ -19,6 +19,7 @@ class WorkPaper < ActiveRecord::Base
     end
   }
 
+  attr_accessor :count_works, :total_students
 
   def home_work_state(sid)
   	state = 'none'
