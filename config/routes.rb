@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   namespace :api do 
     namespace :v1 do 
       get 'work_papers', to: 'work_papers#index'
-      get 'work_papers/:id/home_works', to: 'home_works#index'
+      get 'work_papers/:work_paper_id/home_works', to: 'home_works#index'
 
       resources :work_papers do
         resources :media_resources
@@ -18,6 +18,9 @@ Rails.application.routes.draw do
       resources :home_works do
         resources :media_resources
         resource :work_review
+        collection do
+          get 'un_review'
+        end
       end
 
       resources :users do

@@ -21,6 +21,7 @@ class HomeWork < ActiveRecord::Base
 	belongs_to :work_paper, required: true
 
 	delegate :teacher, to: :work_paper
+	delegate :school_class, to: :student
 
 	has_one :work_review
 	accepts_nested_attributes_for :work_review,  allow_destroy: false
