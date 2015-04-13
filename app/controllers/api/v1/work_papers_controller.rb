@@ -19,19 +19,13 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
       total_students = Teacher.find(tid).school_classes.reduce(0) do |resu, sc|
         resu + Student.of_class(sc.id).count
       end
-      total_students = Teacher.find(tid).school_classes.reduce(0) do |resu, sc|
-        resu + Student.of_class(sc.id).count
-      end
     elsif !cid.blank?
       work_papers = SchoolClass.find(cid).work_papers
+      total_students = Student.of_class(cid).count
     end    
 
-    if work_papers.nil?
-      work_papers = WorkPaper.order(updated_at: :desc)
-    else
-      work_papers = work_papers.order(updated_at: :desc)
-    end
-    @work_papers = paged(work_papers)
+    work_papers = WorkPaper if work_papers.nil?
+    @work_papers = paged work_papers.order(updated_at: :desc)
 
     @work_papers.each do |wp|
       wp.count_works = wp.home_works.count 
@@ -44,19 +38,12 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
 
   def show
     @work_paper = WorkPaper.find(params[:id])
-
-    render json: format_paper(@work_paper), status: 200
+    render json: format_paper(@work_paper)
   end
 
-# 可能由于临时文件的问题 这个要修改
   def create
     @work_paper = Teacher.find(params[:teacher_id]).work_papers.build(work_paper_params)
     if @work_paper
-      # params[:media_avatars].each do |media_avatar|
-      #   _description = media_avatar[:description] if media_avatar[:description]
-      #   _avatar = parse_data(media_avatar[:avatar]) if media_avatar[:avatar]
-      #   @work_paper.media_resources.build(description: _description, avatar: _avatar)
-      # end
       if @work_paper.save
         render json: format_paper(@work_paper), status: 201
       else
@@ -65,11 +52,9 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
     else
       render json: { error: { message: "创建作业失败, 请核实您的身份" } }, status: 400
     end
-
   end
 
   def update
-
   end
 
   def destroy
@@ -96,3 +81,11 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
   end
   
 end
+
+      ## def create
+      # 可能由于临时文件的问题 这个要修改
+      # params[:media_avatars].each do |media_avatar|
+      #   _description = media_avatar[:description] if media_avatar[:description]
+      #   _avatar = parse_data(media_avatar[:avatar]) if media_avatar[:avatar]
+      #   @work_paper.media_resources.build(description: _description, avatar: _avatar)
+      # end

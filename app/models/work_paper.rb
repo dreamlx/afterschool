@@ -24,13 +24,6 @@ class WorkPaper < ActiveRecord::Base
   def home_work_state(sid)
   	state = 'none'
     hw = HomeWork.find_by(student_id: sid, work_paper_id: self.id)
-  	if hw
-  		state = hw.state
-  	end
-    state
+  	hw ? hw.state : state
   end
 end
-
-
-# 一个作业由一个老师来发布 belongs_to :teacher
-# 发布的时候选择班级传递给消息。然后发给指定的班级

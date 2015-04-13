@@ -16,8 +16,6 @@ class User < ActiveRecord::Base
                       :class_name => "UserMessage",
                       :group_messages => false # 群聊
 
-
-
   def ensure_authentication_token
     if authentication_token.blank?
       self.authentication_token = generate_authentication_token

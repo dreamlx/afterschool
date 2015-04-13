@@ -17,7 +17,9 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
 
   def show
     @work_review = HomeWork.find(params[:home_work_id]).work_review
-    render json: { work_review: @work_review }
+    render json: { work_review: @work_review, 
+                   review_medias: @work_review.media_resources
+    }
   end
 
   # def create
