@@ -22,6 +22,21 @@
     - replace user to student
     - update avatar
 
+## get un_review home_works
+
+### all params for un_review
+    
+    curl http://127.0.0.1:3000/api/v1/home_works/un_review?student_id=1
+    
+    - action: get
+    - params:
+        student_id
+        teacher_id
+        school_class_id
+        work_paper_id
+    - 注释： 如果 teacher_id 和 school_class_id 同时存在则直接输出"老师的某个班级的没有批阅作业"
+
+
 ## work_review 老师批阅
 
 ### create|update work_review

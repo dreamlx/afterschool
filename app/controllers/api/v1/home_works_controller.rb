@@ -5,15 +5,15 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
   def index
     #home_works = HomeWork.limit(100)  
 
-  	if !params[:student_id].blank? and !params[:id].blank?
-      home_works = HomeWork.where( student_id: params[:student_id], work_paper_id: params[:id])    
+  	if !params[:student_id].blank? and !params[:work_paper_id].blank?
+      home_works = HomeWork.where( student_id: params[:student_id], work_paper_id: params[:work_paper_id])    
     else
       unless params[:student_id].blank?
         home_works = Student.find(params[:student_id]).home_works 
       end
       
-      unless params[:id].blank?
-        home_works = WorkPaper.find(params[:id]).home_works 
+      unless params[:work_paper_id].blank?
+        home_works = WorkPaper.find(params[:work_paper_id]).home_works 
       end
     end
 
@@ -30,6 +30,28 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
   def show
   	@home_work = HomeWork.find(params[:id])
   	render json: format_homework(@home_work)
+  end
+
+  def un_review
+
+    home_works = Teacher.find(params[:teacher_id]).home_works.un_review           unless params[:teacher_id].nil?
+    home_works = Student.find(params[:student_id]).home_works.un_review           unless params[:student_id].nil?
+    home_works = SchoolClass.find(params[:school_class_id]).home_works.un_review  unless params[:school_class_id].nil?
+    home_works = WorkPaper.find(params[:work_paper_id]).home_works.un_review      unless params[:work_paper_id].nil?
+    
+    home_works = HomeWork.un_review if home_works.nil?
+
+    home_works = home_works.order(:updated_at => :desc) 
+
+    if !params[:teacher_id].nil? and !params[:school_class_id].nil?
+      home_works = []
+      Teacher.find(params[:teacher_id]).home_works.un_review.order(:updated_at => :desc).each do |item|
+        home_works << item if item.student.school_class.id == params[:school_class_id]
+      end
+    end
+
+    @home_works = paged home_works
+    render json: format_homeworks(@home_works)
   end
 
   def create

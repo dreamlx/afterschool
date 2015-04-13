@@ -9,6 +9,7 @@ class Teacher < User
      }
   
   has_many :work_papers
+  has_many :home_works, through: :work_papers
   has_many :work_reviews
 
   has_many :class_teachers
