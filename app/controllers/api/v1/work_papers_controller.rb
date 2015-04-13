@@ -19,9 +19,6 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
       total_students = Teacher.find(tid).school_classes.reduce(0) do |resu, sc|
         resu + Student.of_class(sc.id).count
       end
-      total_students = Teacher.find(tid).school_classes.reduce(0) do |resu, sc|
-        resu + Student.of_class(sc.id).count
-      end
     elsif !cid.blank?
       work_papers = SchoolClass.find(cid).work_papers
     end    
