@@ -49,7 +49,7 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
 
   def update
     @review = HomeWork.find(params[:home_work_id]).work_review
-    @review.media_resources.build(media_params)
+    @review.media_resources.build(media_params) if params[:media_resource]
     if @review.update(work_review_params)
       render json: { review: @review }
     else

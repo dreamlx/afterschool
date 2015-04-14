@@ -2,7 +2,12 @@ ActiveAdmin.register UserMessage do
 
   permit_params :topic, :body, :message_type
 
+
   index do
+    h3 do
+      "发送班级消息，请下载APP，用手机发"
+    end
+    
     selectable_column
     column :id 
     column :topic

@@ -1,7 +1,10 @@
 class WorkReview < ActiveRecord::Base
 	
 	after_save do |record| 
-		self.home_work.state = 'complete' if self.home_work
+		if self.home_work
+			self.home_work.state = 'complete' 
+			self.home_work.save!
+		end
 	end
 	
 	belongs_to :teacher
