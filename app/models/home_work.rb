@@ -7,11 +7,8 @@ class HomeWork < ActiveRecord::Base
 	end
 
 	before_save do |record| 
-		if self.work_review.nil?
-			self.build_work_review 
-		else
-			self.state = 'complete' unless self.work_review.rate.nil?
-		end
+		self.build_work_review if self.work_review.nil?
+		self.state = 'complete' unless self.work_review.rate.nil?
 	end
 
 	scope :un_review, -> { where(state: 'init') }

@@ -41,8 +41,6 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
     
     home_works = HomeWork.un_review if home_works.nil?
 
-    home_works = home_works.order(:updated_at => :desc) 
-
     if !params[:teacher_id].nil? and !params[:school_class_id].nil?
       home_works = []
       Teacher.find(params[:teacher_id]).home_works.un_review.order(:updated_at => :desc).each do |item|
@@ -50,7 +48,8 @@ class Api::V1::HomeWorksController < Api::V1::BaseController
       end
     end
 
-    @home_works = paged home_works
+    home_works = home_works.order(:updated_at => :desc) 
+    @home_works = home_works.blank? ? [] : paged(home_works)
     render json: format_homeworks(@home_works)
   end
 
