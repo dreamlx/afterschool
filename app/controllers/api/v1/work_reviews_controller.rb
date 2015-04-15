@@ -22,20 +22,6 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
     }
   end
 
-  # def create
-  #   work = HomeWork.find(params[:home_work_id])
-  #   @work_review = work.build_work_review(work_review_params)
-  #   if @work_review.save
-  #     work.state = 'complete'
-  #     work.save!
-  #     render json: {work_review: @work_review}
-  #   else
-  #     render json: {message: @work_review.errors}, status: 400, message: '更新失败，请联系管理员'
-  #   end
-  # rescue ActiveRecord::RecordNotFound => e
-  #   render json: { error: { message: 'No found' } }, status: 400
-  # end
-
   def batch_review
     wp_id = params[:work_paper_id]
     works = HomeWork.where("work_paper_id = #{wp_id}")
@@ -87,3 +73,19 @@ end
   # 创建照片的同时也要创建资源
   # 资源都放在, :media_avatars => [] 这个字段里面以数组的形式上传, 
   # 每个资源包括description 字段和  media字段
+
+
+    # def create
+  #   work = HomeWork.find(params[:home_work_id])
+  #   @work_review = work.build_work_review(work_review_params)
+  #   if @work_review.save
+  #     work.state = 'complete'
+  #     work.save!
+  #     render json: {work_review: @work_review}
+  #   else
+  #     render json: {message: @work_review.errors}, status: 400, message: '更新失败，请联系管理员'
+  #   end
+  # rescue ActiveRecord::RecordNotFound => e
+  #   render json: { error: { message: 'No found' } }, status: 400
+  # end
+
