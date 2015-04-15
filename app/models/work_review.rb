@@ -3,7 +3,7 @@ class WorkReview < ActiveRecord::Base
 	after_save do |record| 
 		if self.home_work
 			self.home_work.state = 'complete' 
-			self.home_work.save!
+#			self.home_work.save!
 		end
 	end
 	
