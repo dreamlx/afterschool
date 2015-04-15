@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 11
+  teacher_id: 2
+  home_work_id: 11 
+  rate: 5 
+  remark: 'bug'
+  created_at: <%= 5.day.ago.to_s(:db) %>  
+  updated_at: <%= 5.day.ago.to_s(:db) %>
+
