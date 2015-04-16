@@ -39,7 +39,7 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
     if @review.update(work_review_params)
       @review.home_work.state = 'complete'
       @review.home_work.save!
-      render json: { review: @review, media_resources: @review.media_resources }
+      render json: { review: @review, review_medias: @review.media_resources }
     else
       render json: { error: @review.errors }
     end
