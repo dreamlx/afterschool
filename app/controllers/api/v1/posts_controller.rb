@@ -1,40 +1,25 @@
-class Api::V1::WorkReviewsController < Api::V1::BaseController
+class Api::V1::PostsController < Api::V1::BaseController
 
   respond_to :json
 
   def index
-    teacher_id = params[:teacher_id]
-    if teacher_id
-      work_reviews = Teacher.find(teacher_id).work_reviews
-    else
-      work_reviews = WorkReview
-    end
-    @work_reviews = paged work_reviews
-    render json: {work_reviews: @work_reviews}  
+    @posts = paged Post
+    render json: {posts: @posts}  
+  rescue Exception => e
+    render json: { error: { message: e.message } }
+  end
+
+  def create
+    @post = Post.new(post_params)
+    @post.save!
+    render json: { message: 'OK' }
   rescue Exception => e
     render json: { error: { message: e.message } }
   end
 
   def show
-    @work_review = HomeWork.find(params[:home_work_id]).work_review
-    render json: { work_review: @work_review, 
-                   review_medias: @work_review.media_resources
-    }
-  end
-
-  def create
-    update
-  end
-
-  def batch_review
-    wp_id = params[:work_paper_id]
-    works = HomeWork.where("work_paper_id = #{wp_id}")
-    works.each do |work|
-      update_review_of(work) if work.state == 'init'
-    end
-    render json: { message: 'OK' }
-  rescue Exception => e
-    render json: { error: { message: e.message } }
+    @post = Post.find(params[:id])
+    render json: { post: @post }
   end
 
   def update
@@ -61,19 +46,11 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
 
   private
 
-  def update_review_of(work)
-    params[:work_review][:home_work_id] = work.id
-    work.work_review.update(work_review_params)
-    work.save!
+
+  def post_params
+    params.require(:post).permit(:title, :body, :user_id)
   end
 
-  def work_review_params
-    params.require(:work_review).permit(:remark, :teacher_id, 
-      :home_work_id, :rate)
-  end
-  def media_params
-    params.require(:media_resource).permit(:avatar)
-  end
 end
 
   # 创建照片的同时也要创建资源
