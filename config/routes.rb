@@ -65,6 +65,8 @@ Rails.application.routes.draw do
       end
 
       resources :user_messages, only: [:index, :show]
+      
+      resources :posts
     end
   end
 

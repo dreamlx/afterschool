@@ -1,10 +1,8 @@
 require 'test_helper'
 
 class WorkReviewTest < ActiveSupport::TestCase
-  test "the truth" do
-    assert true
-    c = WorkReview.count
-    assert_equal(1, c, 'err count')
-    assert !work_reviews(:one).blank?
+  test "save" do
+    w = work_reviews(:one).save
+    assert w
   end
 end
