@@ -1,18 +1,18 @@
-class Api::V1::PostsController < Api::V1::BaseController
+class Api::V1::CommentsController < Api::V1::BaseController
 
   respond_to :json
 
   def index
-    cid = params[:school_class_id]
-    @posts = paged Post.where("school_class_id=#{cid}")
-    render json: { posts: @posts }  
+    post = Post.find params[:post_id]
+    @comments = paged post.comments
+    render json: { comments: @comments }  
   rescue Exception => e
     render json: { error: { message: e.message } }
   end
 
   def create
-    @post = Post.new(post_params)
-    @post.save!
+    @comment = PostComment.new(comment_params)
+    @comment.save!
     render json: { message: 'OK' }
   rescue Exception => e
     render json: { error: { message: e.message } }
@@ -20,10 +20,7 @@ class Api::V1::PostsController < Api::V1::BaseController
 
   def show
     @post = Post.find(params[:id])
-    @post.user.authentication_token = 'hiddden'
-    render json: { post: @post, user: @post.user }
-  rescue Exception => e
-    render json: { error: { message: e.message } }
+    render json: { post: @post }
   end
 
   def update
@@ -51,8 +48,8 @@ class Api::V1::PostsController < Api::V1::BaseController
   private
 
 
-  def post_params
-    params.require(:post).permit(:title, :body, :user_id, :school_class_id)
+  def comment_params
+    params.require(:comment).permit(:title, :body, :user_id, :post_id)
   end
 
 end

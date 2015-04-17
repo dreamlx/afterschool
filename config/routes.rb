@@ -66,7 +66,9 @@ Rails.application.routes.draw do
 
       resources :user_messages, only: [:index, :show]
       
-      resources :posts
+      resources :posts do
+        resources :comments
+      end
     end
   end
 
