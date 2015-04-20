@@ -21,29 +21,23 @@ class Api::V1::PostsController < Api::V1::BaseController
   def show
     @post = Post.find(params[:id])
     @post.user.authentication_token = 'hiddden'
-    render json: { post: @post, user: @post.user }
+    render json: { post: @post, comments: @post.post_comments, user: @post.user }
   rescue Exception => e
     render json: { error: { message: e.message } }
   end
 
   def update
-    @review = HomeWork.find(params[:home_work_id]).work_review
-    @review.media_resources.build(media_params) if params[:media_resource]
-    if @review.update(work_review_params)
-      @review.home_work.state = 'complete'
-      @review.home_work.save!
-      render json: { review: @review, review_medias: @review.media_resources }
-    else
-      render json: { error: @review.errors }
-    end
+    @post = Post.find(params[:id])
+    @post.update!(post_params)
+    render json: { message: 'OK' }
   rescue Exception => e
     render json: { error: { message: e.message } }
   end
 
   def destroy
-    @work_review = HomeWork.find(params[:home_work_id]).work_review
-    @work_review.destroy!
-    render json: { message: 'deleted' }
+    @post = Post.find(params[:id])
+    @post.destroy!
+    render json: { message: 'OK' }
   rescue Exception => e
     render json: { error: { message: e.message } }
   end
