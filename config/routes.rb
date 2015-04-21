@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'tools/import_students'
+  post 'tools/do_import_students'
+
   resources :articles
 
   devise_for :users

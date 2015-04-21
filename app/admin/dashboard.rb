@@ -10,6 +10,9 @@ ActiveAdmin.register_page "Dashboard" do
         end
         ul do
             ol do 
+                link_to '0 创建班级和导入学生', tools_import_students_path
+            end
+            ol do 
                 link_to '1 create school class', new_admin_school_class_path
             end
             ol do

@@ -1,0 +1,20 @@
+<h3>新建班级，导入学生</h3>
+
+<% if @valid %>
+	<h4><%= @sc %><br/></h4>
+	<% if !@is_old_class %>
+		导入完成！
+		<br/>
+		<br/>
+		<% @students.each_line do |l| %>
+		<%= l %> <br/>
+		<% end %>
+	<% else %>
+	  班级已经存在！
+	<% end %>
+<% else %>
+	输入不完整！
+<% end %>
+<br/>
+<br/>
+<%= link_to 'back', tools_import_students_path %>
