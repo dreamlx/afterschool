@@ -1,26 +1,65 @@
+# API
+
 #### 服务器地址 http://114.215.125.31
 
-#todo
-
-    admin 后台，老师批语
+对API编号，便于测试跟踪。
 
 # curl 使用说明
 
     在linux或者osx 下，在命令行窗口直接 copy 下面内容到窗口执行即可
 
-#### change log
--2015-03-25
-    update message api
--2015-03-21
-    update teacher api
-    support page
-- 2015-03-17
-    work pager 
-- 2015-03-05
-    rate    
-- 2015-2-23 
-    - replace user to student
-    - update avatar
+action参数说明：
+
+    列表、详情： get
+    新建create：post
+    更新update：put
+
+# dir
+
+[review](#work_review-老师批阅)
+[teacher](#Teacher-老师)
+[student](#Student-学生)
+[work and paper](#WorkPaper-HomeWork)
+
+## 导入学生
+
+目前的规则，只支持新建班级，一次导入。
+少量学生就手工输入了，老师考虑到较少也暂不支持导入。
+
+入口：
+
+    http://114.215.125.31/tools/import_students
+    控制板入口
+    http://114.215.125.31/admin/dashboard
+
+
+## 留言板 posts
+
+### index列表
+
+http://localhost:3000/api/v1/posts?school_class_id=1
+
+### show详情
+
+http://localhost:3000/api/v1/posts/1
+
+### create发帖
+
+    http://localhost:3000/api/v1/posts
+
+    参数：
+    post[title]
+    post[body]
+    post[user_id]
+    post[school_class_id]
+
+### 回帖comment创建
+    http://localhost:3000/api/v1/posts/1/comments
+
+    comment[title]
+    comment[body]
+    comment[user_id]
+
 
 ## get un_review home_works
 
@@ -39,15 +78,30 @@
 
 ## work_review 老师批阅
 
-### create|update work_review
-    curl -d 'work_review[rate]=5' http://127.0.0.1:3000/api/v1/home_works/2/work_review
+
+### batch review 批量批阅
+     curl -d 'work_review[rate]=5' http://127.0.0.1:3000/api/v1/teachers/2/work_reviews/batch_review?work_paper_id=1
 
     - action: post
+    - params:
+        - work_review[rate]=5 # 5-1，代表ABCDE 5个等级（a：5， 1：e）
+        - work_review[teacher_id]=2
+        - work_review[remark]=string
+
+### update work_review
+
+review默认会创建一个空白的，所以不再提供create接口。
+
+    curl -d 'work_review[rate]=5' http://127.0.0.1:3000/api/v1/home_works/2/work_review
+
+    action见前面curl说明，以后不再说明。
+
     - params:
         - work_review[rate]=5 # 5-1，代表ABCDE 5个等级（a：5， 1：e）
         - work_review[teacher_id]=1
         - work_review[home_work_id]=2 #home_works/2
         - work_review[remark]=string
+        - media_resource[avatar]=file
     - reponse:
         {"work_review":{"home_work_id":2,"id":3,"teacher_id":null,"rate":5,"remark":null,"created_at":"2015-03-05T09:19:27.000Z","updated_at":"2015-03-05T09:19:27.000Z"}}% 
 
@@ -56,7 +110,9 @@
 
     - action: get
     - reponse:
-        {"work_review":{"home_work_id":2,"id":3,"teacher_id":null,"rate":5,"remark":null,"created_at":"2015-03-05T09:19:27.000Z","updated_at":"2015-03-05T09:19:27.000Z"}}%   
+        {"work_review":{"home_work_id":2,"id":3,"teacher_id":null,"rate":5,"remark":null,"created_at":"2015-03-05T09:19:27.000Z","updated_at":"2015-03-05T09:19:27.000Z"},
+          "review_medias": [...]}%   
+
 
 ### show teacher's reviews
     curl http://127.0.0.1:3000/api/v1/teachers/4/work_reviews
@@ -228,7 +284,13 @@
 ### get students of class
     curl -H "Accept:application/json" http://127.0.0.1:3000/api/v1/school_classes/1/students
 
-## WorkPaper 老师发布的作业， HomeWork 学生的作业
+## WorkPaper HomeWork
+老师发布的作业， 学生的作业
+
+### get wps of a teacher and a class
+
+http://localhost:3000/api/v1/teachers/2/work_papers?school_class_id=1
+
 ### get work_papers 获取我的作业list（学生）,list 不包括作业详细的多媒体资源路径
 
     curl -H "Accept:application/json" "http://127.0.0.1:3000/api/v1/students/3/work_papers?page=2" 
@@ -250,7 +312,7 @@
         {"work_paper":{"id":1,"title":"放学后第一课","type":"sound","description":"描述哦说明","teacher":"teacher1","medias":[{"media_resource_id":1,"avatar":"/uploads/media_resource/avatar/1/GTD.jpg"},{"media_resource_id":2,"avatar":null}]}}%
 
 ### get homework of work_paper and student 
-    curl http://127.0.0.1:3000/api/v1/home_works?student_id=1&work_paper_id=1
+    curl http://127.0.0.1:3000/api/v1/work_papers/1/home_works?student_id=1
 
     - action:get
     - params
@@ -281,21 +343,10 @@
 
 ### get homeworks of WorkPaper
     
-    curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/work_papers/56/home_works
-
+    /api/v1/work_papers/:id/home_works
     action: get
-    params:
-        work_paper_id=56 #work_papers/56
+    params: 
         page=1
-
-#### get unreview/reivewed homeworks
-    curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/work_papers/54/home_works?review_status=reviewed
-    
-    action： get
-    params：
-        work_paper_id=54 #work_papers/54
-        review_status=reviewed
-        review_status=unreivew
 
 ### get homework detail(include comments)
     
@@ -331,11 +382,17 @@
     - action: DELETE
 
 ## Message 消息
-### 获取用户消息详情
+
+消息类型message_type：
+- 置顶 TOP
+- 无置顶：NOTOP
+ 
+  
+### MSG1 获取用户消息详情
 
     curl http://127.0.0.1:3000/api/v1/user_messages/3
 
-### 获取用户消息
+### MSG2 获取用户消息
     teacher
     curl http://127.0.0.1:3000/api/v1/tachers/3/user_messages?page=1&message_type=any
 
@@ -344,12 +401,12 @@
 
     action: get
 
-    无置顶：message_type=NOTOP
+    
 
     字段解释： received_messagable_id 收到消息的user id（老师或者学生都是user的继承类）
     send_messagable_id 发出消息的user id
 
-### 发消息给个人
+### MSG3 发消息给个人
 
     curl -X POST -d 'message_type=any&received_user_id=1&topic=hi&body=teststestsest' http://127.0.0.1:3000/api/v1/teachers/3/send_message_to_person
 
@@ -359,7 +416,7 @@
         topic
         body
 
-### 发消息到班级
+### MSG4 发消息到班级
     curl -X POST -d 'message_type=any&school_class_id=1&topic=hi&body=teststestsest' http://127.0.0.1:3000/api/v1/teachers/3/send_message_to_class
 
     action: post
@@ -368,4 +425,16 @@
         topic
         body        
 
-
+#### change log
+-2015-03-25
+    update message api
+-2015-03-21
+    update teacher api
+    support page
+- 2015-03-17
+    work pager 
+- 2015-03-05
+    rate    
+- 2015-2-23 
+    - replace user to student
+    - update avatar
