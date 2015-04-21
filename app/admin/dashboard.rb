@@ -1,29 +1,17 @@
 ActiveAdmin.register_page "Dashboard" do
 
- 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  
-  
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if resource.something?
-  #   permitted
-  # end
-
- menu priority: 1, label: proc{ I18n.t("active_admin.dashboard") }
+  menu priority: 1, label: proc{ I18n.t("active_admin.dashboard") }
 
   content title: proc{ I18n.t("active_admin.dashboard") } do
     div class: "blank_slate_container" do
       span class: "blank_slate" do
         h3 do
-            "测试中,3-30，有问题请向email:dreamlinx@gmail.com 报告"
+            "测试中，有问题请向email:dreamlinx@gmail.com 报告"
         end
         ul do
+            ol do 
+                link_to '0 创建班级和导入学生', tools_import_students_path
+            end
             ol do 
                 link_to '1 create school class', new_admin_school_class_path
             end

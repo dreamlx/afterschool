@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'tools/import_students'
+  post 'tools/do_import_students'
+
   resources :articles
 
   devise_for :users
@@ -66,7 +69,9 @@ Rails.application.routes.draw do
 
       resources :user_messages, only: [:index, :show]
       
-      resources :posts
+      resources :posts do
+        resources :comments
+      end
     end
   end
 

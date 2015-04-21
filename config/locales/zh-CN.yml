@@ -13,6 +13,9 @@ zh-CN:
       work_review: 批阅作业
       class_paper: 班级作业
       school_class: 班级
+      post: 班级留言
+      post_comment: 留言评论
+      user_message: 发送消息
 
     attributes:
       class_paper:

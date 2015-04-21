@@ -1,7 +1,6 @@
-ActiveAdmin.register Post do
+ActiveAdmin.register PostComment do
   
   permit_params :title, :body, :user_id
-  config.comments = false
   
   index do
     column :id 
