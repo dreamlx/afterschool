@@ -13,3 +13,14 @@
  *= require_tree .
  *= require_self
  */
+
+.warning { color: blue;}
+div.warning
+{
+height:30px;
+width:200px;
+text-align: center;
+padding-top: 10px;
+background-color:lightgray;
+box-shadow: 10px 10px 5px #888888;
+}

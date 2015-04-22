@@ -1,10 +1,15 @@
 <h3>新建班级，导入学生</h3>
+	<br/>
+	<br/>
 
 <%= form_tag('/tools/do_import_students', multipart: true) do %>
-	班级名称：<%= text_field_tag 'school_class' %>
+	<b>班级名称：</b>
 	<br/>
 	<br/>
-	学生名单文件：
+	<%= text_field_tag 'school_class' %>
+	<br/>
+	<br/>
+	<b>学生名单文件：</b>
 	<br/>
 	<br/>
 	<%= file_field_tag 'students' %>
