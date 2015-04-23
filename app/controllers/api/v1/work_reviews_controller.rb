@@ -71,9 +71,11 @@ class Api::V1::WorkReviewsController < Api::V1::BaseController
     params.require(:work_review).permit(:remark, :teacher_id, 
       :home_work_id, :rate)
   end
+
   def media_params
     params.require(:media_resource).permit(:avatar)
   end
+
 end
 
   # 创建照片的同时也要创建资源

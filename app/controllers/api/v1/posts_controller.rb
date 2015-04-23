@@ -12,6 +12,9 @@ class Api::V1::PostsController < Api::V1::BaseController
 
   def create
     @post = Post.new(post_params)
+
+    @post.media_resources.build(media_params) if params[:media_resource]
+
     @post.save!
     render json: { message: 'OK' }
   rescue Exception => e
@@ -28,6 +31,9 @@ class Api::V1::PostsController < Api::V1::BaseController
 
   def update
     @post = Post.find(params[:id])
+
+    @post.media_resources.build(media_params) if params[:media_resource]
+    
     @post.update!(post_params)
     render json: { message: 'OK' }
   rescue Exception => e
@@ -47,6 +53,10 @@ class Api::V1::PostsController < Api::V1::BaseController
 
   def post_params
     params.require(:post).permit(:title, :body, :user_id, :school_class_id)
+  end
+
+  def media_params
+    params.require(:media_resource).permit(:avatar)
   end
 
 end
