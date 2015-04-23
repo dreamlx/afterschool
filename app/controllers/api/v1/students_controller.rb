@@ -68,6 +68,7 @@ class Api::V1::StudentsController < Api::V1::UserMessagesController
   private
 
   def student_params
-    params.require(:student).permit(:nickname, :email, :password, :password_confirmation, profile_attributes: [])
+    params.require(:student).permit(:nickname, :email, :password, :password_confirmation,
+     :school_class_id, profile_attributes: [])
   end
 end

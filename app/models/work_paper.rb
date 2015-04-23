@@ -1,7 +1,6 @@
 class WorkPaper < ActiveRecord::Base
   
   belongs_to :teacher, required: true
-#  validates :teacher_id, presence: true  
   has_many :media_resources, as: :media_resourceable, dependent: :destroy 
   accepts_nested_attributes_for :media_resources,  allow_destroy: true
 
