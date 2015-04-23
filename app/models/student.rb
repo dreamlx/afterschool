@@ -10,14 +10,14 @@ class Student < User
   }
 
   belongs_to :school_class, required: true
-#  validates :school_class_id, presence: true
-  delegate :work_papers, :to => :school_class, :allow_nil => true
-
   has_many :home_works
 
   scope :of_class, ->(cid){ where("school_class_id=#{cid}") }
   
+  delegate :work_papers, :to => :school_class, :allow_nil => true
+
   def class_no
   	self.school_class.class_no unless self.school_class.nil?
   end
+
 end
