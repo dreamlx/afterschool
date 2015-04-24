@@ -21,6 +21,20 @@ action参数说明：
 [student](#Student-学生)
 [work and paper](#WorkPaper-HomeWork)
 
+
+## 老师音像资料库
+
+### 列表
+
+    /media
+
+### 搜索
+
+    /media/search
+    
+    post
+    参数：description
+
 ## 导入学生
 
 目前的规则，只支持新建班级，一次导入。
@@ -31,6 +45,8 @@ action参数说明：
     http://114.215.125.31/tools/import_students
     控制板入口
     http://114.215.125.31/admin/dashboard
+
+
 
 
 ## 留言板 posts
@@ -438,3 +454,4 @@ http://localhost:3000/api/v1/teachers/2/work_papers?school_class_id=1
 - 2015-2-23 
     - replace user to student
     - update avatar
+
