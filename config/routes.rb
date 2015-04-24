@@ -13,6 +13,10 @@ Rails.application.routes.draw do
       get 'work_papers', to: 'work_papers#index'
       get 'work_papers/:work_paper_id/home_works', to: 'home_works#index'
 
+      get 'media', to: 'media_resources#index'
+      post 'media/search', to: 'media_resources#search'
+
+
       resources :work_papers do
         resources :media_resources
         resource :work_review

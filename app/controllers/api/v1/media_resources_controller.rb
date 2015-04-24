@@ -2,9 +2,13 @@ class Api::V1::MediaResourcesController < Api::V1::BaseController
   respond_to :json
 
   def index
-    @media_resources = HomeWork.find(params[:home_work_id]).media_resources
+    if params[:home_work_id]
+      @media_resources = HomeWork.find(params[:home_work_id]).media_resources
+    else
+      @media_resources = paged MediaResource
+    end
 
-    render json: { media_resources: @media_resources }, status: 200
+    render json: { media_resources: @media_resources }
   end
 
   def show 
@@ -38,6 +42,12 @@ class Api::V1::MediaResourcesController < Api::V1::BaseController
     @media_resource.destroy!
 
     render json: { media_resource: @media_resource }, status: 204
+  end
+
+  def search
+    desc = params[:description]
+    @media_resources = MediaResource.where("description like '%#{desc}%'")
+    render json: { media_resource: @media_resources }
   end
 
   private
