@@ -355,8 +355,7 @@ http://localhost:3000/api/v1/teachers/2/work_papers?school_class_id=1
         - work_paper[title]
         - work_paper[description]
         - work_paper[paper_type]
-        - school_class_ids[] #多个班级
-        - school_class_ids[]
+        - school_class_ids=1,2,3
 
 ### create workpaper media
     curl -F 'media_resource[avatar]=@public/uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[work_paper_id]=2'  'http://127.0.0.1:3000/api/v1/work_papers/1/media_resources'
