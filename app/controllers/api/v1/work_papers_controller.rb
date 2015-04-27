@@ -43,8 +43,8 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
 
   def create
     @work_paper = Teacher.find(params[:teacher_id]).work_papers.build(work_paper_params)
-    params[:school_class_ids].each do |cid|
-      @work_paper.class_papers.build(school_class_id: cid)
+    params[:school_class_ids].split(',').each do |cid|
+      @work_paper.class_papers.build(school_class_id: cid.to_i)
     end if params[:school_class_ids]
     @work_paper.save!
     render json: format_paper(@work_paper)
