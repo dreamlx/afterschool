@@ -68,6 +68,7 @@ http://localhost:3000/api/v1/posts/1
     post[body]
     post[user_id]
     post[school_class_id]
+    media_resource[avatar]
 
 ### 回帖comment创建
     http://localhost:3000/api/v1/posts/1/comments
@@ -225,6 +226,17 @@ review默认会创建一个空白的，所以不再提供create接口。
     - response
 
 ## Student 学生
+
+### 新建学生 create
+
+    /students
+
+    student[nickname]
+    student[email]
+    student[password]
+    student[password_confirmation]
+    student[school_class_id]
+
 ### get student info 获取学生基本信息
 
     curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/students/1
@@ -343,6 +355,8 @@ http://localhost:3000/api/v1/teachers/2/work_papers?school_class_id=1
         - work_paper[title]
         - work_paper[description]
         - work_paper[paper_type]
+        - school_class_ids[] #多个班级
+        - school_class_ids[]
 
 ### create workpaper media
     curl -F 'media_resource[avatar]=@public/uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[work_paper_id]=2'  'http://127.0.0.1:3000/api/v1/work_papers/1/media_resources'
