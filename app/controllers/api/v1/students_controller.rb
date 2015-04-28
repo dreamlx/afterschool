@@ -62,7 +62,11 @@ class Api::V1::StudentsController < Api::V1::UserMessagesController
   end
 
   def destroy
-
+    @student = Student.find(params[:id])
+    @student.destroy!
+    render json: { message: 'ok' }
+  rescue Exception => e
+    render json: { error: { message: e.message } }
   end
 
   private

@@ -43,9 +43,10 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
 
   def create
     @work_paper = Teacher.find(params[:teacher_id]).work_papers.build(work_paper_params)
-    params[:school_class_ids].split(',').each do |cid|
-      @work_paper.class_papers.build(school_class_id: cid.to_i)
-    end if params[:school_class_ids]
+    cids = params[:school_class_ids].try(:split, ',')
+    cids.try(:each) do |cid|
+      @work_paper.class_papers.build(school_class_id: cid) if cid.to_i > 0
+    end 
     @work_paper.save!
     render json: format_paper(@work_paper)
   rescue Exception => e
@@ -68,10 +69,6 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
   def work_paper_params
     params.require(:work_paper).permit(:title, :description, :paper_type)
   end
-
-  # def class_paper_params
-  #   params.require(:work_paper).permit(:school_class_id, :work_paper_id)
-  # end
 
   def verify_teacher
     @techer = Teacher.find(params[:teacher_id])
