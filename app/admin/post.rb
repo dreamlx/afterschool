@@ -1,6 +1,6 @@
 ActiveAdmin.register Post do
   
-  permit_params :title, :body, :user_id
+  permit_params :title, :body, :user_id, :school_class_id
   config.comments = false
   
   index do
