@@ -1,6 +1,6 @@
 ActiveAdmin.register PostComment do
   
-  permit_params :title, :body, :user_id
+  permit_params :title, :body, :user_id, :post_id
   
   index do
     column :id 

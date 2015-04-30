@@ -76,6 +76,7 @@ http://localhost:3000/api/v1/posts/1
     comment[title]
     comment[body]
     comment[user_id]
+    comment[post_id]
 
 
 ## get un_review home_works
