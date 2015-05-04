@@ -14,6 +14,7 @@ class Api::V1::ProfilesController < Api::V1::BaseController
   	id = params[:student_id] unless params[:student_id].blank?
     id = params[:teacher_id] unless params[:teacher_id].blank?
   	@profile = User.find(id).profile
+    @profile.user.nickname = params[:profile][:nickname] if params[:profile][:nickname]
     @profile.user.email = params[:profile][:email] if params[:profile][:email]
     @profile.user.school_class_id = params[:profile][:school_class_id] if params[:profile][:school_class_id]
 
