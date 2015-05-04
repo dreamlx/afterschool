@@ -1,4 +1,5 @@
 class Api::V1::UsersController < Api::V1::BaseController
+
   respond_to :json
 
   def index
@@ -8,7 +9,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   def show
     @user = User.find(params[:id])
-    render json: { user: @user, profile: @user.profile, class_no: @user.class_noes }, status: 200  
+    render json: { user: @user, profile: @user.profile, class_no: @user.class_noes }, status: 200
   end
 
   def create
@@ -31,7 +32,7 @@ class Api::V1::UsersController < Api::V1::BaseController
       render json: { user: @user }, status: 201
     else
       render json: { error: { message: "update failed" } }, status: 400
-    end 
+    end
   end
 
   def destroy
@@ -39,8 +40,9 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   private
+
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :role, profile_attributes: [])
   end
-  
+
 end

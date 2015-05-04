@@ -17,8 +17,11 @@ action参数说明：
 # dir
 
 [review](#work_review-老师批阅)
+
 [teacher](#Teacher-老师)
+
 [student](#Student-学生)
+
 [work and paper](#WorkPaper-HomeWork)
 
 
@@ -31,7 +34,7 @@ action参数说明：
 ### 搜索
 
     /media/search
-    
+
     post
     参数：description
 
@@ -59,6 +62,9 @@ http://localhost:3000/api/v1/posts?school_class_id=1
 
 http://localhost:3000/api/v1/posts/1
 
+返回：
+    comment_profiles: 数组, [ table: id, nickname, avatar ]
+
 ### create发帖
 
     http://localhost:3000/api/v1/posts
@@ -82,9 +88,9 @@ http://localhost:3000/api/v1/posts/1
 ## get un_review home_works
 
 ### all params for un_review
-    
+
     curl http://127.0.0.1:3000/api/v1/home_works/un_review?student_id=1
-    
+
     - action: get
     - params:
         student_id
@@ -121,7 +127,7 @@ review默认会创建一个空白的，所以不再提供create接口。
         - work_review[remark]=string
         - media_resource[avatar]=file
     - reponse:
-        {"work_review":{"home_work_id":2,"id":3,"teacher_id":null,"rate":5,"remark":null,"created_at":"2015-03-05T09:19:27.000Z","updated_at":"2015-03-05T09:19:27.000Z"}}% 
+        {"work_review":{"home_work_id":2,"id":3,"teacher_id":null,"rate":5,"remark":null,"created_at":"2015-03-05T09:19:27.000Z","updated_at":"2015-03-05T09:19:27.000Z"}}%
 
 ### show homework' review
     curl http://127.0.0.1:3000/api/v1/home_works/2/work_review  
@@ -129,17 +135,17 @@ review默认会创建一个空白的，所以不再提供create接口。
     - action: get
     - reponse:
         {"work_review":{"home_work_id":2,"id":3,"teacher_id":null,"rate":5,"remark":null,"created_at":"2015-03-05T09:19:27.000Z","updated_at":"2015-03-05T09:19:27.000Z"},
-          "review_medias": [...]}%   
+          "review_medias": [...]}%
 
 
 ### show teacher's reviews
     curl http://127.0.0.1:3000/api/v1/teachers/4/work_reviews
 
     - action: get
-    - params: 
+    - params:
         page=1
     - reponse:
-        {"work_reviews":[]}% 
+        {"work_reviews":[]}%
 
 ### delete reviews
     curl -X DELETE http://127.0.0.1:3000/api/v1/home_works/2/work_review  
@@ -151,9 +157,9 @@ review默认会创建一个空白的，所以不再提供create接口。
     curl -H "Accept:application/json" -d 'user[nickname]=dreamlinx&user[password]=11111111' http://114.215.125.31/api/v1/user_tokens
 
     - action: post
-    - params: 
+    - params:
         - user[nickname]=dreamlinx
-        - user[password]=11111111 
+        - user[password]=11111111
         - (或者 user[email])
     - response:
             #
@@ -161,12 +167,12 @@ review默认会创建一个空白的，所以不再提供create接口。
 
 ### user logout 登出
     curl -H "Accept:application/json" -X DELETE http://114.215.125.31/api/v1/user_tokens/1
-    
+
     - action: delete
     - params: id # 注意url用法，restful中记录id是直接以 /:id存在的 user_tokens/1
     - response:
         #
-        {"success":true}%                 
+        {"success":true}%
 
 ## User profile
 
@@ -184,18 +190,18 @@ review默认会创建一个空白的，所以不再提供create接口。
         page=:id
 
     - response:
-        {"teachers":[{"id":4,"nickname":"teacher1","phone":null,"created_at":"2015-02-21T01:29:48.000Z","updated_at":"2015-03-19T02:55:26.000Z","email":"t1@test.com","authentication_token":"XC5yni3VKeyzersrFQte","school_class_id":null,"role":"teacher"},{"id":7,"nickname":"t2@test.com","phone":null,"created_at":"2015-03-19T02:55:11.000Z","updated_at":"2015-03-20T01:35:50.000Z","email":"t2@test.com","authentication_token":"oRwRb1w_hPc9Dnk7Vqxu","school_class_id":null,"role":"teacher"}],"current_page":1,"per_page":12,"total_entries":2}                                           
+        {"teachers":[{"id":4,"nickname":"teacher1","phone":null,"created_at":"2015-02-21T01:29:48.000Z","updated_at":"2015-03-19T02:55:26.000Z","email":"t1@test.com","authentication_token":"XC5yni3VKeyzersrFQte","school_class_id":null,"role":"teacher"},{"id":7,"nickname":"t2@test.com","phone":null,"created_at":"2015-03-19T02:55:11.000Z","updated_at":"2015-03-20T01:35:50.000Z","email":"t2@test.com","authentication_token":"oRwRb1w_hPc9Dnk7Vqxu","school_class_id":null,"role":"teacher"}],"current_page":1,"per_page":12,"total_entries":2}
 
 
 ### Teacher get info 获取老师基本信息
 
     curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/teachers/1
-    
+
     - action: get
     - params: id # 注意url用法，restful中记录id是直接以 /:id存在的 teachers/1
-    
+
 ### update teacher password 更改老师名密码
-    
+
     curl -H "Accept:application/json" -X PUT  http://127.0.0.1:3000/api/v1/teachers/3?teacher[email]=test5@gmail.com&teacher[password]=11111111&teacher[password_confirmation]=11111112
 
     - action: PUT
@@ -241,15 +247,15 @@ review默认会创建一个空白的，所以不再提供create接口。
 ### get student info 获取学生基本信息
 
     curl -H "Accept:application/json" -X GET http://114.215.125.31/api/v1/students/1
-    
+
     - action: get
     - params: id # 注意url用法，restful中记录id是直接以 /:id存在的 students/1
     - response:
-        # 
-        {"student":{"id":3,"nickname":"test2","phone":null,"created_at":"2015-02-20T14:43:13.000Z","updated_at":"2015-02-20T14:51:27.000Z","email":"test3@gmail.com","authentication_token":"yyLyks2giDifPxxuxsVw","school_class_id":null},"profile":{"user_id":3,"avatar":{"url":null},"id":2,"address":null,"birthday":null,"gender":null,"student_number":null,"created_at":"2015-02-20T14:51:27.000Z","updated_at":"2015-02-20T14:51:27.000Z"},"school_class":{"id":4,"class_no":"22222","created_at":"2015-02-20T16:24:40.000Z","updated_at":"2015-02-20T16:24:40.000Z"}}%        
+        #
+        {"student":{"id":3,"nickname":"test2","phone":null,"created_at":"2015-02-20T14:43:13.000Z","updated_at":"2015-02-20T14:51:27.000Z","email":"test3@gmail.com","authentication_token":"yyLyks2giDifPxxuxsVw","school_class_id":null},"profile":{"user_id":3,"avatar":{"url":null},"id":2,"address":null,"birthday":null,"gender":null,"student_number":null,"created_at":"2015-02-20T14:51:27.000Z","updated_at":"2015-02-20T14:51:27.000Z"},"school_class":{"id":4,"class_no":"22222","created_at":"2015-02-20T16:24:40.000Z","updated_at":"2015-02-20T16:24:40.000Z"}}%
 
 ### update student password 更改学生名密码
-    
+
     curl -H "Accept:application/json" -X PUT  http://127.0.0.1:3000/api/v1/students/3?student[email]=test5@gmail.com&student[password]=11111111&student[password_confirmation]=11111112
 
     - action: PUT
@@ -259,7 +265,7 @@ review默认会创建一个空白的，所以不再提供create接口。
         - student[password_confirmation]=string
     - reponse
         正常
-        {"student":{"id":3,"nickname":"test2","phone":null,"created_at":"2015-02-20T14:43:13.000Z","updated_at":"2015-02-20T16:37:52.041Z","email":"test5@gmail.com","authentication_token":"yyLyks2giDifPxxuxsVw","school_class_id":null}}% 
+        {"student":{"id":3,"nickname":"test2","phone":null,"created_at":"2015-02-20T14:43:13.000Z","updated_at":"2015-02-20T16:37:52.041Z","email":"test5@gmail.com","authentication_token":"yyLyks2giDifPxxuxsVw","school_class_id":null}}%
 
         错误
         {"error":{"password_confirmation":["doesn't match Password"]}}%  
@@ -273,6 +279,8 @@ review默认会创建一个空白的，所以不再提供create接口。
         - profile[postalcode]= string
         - profile[birthday]= yyyy-mm-dd
         - profile[gender]= female|male
+        - profile[email]=
+        - profile[school_class_id]=
     - response
         #
 
@@ -286,9 +294,9 @@ review默认会创建一个空白的，所以不再提供create接口。
         - profile[avatar]= image data # multipart/form-data
     - response
         #
-        {"profile":{"user_id":1,"id":1,"avatar":{"url":"http://7vzqhr.com1.z0.glb.clouddn.com/uploads%2Fprofile%2Favatar%2F1%2FIMG_0309.JPG"},"address":"adsfad","birthday":"2014-11-01T00:00:00.000Z","gender":"","student_number":"","created_at":"2015-02-20T02:54:41.000Z","updated_at":"2015-02-21T16:02:16.957Z","postalcode":null}}% 
+        {"profile":{"user_id":1,"id":1,"avatar":{"url":"http://7vzqhr.com1.z0.glb.clouddn.com/uploads%2Fprofile%2Favatar%2F1%2FIMG_0309.JPG"},"address":"adsfad","birthday":"2014-11-01T00:00:00.000Z","gender":"","student_number":"","created_at":"2015-02-20T02:54:41.000Z","updated_at":"2015-02-21T16:02:16.957Z","postalcode":null}}%
 
-## get classes 获取班级list 
+## get classes 获取班级list
     curl -H "Accept:application/json" http://127.0.0.1:3000/api/v1/school_classes
 
     - action: get
@@ -322,14 +330,14 @@ http://localhost:3000/api/v1/teachers/2/work_papers?school_class_id=1
 
 ### get work_papers 获取我的作业list（学生）,list 不包括作业详细的多媒体资源路径
 
-    curl -H "Accept:application/json" "http://127.0.0.1:3000/api/v1/students/3/work_papers?page=2" 
-    
+    curl -H "Accept:application/json" "http://127.0.0.1:3000/api/v1/students/3/work_papers?page=2"
+
     - action: get
     - params:
         student_id # students/3
         page= integer
     - response:
-        {"work_papers":[{"id":1,"title":"放学后第一课","description":"描述哦说明","paper_type":"sound","created_at":"2015-02-21T01:23:50.000Z","updated_at":"2015-02-21T01:30:02.000Z","teacher_id":4}]}%                                                    
+        {"work_papers":[{"id":1,"title":"放学后第一课","description":"描述哦说明","paper_type":"sound","created_at":"2015-02-21T01:23:50.000Z","updated_at":"2015-02-21T01:30:02.000Z","teacher_id":4}]}%
 
 ### get work_paper 作业详细
     curl -H "Accept:application/json" "http://127.0.0.1:3000/api/v1/work_papers/1"
@@ -340,18 +348,18 @@ http://localhost:3000/api/v1/teachers/2/work_papers?school_class_id=1
     -response:
         {"work_paper":{"id":1,"title":"放学后第一课","type":"sound","description":"描述哦说明","teacher":"teacher1","medias":[{"media_resource_id":1,"avatar":"/uploads/media_resource/avatar/1/GTD.jpg"},{"media_resource_id":2,"avatar":null}]}}%
 
-### get homework of work_paper and student 
+### get homework of work_paper and student
     curl http://127.0.0.1:3000/api/v1/work_papers/1/home_works?student_id=1
 
     - action:get
     - params
         page=1
-    
+
 ### create work_paper 创建作业  
     curl -X POST -d 'work_paper[title]=test&work_paper[description]=111111&work_paper[paper_type]=' http://127.0.0.1:3000/api/v1/teachers/3/work_papers
 
     action: POST
-    params: 
+    params:
         - teacher_id: #teachers/3
         - work_paper[title]
         - work_paper[description]
@@ -360,7 +368,7 @@ http://localhost:3000/api/v1/teachers/2/work_papers?school_class_id=1
 
 ### create workpaper media
     curl -F 'media_resource[avatar]=@public/uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[work_paper_id]=2'  'http://127.0.0.1:3000/api/v1/work_papers/1/media_resources'
-    
+
     - action: POST
     - params: work_paper_id # home_works/1
     - media_resource[avatar]=file
@@ -372,21 +380,21 @@ http://localhost:3000/api/v1/teachers/2/work_papers?school_class_id=1
     get
 
 ### get homeworks of WorkPaper
-    
+
     /api/v1/work_papers/:id/home_works
     action: get
-    params: 
+    params:
         page=1
 
 ### get homework detail(include comments)
-    
+
     curl http://127.0.0.1:3000/api/v1/home_works/1
     get
 
 ### create homework
 
     curl -X POST -d 'home_work[title]=test&home_work[work_paper_id]=&home_work[description]' http://127.0.0.1:3000/api/v1/students/3/home_works
-    
+
     - action: post
     - params:
         title
@@ -394,17 +402,17 @@ http://localhost:3000/api/v1/teachers/2/work_papers?school_class_id=1
         work_paper_id
 
     - response:
-    {"home_work":{"id":3,"title":"test","description":null,"student_id":3,"work_paper_id":null,"created_at":"2015-03-02T11:23:40.272Z","updated_at":"2015-03-02T11:23:40.272Z","state":null}}%   
+    {"home_work":{"id":3,"title":"test","description":null,"student_id":3,"work_paper_id":null,"created_at":"2015-03-02T11:23:40.272Z","updated_at":"2015-03-02T11:23:40.272Z","state":null}}%
 
 ### create homework media
     curl -F 'media_resource[avatar]=@public/uploads/media_resource/avatar/1/IMG_0309.JPG' -F 'media_resource[home_work_id]=2'  'http://127.0.0.1:3000/api/v1/home_works/1/media_resources'
-    
+
     - action: POST
     - params: home_work_id # home_works/1
     - media_resource[avatar]=file
     - media_resource[description]
     - response
-        {"media_resource":{"id":11,"created_at":"2015-03-02T11:12:21.480Z","updated_at":"2015-03-02T11:12:21.480Z","avatar":{"url":"http://7vzqhr.com1.z0.glb.clouddn.com/uploads%2Fmedia_resource%2Favatar%2F11%2FIMG_0309.JPG"},"work_paper_id":2,"description":null,"media_resourceable_id":1,"media_resourceable_type":"HomeWork"}}% 
+        {"media_resource":{"id":11,"created_at":"2015-03-02T11:12:21.480Z","updated_at":"2015-03-02T11:12:21.480Z","avatar":{"url":"http://7vzqhr.com1.z0.glb.clouddn.com/uploads%2Fmedia_resource%2Favatar%2F11%2FIMG_0309.JPG"},"work_paper_id":2,"description":null,"media_resourceable_id":1,"media_resourceable_type":"HomeWork"}}%
 
 ### DELETE homework
 
@@ -416,8 +424,8 @@ http://localhost:3000/api/v1/teachers/2/work_papers?school_class_id=1
 消息类型message_type：
 - 置顶 TOP
 - 无置顶：NOTOP
- 
-  
+
+
 ### MSG1 获取用户消息详情
 
     curl http://127.0.0.1:3000/api/v1/user_messages/3
@@ -431,7 +439,7 @@ http://localhost:3000/api/v1/teachers/2/work_papers?school_class_id=1
 
     action: get
 
-    
+
 
     字段解释： received_messagable_id 收到消息的user id（老师或者学生都是user的继承类）
     send_messagable_id 发出消息的user id
@@ -453,7 +461,7 @@ http://localhost:3000/api/v1/teachers/2/work_papers?school_class_id=1
     params:
         school_class_id
         topic
-        body        
+        body
 
 #### change log
 -2015-03-25
@@ -462,10 +470,9 @@ http://localhost:3000/api/v1/teachers/2/work_papers?school_class_id=1
     update teacher api
     support page
 - 2015-03-17
-    work pager 
+    work pager
 - 2015-03-05
-    rate    
-- 2015-2-23 
+    rate
+- 2015-2-23
     - replace user to student
     - update avatar
-
