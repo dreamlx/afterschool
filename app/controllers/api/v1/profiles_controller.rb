@@ -14,8 +14,11 @@ class Api::V1::ProfilesController < Api::V1::BaseController
   	id = params[:student_id] unless params[:student_id].blank?
     id = params[:teacher_id] unless params[:teacher_id].blank?
   	@profile = User.find(id).profile
+    @profile.user.email = params[:profile][:email] if params[:profile][:email]
+    @profile.user.school_class_id = params[:profile][:school_class_id] if params[:profile][:school_class_id]
 
-  	if @profile.update(profile_params)
+  	if @profile.update!(profile_params)
+      @profile.user.save!
   		render json: { profile: @profile}, status: 201, message: '更新成功'
   	else
   		render json: { profile: @profile}, status: 400, message: '更新失败，请联系管理员'
