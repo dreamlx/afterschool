@@ -279,6 +279,7 @@ review默认会创建一个空白的，所以不再提供create接口。
         - profile[postalcode]= string
         - profile[birthday]= yyyy-mm-dd
         - profile[gender]= female|male
+        - profile[nickname]=
         - profile[email]=
         - profile[school_class_id]=
     - response
