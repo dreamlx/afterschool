@@ -11,7 +11,7 @@ class Api::V1::PostsController < Api::V1::BaseController
       end
       OpenStruct.new.tap do |media|
         media.post_id = p.id
-        media.url = media_urls
+        media.urls = media_urls
       end
     end
 

@@ -57,6 +57,8 @@ action参数说明：
 ### index列表
 
 http://localhost:3000/api/v1/posts?school_class_id=1
+返回：
+    media_resources: [ table: post_id, urls: [ ] ]
 
 ### show详情
 
