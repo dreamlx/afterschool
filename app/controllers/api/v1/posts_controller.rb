@@ -5,9 +5,20 @@ class Api::V1::PostsController < Api::V1::BaseController
   def index
     cid = params[:school_class_id]
     @posts = paged Post.where("school_class_id=#{cid}")
-    render json: { posts: @posts }
-  rescue Exception => e
-    render json: { error: { message: e.message } }
+    @media = @posts.map do |p|
+      media_urls = p.media_resources.map do |m|
+        m.avatar.url
+      end
+      OpenStruct.new.tap do |media|
+        media.post_id = p.id
+        media.url = media_urls
+      end
+    end
+
+    # render json: { posts: @posts }
+    render json: { posts: @posts, media_resources: @media }
+  # rescue Exception => e
+  #   render json: { error: { message: e.message } }
   end
 
   def create
@@ -24,13 +35,12 @@ class Api::V1::PostsController < Api::V1::BaseController
   def show
     @post = Post.find(params[:id])
     @post.user.authentication_token = 'hiddden'
-    @comment_profiles = []
-    @post.post_comments.each do |c|
-       cp = OpenStruct.new
-       cp.id = c.id
-       cp.nickname = c.user.nickname
-       cp.avatar = c.user.profile.avatar.url
-       @comment_profiles += [cp]
+    @comment_profiles = @post.post_comments.map do |c|
+      OpenStruct.new.tap do |o|
+       o.id = c.id
+       o.nickname = c.user.nickname
+       o.avatar = c.user.profile.avatar.url
+      end
     end
     render json: { post: @post, comments: @post.post_comments,
       comment_profiles: @comment_profiles, user: @post.user }
@@ -58,7 +68,6 @@ class Api::V1::PostsController < Api::V1::BaseController
   end
 
   private
-
 
   def post_params
     params.require(:post).permit(:title, :body, :user_id, :school_class_id)
