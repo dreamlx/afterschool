@@ -14,6 +14,10 @@ action参数说明：
     新建create：post
     更新update：put
 
+分页统一处理为
+    page
+    per_page #default 12
+
 # dir
 
 [review](#work_review-老师批阅)
@@ -58,14 +62,14 @@ action参数说明：
 
 http://localhost:3000/api/v1/posts?school_class_id=1
 返回：
-    media_resources: [ table: post_id, urls: [ ] ]
+    { media_resources: [ { post_id, urls: [] } ] }
 
 ### show详情
 
 http://localhost:3000/api/v1/posts/1
 
 返回：
-    comment_profiles: 数组, [ table: id, nickname, avatar ]
+    { comment_profiles: [ { id, nickname, avatar } ] }
 
 ### create发帖
 
