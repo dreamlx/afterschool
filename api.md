@@ -80,7 +80,7 @@ http://localhost:3000/api/v1/posts/1
     post[body]
     post[user_id]
     post[school_class_id]
-    media_resource[avatar]
+    media_resource[avatar][] #多图
 
 ### 回帖comment创建
     http://localhost:3000/api/v1/posts/1/comments
