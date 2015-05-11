@@ -13,16 +13,10 @@ class Api::V1::PostsController < Api::V1::BaseController
         media[:post_id] = p.id
         media[:urls] = media_urls
       end
-      # OpenStruct.new.tap do |media|
-      #   media.post_id = p.id
-      #   media.urls = media_urls
-      # end
     end
-
-    # render json: { posts: @posts }
     render json: { posts: @posts, media_resources: @media }
-  # rescue Exception => e
-  #   render json: { error: { message: e.message } }
+  rescue Exception => e
+    render json: { error: { message: e.message } }
   end
 
   def create
@@ -45,11 +39,6 @@ class Api::V1::PostsController < Api::V1::BaseController
         cp[:nickname] = c.user.nickname
         cp[:avatar] = c.user.profile.avatar.url
       end
-      # OpenStruct.new.tap do |o|
-      #  o.id = c.id
-      #  o.nickname = c.user.nickname
-      #  o.avatar = c.user.profile.avatar.url
-      # end
     end
     render json: { post: @post, comments: @post.post_comments,
       comment_profiles: @comment_profiles, user: @post.user }
