@@ -61,6 +61,7 @@ action参数说明：
 ### index列表
 
 http://localhost:3000/api/v1/posts?school_class_id=1
+http://localhost:3000/api/v1/posts?student_id=1
 返回：
     { media_resources: [ { post_id, urls: [] } ] }
 

@@ -1,7 +1,7 @@
 class Api::V1::UserMessagesController < Api::V1::BaseController
-  
+
   respond_to :json
-  
+
   def index
   end
 
@@ -18,11 +18,13 @@ class Api::V1::UserMessagesController < Api::V1::BaseController
     else
       user_messages = User.find(params[:id])
                             .received_messages
-    end 
+    end
     @user_messages = paged user_messages
 
     render json: { user_messages: @user_messages }
-  end    
+  rescue Exception => e
+    render json: { error: { message: e.message } }
+  end
 
   def send_message_to_person
     senduser = User.find(params[:id])
