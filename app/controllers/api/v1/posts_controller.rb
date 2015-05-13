@@ -3,8 +3,14 @@ class Api::V1::PostsController < Api::V1::BaseController
   respond_to :json
 
   def index
-    cid = params[:school_class_id]
-    @posts = paged Post.where("school_class_id=#{cid}")
+    if params[:school_class_id]
+      cid = params[:school_class_id]
+      @posts = paged Post.where("school_class_id=#{cid}")
+    elsif params[:student_id]
+      sid = params[:student_id]
+      @posts = paged Post.where("user_id=#{sid}")
+    end
+
     @media = @posts.map do |p|
       media_urls = p.media_resources.map do |m|
         m.avatar.url
