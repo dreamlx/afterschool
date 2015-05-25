@@ -43,6 +43,7 @@ class Api::V1::UserMessagesController < Api::V1::BaseController
       sc.students.each do |received_user|
         message = senduser.send_message(received_user, params[:topic], params[:body], msg_type)
       end
+      senduser.send_message(senduser, params[:topic], params[:body], msg_type)
     end
     render json: { message: message }
   end
