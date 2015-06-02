@@ -13,7 +13,7 @@ class Api::V1::BaseController < ApplicationController
         json.updated_at   home_work.updated_at
         json.work_paper do |w|
           unless home_work.work_paper.nil?
-            json.id home_work.work_paper.id 
+            json.id home_work.work_paper.id
             json.title  home_work.work_paper.title
           end
         end
@@ -40,7 +40,7 @@ class Api::V1::BaseController < ApplicationController
 
   def format_homework(home_work)
     Jbuilder.encode do |json|
-      json.set! 'home_work' do 
+      json.set! 'home_work' do
         json.id           home_work.id
         json.title        home_work.title
         json.description  home_work.description
@@ -86,11 +86,11 @@ class Api::V1::BaseController < ApplicationController
         end
         json.teacher do |teacher|
           unless work_paper.teacher.nil?
-            json.teacher      work_paper.teacher.nickname 
-            json.avatar       work_paper.teacher.profile.nil? ? "" : work_paper.teacher.profile.avatar.url 
+            json.teacher      work_paper.teacher.nickname
+            json.avatar       work_paper.teacher.profile.nil? ? "" : work_paper.teacher.profile.avatar.url
           end
         end
-        
+
         json.created_at    work_paper.created_at
         json.updated_at    work_paper.updated_at
         json.classes      work_paper.school_classes do |sc|
@@ -109,15 +109,15 @@ class Api::V1::BaseController < ApplicationController
 
   def format_paper(work_paper)
     Jbuilder.encode do |json|
-      json.set! 'work_paper' do 
+      json.set! 'work_paper' do
         json.id           work_paper.id
         json.title        work_paper.title
         json.type         work_paper.paper_type
         json.description  work_paper.description
         json.teacher do |teacher|
           unless work_paper.teacher.nil?
-            json.teacher      work_paper.teacher.nickname 
-            json.avatar       work_paper.teacher.profile.nil? ? "" : work_paper.teacher.profile.avatar.url 
+            json.teacher      work_paper.teacher.nickname
+            json.avatar       work_paper.teacher.profile.nil? ? "" : work_paper.teacher.profile.avatar.url
           end
         end
         json.created_at    work_paper.created_at
@@ -143,7 +143,18 @@ class Api::V1::BaseController < ApplicationController
 
   def paged(customer, per_page = 12 )
     customer.paginate(:page => params[:page], :per_page => per_page)
-  end  
+  end
+
+  private
+
+  def render_error message
+    render json: { error: { message: message } }
+  end
+
+  def render_msg message
+    render json: { message: message }
+  end
+
 
 end
 
