@@ -55,7 +55,15 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
 
   def update
     @work_paper = WorkPaper.find(params[:id])
+    @work_paper.class_papers.each { |r| r.destroy! }
+    cids = params[:school_class_ids].try(:split, ',')
+    cids.try(:each) do |cid|
+      @work_paper.class_papers.build(school_class_id: cid) if cid.to_i > 0
+    end
     @work_paper.update!(work_paper_params)
+    render_msg 'ok'
+  rescue => e
+    render_error e.message
   end
 
   def destroy
