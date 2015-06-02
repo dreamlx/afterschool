@@ -3,7 +3,7 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
   respond_to :json
 
   # before_action :verify_teacher, only: [:create, :update, :destroy]
-  
+
   def index
     tid, cid, sid = params[:teacher_id], params[:school_class_id], params[:student_id]
     total_students = 0
@@ -22,14 +22,14 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
     elsif !cid.blank?
       work_papers = SchoolClass.find(cid).work_papers
       total_students = Student.of_class(cid).count
-    end    
+    end
 
     work_papers = WorkPaper if work_papers.nil?
     @work_papers = paged work_papers.order(updated_at: :desc)
 
     @work_papers.each do |wp|
-      wp.count_works = wp.home_works.count 
-      wp.total_students = total_students 
+      wp.count_works = wp.home_works.count
+      wp.total_students = total_students
     end
     render json:  format_papers(@work_papers, sid)
   rescue Exception => e
@@ -46,7 +46,7 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
     cids = params[:school_class_ids].try(:split, ',')
     cids.try(:each) do |cid|
       @work_paper.class_papers.build(school_class_id: cid) if cid.to_i > 0
-    end 
+    end
     @work_paper.save!
     render json: format_paper(@work_paper)
   rescue Exception => e
@@ -54,6 +54,8 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
   end
 
   def update
+    @work_paper = WorkPaper.find(params[:id])
+    @work_paper.update!(work_paper_params)
   end
 
   def destroy
@@ -72,11 +74,10 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
 
   def verify_teacher
     @techer = Teacher.find(params[:teacher_id])
-    if @teacher 
+    if @teacher
       return true
     end
-    return false 
+    return false
   end
-  
-end
 
+end

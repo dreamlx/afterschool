@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   #devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  namespace :api do 
-    namespace :v1 do 
+  namespace :api do
+    namespace :v1 do
       get 'work_papers', to: 'work_papers#index'
       get 'work_papers/:work_paper_id/home_works', to: 'home_works#index'
 
@@ -45,13 +45,14 @@ Rails.application.routes.draw do
         resource :profile
         resources :work_papers, shallow: true
         resources :school_classes
+        resources :informs
         member do
           post 'send_message_to_person'
           post 'send_message_to_class'
           get 'user_messages'
         end
       end
-      
+
       resources :students do
         resource :profile
         resources :work_papers, shallow: true
@@ -62,8 +63,8 @@ Rails.application.routes.draw do
           get 'user_messages'
         end
       end
-      
-      
+
+
       resources :user_tokens
       resources :school_classes do
         resources :work_papers, shallow: true
@@ -72,7 +73,7 @@ Rails.application.routes.draw do
       end
 
       resources :user_messages, only: [:index, :show]
-      
+
       resources :posts do
         resources :comments
       end
