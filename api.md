@@ -30,6 +30,37 @@ action参数说明：
 [work and paper](#WorkPaper-HomeWork)
 
 
+## 老师通知 
+    -2015-06-03
+    -informs 的增，删，查，改操作
+    -增
+        - url:
+            http://localhost:3000/api/v1/teachers/1/informs/1
+        -action: post
+        -params
+            inform[id]
+            inform[title]
+            inform[body】
+            inform[teacher_id】
+            inform[school_class_id]
+    -删
+        -url: http://localhost:3000/api/v1/teachers/1/informs/1
+        -action: delete
+    -查
+        -url: http://localhost:3000/api/v1/teachers/1/informs/2
+        -action: get
+    -改
+        -url: http://localhost:3000/api/v1/teachers/1/informs
+        -action: put
+        -params
+            inform[id]
+            inform[title]
+            inform[body]
+            inform[teacher_id]
+            inform[school_class_id]
+
+
+
 ## 老师音像资料库
 
 ### 列表
