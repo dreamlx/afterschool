@@ -30,9 +30,13 @@ action参数说明：
 [work and paper](#WorkPaper-HomeWork)
 
 
-## 老师通知 
-    -2015-06-03
-    -informs 的增，删，查，改操作
+## 老师通知
+    -列表
+        -url: http://localhost:3000/api/v1/teachers/1/informs?school_class_id=1
+        -action: get
+    -详情
+        -url: http://localhost:3000/api/v1/teachers/1/informs/2
+        -action: get
     -增
         - url:
             http://localhost:3000/api/v1/teachers/1/informs/1
@@ -46,9 +50,6 @@ action参数说明：
     -删
         -url: http://localhost:3000/api/v1/teachers/1/informs/1
         -action: delete
-    -查
-        -url: http://localhost:3000/api/v1/teachers/1/informs/2
-        -action: get
     -改
         -url: http://localhost:3000/api/v1/teachers/1/informs
         -action: put
