@@ -16,6 +16,7 @@ zh-CN:
       post: 班级留言
       post_comment: 留言评论
       user_message: 发送消息
+      inform: 通知
 
     attributes:
       class_paper:
@@ -71,7 +72,7 @@ zh-CN:
         rate: 评级
         remark: 作业点评
         teacher: 老师
-        home_work: 家庭作业 
+        home_work: 家庭作业
 
       comment:
         title: 标题
