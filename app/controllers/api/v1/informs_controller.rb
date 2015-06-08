@@ -3,7 +3,8 @@ class Api::V1::InformsController < Api::V1::BaseController
   respond_to :json
 
   def index
-    @informs = Inform.where("teacher_id=#{params[:teacher_id]} and school_class_id=#{params[:school_class_id]} ")
+    cond = "teacher_id=#{params[:teacher_id]} and school_class_id=#{params[:school_class_id]}"
+    @informs = Inform.where(cond).order('id desc')
     render json: @informs
   end
 

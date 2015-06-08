@@ -39,13 +39,12 @@ action参数说明：
         -action: get
     -增
         - url:
-            http://localhost:3000/api/v1/teachers/1/informs/1
+            http://localhost:3000/api/v1/teachers/1/informs
         -action: post
         -params
-            inform[id]
             inform[title]
-            inform[body】
-            inform[teacher_id】
+            inform[body]
+            inform[teacher_id]
             inform[school_class_id]
     -删
         -url: http://localhost:3000/api/v1/teachers/1/informs/1
@@ -429,6 +428,13 @@ http://localhost:3000/api/v1/teachers/2/work_papers?school_class_id=1
     - params: work_paper_id # home_works/1
     - media_resource[avatar]=file
     - media_resource[description]
+
+### delete workpaper media
+    http://127.0.0.1:3000/api/v1/work_papers/1/media_resources/1
+
+    - action: delete
+
+## Homework
 
 ### get student's homeworks
 
