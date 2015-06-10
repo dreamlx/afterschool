@@ -46,6 +46,7 @@ Rails.application.routes.draw do
         resources :work_papers, shallow: true
         resources :school_classes
         resources :informs
+        resources :votes
         member do
           post 'send_message_to_person'
           post 'send_message_to_class'
