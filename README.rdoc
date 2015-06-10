@@ -21,11 +21,5 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* this is my test para.. testing if request merge success...
-* test merge to lin
-* The second time Trying merge to lin.
-
-* test direct to lin
-
 Please feel free to use a different markup language if you do not plan to run
 <tt>rake doc:app</tt>.
