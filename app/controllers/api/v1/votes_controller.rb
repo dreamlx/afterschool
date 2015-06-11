@@ -16,6 +16,12 @@ class Api::V1::VotesController < Api::V1::BaseController
 
   def create
     @vote = Vote.new(vote_params)
+    options = params[:vote_option][:title]
+    # raise options.size.to_s
+    options.each do |o|
+      @vote.vote_options.build(title: o)
+    end
+
     @vote.save!
     render_msg 'ok'
   end
