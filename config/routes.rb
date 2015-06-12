@@ -46,13 +46,19 @@ Rails.application.routes.draw do
         resources :work_papers, shallow: true
         resources :school_classes
         resources :informs
-        resources :votes
+        resources :votes do
+          member do
+            post 'choose'
+          end
+        end
+        # resources :voteOptions
         member do
           post 'send_message_to_person'
           post 'send_message_to_class'
           get 'user_messages'
         end
       end
+
 
       resources :students do
         resource :profile

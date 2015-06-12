@@ -37,11 +37,24 @@ class Api::V1::VotesController < Api::V1::BaseController
     render_msg 'ok'
   end
 
+  def choose
+    options_array = params[:ticket][:vote_option_id]
+    uid = params[:ticket][:user_id]
+    options_array.each do |o|
+      t = Ticket.new(vote_option_id: o, user_id: uid)
+      t.save!
+    end
+    render_msg 'ok'
+  end
+
   private
+
+  def ticket_params
+    params.require(:ticket).permit!
+  end
 
   def vote_params
     params.require(:vote).permit!
   end
-
 
 end
