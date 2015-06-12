@@ -36,7 +36,8 @@ action参数说明：
 
     action: post
     params:
-        vote[user_id]
+        vote[teacher_id]
+        vote[school_class_id]
         vote[title]
         vote[is_multi] #true/false
         vote_option[title][]
@@ -51,6 +52,11 @@ action参数说明：
 
     统计
     http://localhost:3000/api/v1/teachers/2/votes/1
+
+    action: get
+
+    列表
+    http://localhost:3000/api/v1/teachers/2/votes?school_class_id=1
 
     action: get
 
