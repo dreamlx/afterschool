@@ -34,6 +34,7 @@ class Api::V1::VotesController < Api::V1::BaseController
     render json: {vote: @vote, vote_option: @vote.vote_options, result: result}
   end
 
+
   def destroy
     @vote = Vote.find(params[:id])
     @vote.destroy!
