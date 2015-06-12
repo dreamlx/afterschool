@@ -17,6 +17,7 @@ zh-CN:
       post_comment: 留言评论
       user_message: 发送消息
       inform: 通知
+      vote: 投票
 
     attributes:
       class_paper:
