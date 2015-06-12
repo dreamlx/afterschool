@@ -30,6 +30,31 @@ action参数说明：
 [work and paper](#WorkPaper-HomeWork)
 
 
+## 投票 操作
+    新建投票标题
+    http://localhost:3000/api/v1/teachers/1/votes
+
+    action: post
+    params:
+        vote[user_id]
+        vote[title]
+        vote[is_multi] #true/false
+        vote_option[title][]
+
+    投票
+    http://localhost:3000/api/v1/teachers/1/votes/1/choose
+
+    action: post
+    params:
+        ticket[user_id]
+        ticket[vote_option_id][]
+
+    统计
+    http://localhost:3000/api/v1/teachers/2/votes/1
+
+    action: get
+
+
 ## 老师通知
     -列表
         -url: http://localhost:3000/api/v1/teachers/1/informs?school_class_id=1
