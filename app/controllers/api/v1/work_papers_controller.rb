@@ -61,7 +61,7 @@ class Api::V1::WorkPapersController < Api::V1::BaseController
       @work_paper.class_papers.build(school_class_id: cid) if cid.to_i > 0
     end
     @work_paper.update!(work_paper_params)
-    render_msg 'ok'
+    render json: format_paper(@work_paper)
   rescue => e
     render_error e.message
   end

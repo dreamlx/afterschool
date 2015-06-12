@@ -28,7 +28,10 @@ class Api::V1::VotesController < Api::V1::BaseController
 
   def show
     @vote = Vote.find(params[:id])
-    render json: @vote
+    result = @vote.vote_options.map do |o|
+      [o.id, o.title, o.tickets.count]
+    end
+    render json: {vote: @vote, vote_option: @vote.vote_options, result: result}
   end
 
   def destroy
