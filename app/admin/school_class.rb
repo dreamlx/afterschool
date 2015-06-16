@@ -1,6 +1,15 @@
 ActiveAdmin.register SchoolClass do
 
-  permit_params :class_no
+  permit_params :class_no, :avatar
+
+  index do
+    column :class_no 
+    column :avatar do |p|
+      image_tag p.avatar.url, size: '128x128' unless p.avatar.nil?
+    end
+    actions
+  end
+
 
   show do |c|
     attributes_table do 

@@ -8,6 +8,8 @@ class SchoolClass < ActiveRecord::Base
   has_many :work_papers, through: :class_papers
   has_many :home_works, through: :students
 
+  mount_uploader :avatar, AvatarUploader
+
   def title
   	self.class_no
   end
