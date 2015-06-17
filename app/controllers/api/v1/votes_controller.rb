@@ -11,10 +11,10 @@ class Api::V1::VotesController < Api::V1::BaseController
         
     @votes = Vote.where(cond).order('id desc')
     
-    user_ids = []
     voted = []
 
     @votes.each do |vote|
+      user_ids = []
       vote.vote_options.each do |option|
         # user_ids  += Ticket.select('user_id').where("#option.id = vote_option_id")
         user_ids  += Ticket.where("vote_option_id = #{option.id}").map {|t| t.user_id }
