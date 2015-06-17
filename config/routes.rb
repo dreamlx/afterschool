@@ -49,6 +49,7 @@ Rails.application.routes.draw do
         resources :votes do
           member do
             post 'choose'
+            post 'close'
           end
         end
         # resources :voteOptions
