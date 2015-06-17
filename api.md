@@ -56,8 +56,7 @@ action参数说明：
     action: get
 
     列表
-    http://localhost:3000/api/v1/teachers/2/votes?school_class_id=1
-
+    http://localhost:3000/api/v1/teachers/2/votes?school_class_id=1&user_id=1
     action: get
 
 

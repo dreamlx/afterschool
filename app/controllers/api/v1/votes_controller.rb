@@ -9,9 +9,26 @@ class Api::V1::VotesController < Api::V1::BaseController
       cond = "teacher_id=#{params[:teacher_id]}"
     end
         
-    # cond = "teacher_id=#{params[:teacher_id]} and school_class_id=#{params[:school_class_id]}"
     @votes = Vote.where(cond).order('id desc')
-    render json: @votes
+    
+    user_ids = []
+    voted = []
+
+    @votes.each do |vote|
+      vote.vote_options.each do |option|
+        # user_ids  += Ticket.select('user_id').where("#option.id = vote_option_id")
+        user_ids  += Ticket.where("vote_option_id = #{option.id}").map {|t| t.user_id }
+                # user_ids  += Ticket.where("vote_option_id = #{option.id}").values
+      end
+      h = {}
+      h[:id] = vote.id
+      user_ids.include?(params[:user_id].to_i) ? h[:is_voted] = true : h[:is_voted] = false
+
+
+      voted << h
+    end
+
+    render json: {votes: @votes, voted: voted}
   end
 
   def update
@@ -54,6 +71,13 @@ class Api::V1::VotesController < Api::V1::BaseController
       t = Ticket.new(vote_option_id: o, user_id: uid)
       t.save!
     end
+    render_msg 'ok'
+  end
+
+  def close
+    @vote = Vote.find(params[:id])
+    @vote.state = "close"
+    @vote.save!
     render_msg 'ok'
   end
 
