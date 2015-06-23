@@ -18,7 +18,7 @@ class Api::V1::VotesController < Api::V1::BaseController
       vote.vote_options.each do |option|
         # user_ids  += Ticket.select('user_id').where("#option.id = vote_option_id")
         user_ids  += Ticket.where("vote_option_id = #{option.id}").map {|t| t.user_id }
-                # user_ids  += Ticket.where("vote_option_id = #{option.id}").values
+        # user_ids  += Ticket.where("vote_option_id = #{option.id}").values
       end
       h = {}
       h[:id] = vote.id
