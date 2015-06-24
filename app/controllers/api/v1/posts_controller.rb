@@ -5,10 +5,10 @@ class Api::V1::PostsController < Api::V1::BaseController
   def index
     if params[:school_class_id]
       cid = params[:school_class_id]
-      @posts = paged Post.where("school_class_id=#{cid}")
+      @posts = paged Post.where("school_class_id=#{cid}").order("id desc")
     elsif params[:student_id]
       sid = params[:student_id]
-      @posts = paged Post.where("user_id=#{sid}")
+      @posts = paged Post.where("user_id=#{sid}").order("id desc")
     end
 
     @media = @posts.map do |p|
