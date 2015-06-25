@@ -16,19 +16,16 @@ class Api::V1::VotesController < Api::V1::BaseController
 
     @votes.each do |vote|
       vote.vote_options.each do |option|
-        # user_ids  += Ticket.select('user_id').where("#option.id = vote_option_id")
         user_ids  += Ticket.where("vote_option_id = #{option.id}").map {|t| t.user_id }
-                # user_ids  += Ticket.where("vote_option_id = #{option.id}").values
       end
       h = {}
       h[:id] = vote.id
       user_ids.include?(params[:user_id].to_i) ? h[:is_voted] = true : h[:is_voted] = false
 
-
       voted << h
     end
 
-    render json: {votes: @votes, voted: voted}
+    render json: { votes: @votes, voted: voted }
   end
 
   def update

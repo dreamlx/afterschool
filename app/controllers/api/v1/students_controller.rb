@@ -12,13 +12,20 @@ class Api::V1::StudentsController < Api::V1::UserMessagesController
     else
       students = Student
     end
-    @students = paged(students)
-    render json: { 
-      students: @students, 
-      current_page: @students.current_page,
-      per_page: @students.per_page,
-      total_entries: @students.total_entries
-      }
+    if params[:page]
+      @students = paged(students) 
+      render json: { 
+        students: @students, 
+        current_page: @students.current_page,
+        per_page: @students.per_page,
+        total_entries: @students.total_entries
+        }
+    else
+      render json: { 
+        students: @students
+        }
+    end
+
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: { message: 'No found' } }
   end
