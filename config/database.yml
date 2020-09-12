@@ -5,19 +5,21 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
-  pool: 5
-  timeout: 5000
-
-development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: afterschool_dev
-  pool: 5
   username: root
-  password: deploy
-  #deploy
+  password: password
+  pool: 5
+
+development:
+  <<: *default
+  database: afterschool_pro
+  host: dreamlinx.mysql.rds.aliyuncs.com
+  username: after
+  password: after2015
+
+
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -25,16 +27,13 @@ development:
 
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: afterschool_test
 
 
 
 production:
-  adapter: mysql2
-  encoding: utf8
-  reconnect: false
+  <<: *default
   database: afterschool_pro
-  pool: 5
   host: dreamlinx.mysql.rds.aliyuncs.com
   username: after
   password: after2015

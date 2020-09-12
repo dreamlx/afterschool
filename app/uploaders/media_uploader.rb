@@ -16,8 +16,6 @@ class MediaUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  include CarrierWave::MimeTypes
-
   process :set_content_type
   process :save_content_type_and_size_in_model
 
