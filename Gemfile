@@ -19,7 +19,8 @@ gem 'carrierwave'
 gem 'carrierwave-qiniu'
 gem 'kaminari'
 gem 'kaminari-i18n'
-gem 'acts-as-taggable-on'
+# 下面这个gem造成bundle update极为缓慢，缓慢到几个小时。问题是根本没用到，所以暂时注释掉
+# gem 'acts-as-taggable-on'
 gem 'settingslogic'
 gem 'acts-as-messageable'
 gem "twitter-bootstrap-rails"
